@@ -1,0 +1,58 @@
+{% extends 'Accounts_base.html' %}
+{% load static %}
+{% block content %}
+<div class="accounts-box">
+  <div class="account-navi">
+    <div>
+      <img class="logo" src="{% static 'img/ltlux-logo2.png' %}">
+    </div>
+    <h3>Sign In</h3>
+    <ul class="wrapper">
+      <a  href="{% url 'login' %}">
+        <li class="icon signin">
+          <span style="display: flex;" class="tooltip">Sign<div style="color: rgb(255, 135, 15);">In</div></span>
+          <span><i class="fab fa-facebook-f"></i></span>
+        </li>
+      </a>
+      <a  href="{% url 'signup' %}">
+        <li class="icon signup">
+          <span style="display: flex;" class="tooltip">Sign<div style="color: rgb(255, 135, 15);">Up</div></span>
+          <span><i class="fab fa-twitter"></i></span>
+        </li>
+      </a>
+      <a  href="{% url 'id_search' %}">
+        <li class="icon findid">
+          <span style="display: flex;" class="tooltip">Find<div style="color: rgb(255, 135, 15);">ID</div></span>
+          <span><i class="fab fa-instagram"></i></span>
+        </li>
+      </a>
+      <a href="{% url 'password_search' %}">
+        <li class="icon findpw">
+          <span style="display: flex;" class="tooltip">Find<div style="color: rgb(255, 135, 15);">PW</div></span>
+          <span><i class="fab fa-instagram"></i></span>
+        </li>
+      </a>
+    </ul>
+  </div>
+
+  <div class="accounts-box2">
+    <form method="POST" action="{% url 'login' %}">
+      {% csrf_token %}
+      <div class="input-box">
+        <input name="{{ form.username.html_name }}" type="text" required="">
+        <label>Username</label>
+      </div>
+      <div class="input-box">
+        <input name="{{ form.password.html_name }}" type="password" required="">
+        <label>Password</label>
+      </div>
+      <center>
+        <button class="send" style="margin-top: 20px;" href="#" type="submit">
+              SEND
+          <span></span>
+        </button>
+      </center>
+    </form>
+  </div>
+</div> 
+{% endblock %}

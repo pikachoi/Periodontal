@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>LTLUX</title>
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/lt4_symbol.png' %}">
+        <link rel="stylesheet" href="{% static 'css/1_base.css' %}">
+        <link rel="stylesheet" href="{% static 'css/Accounts_base.css' %}">
+        <script type="text/javascript" src="{% static 'js/password_check.js' %}"></script>
+        <!-- 캐시 제어를 위한 메타 태그 -->
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="Expires" content="0">
+        <!-- 폼 재제출 방지 -->
+        <script>
+          if (window.history.replaceState) {
+              window.history.replaceState(null, null, window.location.href);
+              }
+        </script>
+    </head>
+
+    <body>
+      <div class="body-container">
+        <div class="account-back">
+            <div class="div-custom">
+              <div style="width: 200px;"></div>
+                <div class="div-custom2">
+                  <div>
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p style="color: rgb(19, 136, 238); font-weight: bold;">{{ message }}</p>
+                        {% endfor %}
+                    {% endif %}
+
+                    <p style="color: rgb(19, 136, 238); font-weight: bold;">{{password_reset_success}}
+                    <p style="color: rgb(19, 136, 238); font-weight: bold;">{{real_name}} {{doctor_username}}</p>
+                  </div>
+                  {% block content %} 
+                  {% endblock %}
+                </div>
+                <!-- 에러 메시지 -->
+                <div  style="width: 200px; text-align: left;">
+                    {% for field, errors in form.errors.items %}
+                        {% for error in errors %}
+                            <ul  style="padding-left: 25px;"><li>{{ error }}</li></ul>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <hr style="margin-top: 0px; margin-bottom: 30px;">
+      <footer>
+          <img style="width: 45px; margin-right: 10px;" src="{% static 'img/lt4_logo.png' %}">
+          <div><small>Copyright © Lt4 Corp. All Rights Reserved.</small></div>
+      </footer>
+    </body>
+
+</html>
+
+
+
+
+
