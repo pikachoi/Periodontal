@@ -274,7 +274,6 @@ class QtGUI(QMainWindow, form_class):
                     axis_line = self.drawAxis([box_x, box_y, box_w, box_h], slope, intercept)
                     globals()['df_line'].loc[len(globals()['df_line'])] = {'시작 좌표' : axis_line[0], '종료 좌표' : axis_line[1]}
 
-
                 self.append_table('line')
                 self.drawImg('total')
         except:
@@ -524,7 +523,6 @@ class QtGUI(QMainWindow, form_class):
         self.label_img.setPixmap(pixmap)
         self.label_img.setCursor(Qt.CrossCursor)
 
-
     def optimizationSeg(self, segmentation_points):
         for v in segmentation_points:
             for point in list(filter(lambda x: abs(x[0] - v[0]) <= 10 and abs(x[1] - v[1]) <= 10, list(filter(lambda x: x != v, segmentation_points)))):
@@ -606,7 +604,7 @@ class QtGUI(QMainWindow, form_class):
         QImg = QImage(self.current_img.data, width, height, bytesPerLine, QImage.Format_RGB888)
         pixmap = QPixmap.fromImage(QImg)
         pixmap = pixmap.scaled(self.size_x, self.size_y)
-        label_img.setPixmap(pixmap)
+        self.label_img.setPixmap(pixmap)
         self.label_img.setCursor(Qt.CrossCursor)
 
     def mousePressEvent(self, event):

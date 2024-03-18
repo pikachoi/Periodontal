@@ -156,7 +156,6 @@ input:-webkit-autofill:active {
   animation: btn-anim1 2s linear infinite;
 }
 
-
 /*---------------------------------- navigation ---------------------------------- */
 .wrapper {
   display: inline-flex;

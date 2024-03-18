@@ -1,0 +1,112 @@
+{% block content %}
+
+<canvas id="canvas" width="400" height="400" style="border: 1px solid black;"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/line-intersect@2/dist/line-intersect.js"></script>
+<script>
+    // 전역 객체에 lineIntersect 추가
+    const lineIntersect = window.lineIntersect;
+
+    // 선분1과 선분2의 교점을 찾는 함수
+    function findIntersection(line1, line2) {
+        const inter = lineIntersect.intersection(line1, line2);
+        if (inter.type === 'intersecting') {
+            return [inter.point.x, inter.point.y];
+        } else {
+            return null; // 교점이 없는 경우
+        }
+    }
+
+    // 캔버스에 선분 그리기
+    function drawLine(ctx, line, color) {
+        ctx.beginPath();
+        ctx.moveTo(line[0][0], line[0][1]);
+        ctx.lineTo(line[1][0], line[1][1]);
+        ctx.strokeStyle = color;
+        ctx.stroke();
+    }
+
+    // 캔버스 요소와 2D 컨텍스트 가져오기
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    // 선분들
+    const line1 = [[50, 50], [350, 350]]; // 시작점과 끝점 좌표
+    const line2 = [[50, 350], [350, 50]]; // 시작점과 끝점 좌표
+
+    // 교점 찾기
+    const intersectionPoint = findIntersection(line1, line2);
+    console.log('Intersection point:', intersectionPoint);
+
+    // 캔버스에 선분들 그리기
+    drawLine(ctx, line1, 'red');
+    drawLine(ctx, line2, 'blue');
+
+    // 교점이 있으면 캔버스에 그리기
+    if (intersectionPoint) {
+        ctx.fillStyle = 'green';
+        ctx.beginPath();
+        ctx.arc(intersectionPoint[0], intersectionPoint[1], 5, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // 전역 변수로 박스의 가로 위치 추적
+let topBoxX = 0; // 상단 박스의 시작 x 좌표
+let bottomBoxX = 0; // 하단 박스의 시작 x 좌표
+
+function addGradeRatio(containerId, x, y, grade, ratio, cejType) {
+    const container = document.getElementById(containerId);
+    const infoBox = document.createElement('div');
+    infoBox.classList.add('info-box');
+    infoBox.innerHTML = `<strong>${grade}</strong><br>${ratio}%`;
+
+    let boxY;
+    let incrementX = 110; // 박스 너비 + 간격
+
+    if (cejType === 'up') {
+        boxY = 0; // 상단에 박스 위치
+        infoBox.style.left = `${topBoxX}px`;
+        topBoxX += incrementX; // 다음 박스의 위치 업데이트
+    } else {
+        boxY = container.offsetHeight - 30; // 하단에 박스 위치 (30은 박스 높이를 대략적으로 고려한 값)
+        infoBox.style.left = `${bottomBoxX}px`;
+        bottomBoxX += incrementX; // 다음 박스의 위치 업데이트
+    }
+
+    infoBox.style.top = `${boxY}px`;
+    container.appendChild(infoBox);
+
+    // 선 연결 로직 (선의 시작점, 끝점, 그리고 각도 계산 로직을 여기에 추가)
+    const line = document.createElement('div');
+    line.classList.add('info-line');
+    line.style.height = `2px`;
+    // 선의 길이 및 각도 계산
+    const lineLength = Math.abs(y - boxY); // 세로 거리
+    line.style.width = `${lineLength}px`;
+    line.style.left = `${x}px`;
+    line.style.top = y < boxY ? `${y}px` : `${boxY}px`; // 위치 점이 박스 위에 있으면 선을 그 위치에서 시작
+    const angle = 90; // 선은 항상 수직
+    line.style.transform = `rotate(${angle}deg)`;
+    line.style.transformOrigin = '0 0';
+    container.appendChild(line);
+}
+
+</script>
+
+{% endblock %}
