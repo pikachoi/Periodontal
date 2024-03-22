@@ -5,7 +5,7 @@
 
 {% block content %}
 
-<div class="div-horizontality" style="width: 100%; height: 100px; background-color: #171717;">
+<div class="div-horizontal" style="width: 100%; height: 100px; background-color: #171717;">
     <a href="{% url 'login' %}">로그인 화면으로</a>
 </div>
 
@@ -15,9 +15,12 @@
             <div id="preview-container"></div>
             <form id="upload-form" enctype="multipart/form-data">
                 {% csrf_token %}
-                <input type="file" id="imgfile" accept="image/*" required>
-                <input type="number" id="ageInput" placeholder="나이 입력" min="1" step="1" required> <!-- 나이 입력 필드 추가 -->
-                <button type="button" onclick="uploadImage()">Upload</button>
+                <div class="div-vertical" style="align-items: start; gap: 10px; margin-left: 20px;">
+                    <input class="input1" type="file" id="imgfile" accept="image/*" required>
+                    <input class="input1" type="number" id="ageInput" placeholder="Age" min="1" step="1" required> <!-- 나이 입력 필드 추가 -->
+                    <button class="button1" type="button" onclick="uploadImage()">Upload</button>
+                </div>
+
             </form>
         </div>
     </div>
@@ -32,7 +35,7 @@
             <div id="bottom-infobox-container"></div>
         </div>
     </div>
-    <!-- <div class="div-horizontality">
+    <!-- <div class="div-horizontal">
         <div style="width: 40px; height: 30px; background-color: rgb(50, 255, 150);;"></div>
         <div style="width: 40px; height: 30px; background-color: rgb(255, 201, 24);;"></div>
         <div style="width: 40px; height: 30px; background-color: rgb(244, 132, 52);;"></div>
@@ -44,10 +47,43 @@
 
 
 <style>
-    .div-horizontality{
+    .input1 {
+        padding: 10px;
+        width: 100%;
+        border-radius: 15px;
+        border: none;
+        outline: none;
+        background-color: #171717;
+        color: white;
+        box-shadow: inset 2px 5px 15px rgb(5, 5, 5)
+        }
+
+    .button1 {
+        width: 100%;
+        padding: 10px;
+        padding-left: 1.1em;
+        padding-right: 1.1em;
+        border-radius: 5px;
+        margin-right: 0.5em;
+        border: none;
+        outline: none;
+        transition: .4s ease-in-out;
+        background-color: #252525;
+        color: white;
+        }
+
+    .div-horizontal{
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+
+    .div-vertical{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        /* border: solid 1px white; */
     }
 
     .cover-box{
@@ -56,6 +92,7 @@
         padding: 70px;
         margin: 10px;
      }
+
 
     .back-container{
         width: 100%;
