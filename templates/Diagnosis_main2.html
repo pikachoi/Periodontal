@@ -166,5 +166,42 @@ function redrawCanvas() {
 
 
 
+
+
+function addGradeRatio(containerId, x, y, grade, ratio, cejType) {
+        const container = document.getElementById(containerId);
+        const gradeCSS = document.createElement('div');
+        const ratioCSS = document.createElement('div');
+        
+        let yOffsetGrade, yOffsetRatio;
+
+        if (cejType === 'up') {
+            yOffsetGrade = -50;
+            yOffsetRatio = -20;
+        } else {
+            yOffsetGrade = 20;
+            yOffsetRatio = 40;
+        }
+
+        gradeCSS.style.position = 'absolute';
+        gradeCSS.style.left = `${x}px`;
+        gradeCSS.style.top = `${y + yOffsetGrade}px`;
+        gradeCSS.style.color = 'yellow';
+        gradeCSS.style.zIndex = '10'; // 캔버스 위에 표시되도록 z-index 설정
+
+        ratioCSS.style.position = 'absolute';
+        ratioCSS.style.left = `${x}px`;
+        ratioCSS.style.top = `${y + yOffsetRatio}px`;
+        ratioCSS.style.color = 'orange';
+        ratioCSS.style.zIndex = '10'; // 캔버스 위에 표시되도록 z-index 설정
+
+        gradeCSS.innerHTML = `<strong>${grade}</strong>`;
+        ratioCSS.innerHTML = `${ratio}%`;
+        
+        container.appendChild(gradeCSS);
+        container.appendChild(ratioCSS);
+    }
+
+
 </script>
 {% endblock %}

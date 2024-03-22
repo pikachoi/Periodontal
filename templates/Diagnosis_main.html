@@ -4,144 +4,447 @@
 <title>LTLUX-P: Single</title>
 
 {% block content %}
-<a href="{% url 'login' %}">로그인 화면으로</a>
 
-<h1>Diagnosis</h1>
-<form id="upload-form" enctype="multipart/form-data">
-    {% csrf_token %}
-    <input type="file" id="imgfile" accept="image/*" required>
-    <button type="button" onclick="uploadImage()">Upload</button>
-</form>
-
-<div id="canvas-container" style="position: relative; width: 1024px; height: 512px; border: solid 2px; border: solid 3px; margin-top: 200px;">
-    <canvas id="output-image" width="1024" height="512"></canvas>
+<div class="div-horizontality" style="width: 100%; height: 100px; background-color: #171717;">
+    <a href="{% url 'login' %}">로그인 화면으로</a>
 </div>
 
+<div class="back-container">
+    <div class="cover-box">
+        <div class="top-main-container">
+            <div id="preview-container"></div>
+            <form id="upload-form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file" id="imgfile" accept="image/*" required>
+                <input type="number" id="ageInput" placeholder="나이 입력" min="1" step="1" required> <!-- 나이 입력 필드 추가 -->
+                <button type="button" onclick="uploadImage()">Upload</button>
+            </form>
+        </div>
+    </div>
+    <!-- 나이 보내기
+    정보표시: 총치아개수, 등급별 개수, 평균 비율, 나이, 성별, 날짜? -->
+    <div class="cover-box">
+        <div class="main-container">
+            <div id="top-infobox-container"></div> <!-- canvas 컨테이너에서 복사한 결과 표시 레이어 -->
+                <div id="result-draw-layer"> <!-- 서버에서 받은 좌표로 css요소를 그리는 레이어 -->
+                    <canvas id="canvas-layer" width="1024px" height="512px"></canvas> <!-- 이미지만 들어가는 레이어 -->
+                </div>
+            <div id="bottom-infobox-container"></div>
+        </div>
+    </div>
+    <!-- <div class="div-horizontality">
+        <div style="width: 40px; height: 30px; background-color: rgb(50, 255, 150);;"></div>
+        <div style="width: 40px; height: 30px; background-color: rgb(255, 201, 24);;"></div>
+        <div style="width: 40px; height: 30px; background-color: rgb(244, 132, 52);;"></div>
+        <div style="width: 40px; height: 30px; background-color: rgb(205, 22, 0);;"></div>
+        <div style="width: 40px; height: 30px; background-color: rgb(238, 0, 222);;"></div>
+        <div style="width: 40px; height: 30px; background-color: rgb(123, 0, 205);;"></div>
+    </div> -->
+</div>
+
+
 <style>
+    .div-horizontality{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .cover-box{
+        background-color: #171717;
+        border-radius: 20px;
+        padding: 70px;
+        margin: 10px;
+     }
+
+    .back-container{
+        width: 100%;
+        background-color: #252525;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 100px 0px;
+    }
+
+    .top-main-container{
+        width: 1024px;
+        height: 256px;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        /* border: solid 1px white; */
+    }
+
+    #preview-container{
+        /* 이미지 비율 유지한 채 들어가게 할것 */
+        width: 512px;
+        height: 256px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        box-shadow: inset 2px 5px 15px rgb(5, 5, 5)
+    }
+
+    .main-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        /* border: solid 1px white; */
+        position: relative;
+    }
+
+    #top-infobox-container {
+        /* border: solid 1px red; */
+        position: absolute;
+        top: 50px;
+
+        height: 50px;
+        width: 1024px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        z-index: 20;
+    }
+
+    #bottom-infobox-container {
+        /* border: solid 1px red; */
+        position: absolute;
+        bottom: -50px;
+
+        height: 50px;
+        width: 1024px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        z-index: 20;
+    }
+
+    #result-draw-layer{
+        position: relative;
+        width: 1024px;
+        height: 512px;
+        box-shadow: inset 2px 5px 15px rgb(5, 5, 5);
+        border-radius: 10px;
+        /* border: solid 1px white; */
+    }
+
     .info-box {
-      border: 1px solid black; 
-      padding: 5px;
-      text-align: center;
-      background-color: white; /* 박스의 배경색 */
       position: absolute;
-      z-index: 20; /* 캔버스 위에 표시 */
+      font-size: 7px;
+      z-index: -1; /* 캔버스 뒤에 숨김 */
     }
 
-    .info-box:focus {
-      border:101px solid black; 
-      padding: 5px;
-      text-align: center;
-      background-color: rgb(151, 40, 40); /* 박스의 배경색 */
-      position: absolute;
-      z-index: 20; /* 캔버스 위에 표시 */
+    .info-box2{
+        border: 1px solid rgb(255, 255, 255);
+        border-radius: 7px;
+        padding: 3px;
+        text-align: center;
     }
 
-    .info-box:active {
-      border: 1px solid black; 
-      padding: 5px;
-      text-align: center;
-      background-color: rgb(32, 77, 148); /* 박스의 배경색 */
-      position: absolute;
-      z-index: 20; /* 캔버스 위에 표시 */
+    .info-box3{
+        border: 1px solid rgb(255, 255, 255);
+        border-radius: 7px;
+        padding: 3px;
+        text-align: center;
     }
 
-  </style>
+    .info-box2:hover {
+        box-shadow:
+        0px 0px 10px rgb(255, 255, 255),
+        0 0 1em rgb(255, 255, 255),
+        0 0 0.2em rgb(255, 255, 255);
+    }
+
+    .info-box3:hover {
+        box-shadow:
+        0px 0px 10px rgb(255, 255, 255),
+        0 0 1em rgb(255, 255, 255),
+        0 0 0.2em rgb(255, 255, 255);
+    }
+</style>
 
 <script>
-    // 1. 현재 등급 비율 아래 함수랑 다르게 이상하게 나옴
-    // 2. ctx로 그리는 위치점과 css로 그리는 위치점 중 어느것이 맞는지 확인(두개가 살짝다름)
-
-
-    // let topBoxX = 0; // 상단 박스의 시작 x 좌표
-    // let bottomBoxX = 0; // 하단 박스의 시작 x 좌표
-
-    // function addGradeRatio(containerId, x, y, grade, ratio, cejType) {
-    //     const container = document.getElementById(containerId);
-
-
-    //     const infoBox = document.createElement('div');
-    //     infoBox.classList.add('info-box');
-        
-    //     let boxY;
-    //     let incrementX = 50; // 박스 너비 + 간격
-    //     let yOffsetGrade, yOffsetRatio;
-
-    //     if (cejType === 'up') {
-    //     boxY = -60; // 상단에 박스 위치
-    //     infoBox.style.left = `${topBoxX}px`;
-    //     topBoxX += incrementX; // 다음 박스의 위치 업데이트
-    //     } else {
-    //         boxY = container.offsetHeight + 1; // 하단에 박스 위치 (30은 박스 높이를 대략적으로 고려한 값)
-    //         infoBox.style.left = `${bottomBoxX}px`;
-    //         bottomBoxX += incrementX; // 다음 박스의 위치 업데이트
-    //     }
-    //     infoBox.style.top = `${boxY}px`;
-    //     container.appendChild(infoBox);
-
-    //     infoBox.innerHTML = `<strong>${grade}</strong><br>${ratio}%`;
-    // }
-
-    function addGradeRatio(containerId, x, y, grade, ratio, cejType) {
-        const container = document.getElementById(containerId);
-        const gradeCSS = document.createElement('div');
-        const ratioCSS = document.createElement('div');
-        
-        let yOffsetGrade, yOffsetRatio;
-
-        if (cejType === 'up') {
-            yOffsetGrade = -50;
-            yOffsetRatio = -20;
-        } else {
-            yOffsetGrade = 20;
-            yOffsetRatio = 40;
-        }
-
-        gradeCSS.style.position = 'absolute';
-        gradeCSS.style.left = `${x}px`;
-        gradeCSS.style.top = `${y + yOffsetGrade}px`;
-        gradeCSS.style.color = 'yellow';
-        gradeCSS.style.zIndex = '10'; // 캔버스 위에 표시되도록 z-index 설정
-
-        ratioCSS.style.position = 'absolute';
-        ratioCSS.style.left = `${x}px`;
-        ratioCSS.style.top = `${y + yOffsetRatio}px`;
-        ratioCSS.style.color = 'orange';
-        ratioCSS.style.zIndex = '10'; // 캔버스 위에 표시되도록 z-index 설정
-
-        gradeCSS.innerHTML = `<strong>${grade}</strong>`;
-        ratioCSS.innerHTML = `${ratio}%`;
-        
-        container.appendChild(gradeCSS);
-        container.appendChild(ratioCSS);
-    }
-    
-    
-    function addLocation(containerId, x, y) {
-        const container = document.getElementById(containerId);
+    // 서버에서 가져온 위치 좌표를 점으로 표시
+    function addLocationPoint(x, y, typ) {
+        const container = document.getElementById('result-draw-layer');
         const point = document.createElement('div');
         point.style.position = 'absolute';
-        point.style.left = `${x}px`;
-        point.style.top = `${y}px`;
-        point.style.width = '10px'; // 점의 크기
-        point.style.height = '10px'; // 점의 크기
-        point.style.backgroundColor = 'cyan'; // 점의 색상
-        point.style.borderRadius = '50%'; // 원 모양으로 만들기 위해
-        point.style.zIndex = '10'; // 캔버스 위에 표시되도록 z-index 설정
+        point.style.top = `${y-2.5}px`;
+        point.style.left = `${x-2}px`; 
+        point.style.width = '5px';
+        point.style.height = '5px';
+        point.style.backgroundColor = 'cyan';
+        point.style.borderRadius = '50%'; // 원형 점
+        point.style.zIndex = '10'; // 캔버스 위에 보이도록
         
-        // 점을 컨테이너에 추가
+        // 데이터 속성 추가
+        if (typ === 'up') {
+            point.setAttribute('data-cej-type', 'up');
+            // point.style.top = `${y+15}px`;
+        } else if (typ === 'low') {
+            point.setAttribute('data-cej-type', 'low');
+            // point.style.top = `${y-15}px`;
+        }
+        
         container.appendChild(point);
     }
 
 
+    // 서버에서 받은 등급과 비율을 각각의 infoBox안에 표시
+    function addGradeRatio(x, y, grade, ratio, cejType) {
+        const container = document.getElementById('result-draw-layer');
+        const infoBox = document.createElement('div');
+        infoBox.classList.add('info-box');
+        
+        let boxY;
 
+        if (cejType === 'up') {
+            boxY = -1; // 상단 박스 y 좌표
+        } else {
+            boxY = container.offsetHeight - 20; // 하단 박스 y 좌표
+        }
+
+        infoBox.style.left = `${x}px`;
+        infoBox.style.top = `${boxY}px`;
+
+        // 등급과 비율 정보를 데이터 속성으로 추가
+        infoBox.setAttribute('data-grade', grade);
+        infoBox.setAttribute('data-ratio', ratio);
+
+    container.appendChild(infoBox);
+        infoBox.innerHTML = `<strong>${grade}</strong><br>${ratio}`;
+    }
+
+
+    // result-draw-layer 에 그려진 infoBox에 인덱스를 부여함 좌->우
+    function orderInfoBoxes() {
+        const infoBoxes = document.querySelectorAll('.info-box');
+        const topInfoBoxes = Array.from(infoBoxes).filter(box => {
+            // 상단에 위치한 infoBox만
+            return box.offsetTop < 0;
+        });
+        const bottomInfoBoxes = Array.from(infoBoxes).filter(box => {
+            // 상단에 위치한 infoBox만
+            return box.offsetTop > 0;
+        });
+
+        // x 좌표를 기준으로 정렬
+        topInfoBoxes.sort((a, b) => a.offsetLeft - b.offsetLeft);
+        bottomInfoBoxes.sort((a, b) => a.offsetLeft - b.offsetLeft);
+    }
+
+    
+    // infoBox의 배경색을 비율에 따라 설정 21% 부터는 거의 노랑 41%부터는 거의 빨강
+    function setColorBasedOnRatio(box, grade, ratio) {
+        let startColor, endColor;
+
+        let divide = 0;
+        // 등급에 따른 시작색과 끝색 설정
+        if (grade === 'A') {
+            startColor = { r: 50, g: 255, b: 150 };
+            endColor = { r: 255, g: 201, b: 24 };
+            divide = 30
+        } else if (grade === 'B') {
+            startColor = { r: 255, g: 132, b: 52 };
+            endColor = { r: 205, g: 22, b: 0 };
+            divide = 40
+        } else if (grade === 'C') {
+            startColor = { r: 238, g: 0, b: 222 };
+            endColor = { r: 123, g: 0, b: 205 };
+            divide = 40
+        } else {
+            // 기본값이나 예외 처리
+            box.style.backgroundColor = 'rgb(0, 0, 0)'; // 흰색
+            return;
+        }
+
+        // 비율에 따른 색상 계산
+        let ratioColor = {
+            r: calculateColor(startColor.r, endColor.r, ratio, divide),
+            g: calculateColor(startColor.g, endColor.g, ratio, divide),
+            b: calculateColor(startColor.b, endColor.b, ratio, divide)
+        };
+
+        box.style.backgroundColor = `rgb(${ratioColor.r}, ${ratioColor.g}, ${ratioColor.b})`;
+    }
+
+    function calculateColor(start, end, ratio, divide) {
+        // 비율에 따른 색상 값 계산 (선형 보간) 각 등급이 20% 차이니 20으로 나눔
+        return Math.round(start + (end - start) * (ratio / divide));
+    }
+
+    
+
+    // infoBox의 내용만 순서대로 info-box2에 복사하고 top-infobox-container에 넣음
+    function cloneAndArrangeBoxes() {
+        const topInfoBoxContainer = document.querySelector('div[id="top-infobox-container"]');
+        const bottomInfoBoxContainer = document.querySelector('div[id="bottom-infobox-container"]');
+
+        const infoBoxes = document.querySelectorAll('.info-box');
+
+        // 상단 infoBox의 배열을 만들고 x 좌표에 따라 정렬
+        const topInfoBoxes = Array.from(infoBoxes).filter(box => box.offsetTop < 0);
+        topInfoBoxes.sort((a, b) => a.offsetLeft - b.offsetLeft);
+        
+        const bottomInfoBoxes = Array.from(infoBoxes).filter(box => box.offsetTop > 0);
+        bottomInfoBoxes.sort((a, b) => a.offsetLeft - b.offsetLeft);
+
+        topInfoBoxes.forEach((box, index) => {
+            const topNewDiv = document.createElement('div');
+            topNewDiv.innerHTML = box.innerHTML;
+            topNewDiv.className = 'info-box2';
+            topInfoBoxContainer.appendChild(topNewDiv);
+
+            // 데이터 속성에서 등급과 비율 정보 읽기
+            const grade = box.getAttribute('data-grade');
+            const ratio = parseFloat(box.getAttribute('data-ratio'));
+
+            setColorBasedOnRatio(topNewDiv, grade, ratio);
+        });
+
+        bottomInfoBoxes.forEach((box, index) => {
+            const bottomNewDiv = document.createElement('div');
+            bottomNewDiv.innerHTML = box.innerHTML;
+            bottomNewDiv.className = 'info-box3';
+            bottomInfoBoxContainer.appendChild(bottomNewDiv);
+
+            // 데이터 속성에서 등급과 비율 정보 읽기
+            const grade = box.getAttribute('data-grade');
+            const ratio = parseFloat(box.getAttribute('data-ratio'));
+            
+            setColorBasedOnRatio(bottomNewDiv, grade, ratio);
+        });
+    }
+
+
+    // 포인트와 박스2, 3를 선으로 매칭함 여기선 x좌표만을 기준으로 가장 가까운 포인트와 박스를 매칭해 이어줌
+    function drawLineFromPointToBox() {
+        const canvas = document.getElementById('canvas-layer');
+        const ctx = canvas.getContext('2d');
+
+        const topPoints = Array.from(document.querySelectorAll('div[data-cej-type="up"]')).sort((a, b) => parseFloat(a.style.left) - parseFloat(b.style.left));
+        const bottomPoints = Array.from(document.querySelectorAll('div[data-cej-type="low"]')).sort((a, b) => parseFloat(a.style.left) - parseFloat(b.style.left));
+
+        const topInfoBoxes = Array.from(document.querySelectorAll('.info-box2')).sort((a, b) => {
+            const rectA = a.getBoundingClientRect();
+            const rectB = b.getBoundingClientRect();
+            return rectA.left - rectB.left;
+        });
+
+        const bottomInfoBoxes = Array.from(document.querySelectorAll('.info-box3')).sort((a, b) => {
+            const rectA = a.getBoundingClientRect();
+            const rectB = b.getBoundingClientRect();
+            return rectA.left - rectB.left;
+        });
+
+        topPoints.forEach((point, index) => {
+            const pointX = parseFloat(point.style.left) + 2.5;
+            const pointY = parseFloat(point.style.top) + 2.5;
+
+            if (topInfoBoxes[index]) {
+                const box = topInfoBoxes[index];
+                const rect = box.getBoundingClientRect();
+                const canvasRect = canvas.getBoundingClientRect();
+                const boxCenterX = rect.left + rect.width / 2 - canvasRect.left;
+                // 아랫변 중간점으로 Y 좌표 수정
+                const boxCenterY = rect.top + rect.height - canvasRect.top; // canvas 상대 위치 조정을 위해 'rect.top + rect.height'를 사용
+
+                // 선 그리기
+                ctx.beginPath();
+                ctx.moveTo(pointX, pointY);
+                ctx.lineTo(boxCenterX, boxCenterY);
+                ctx.strokeStyle = 'white';
+                ctx.stroke();
+            }
+        });
+
+        bottomPoints.forEach((point, index) => {
+            const pointX = parseFloat(point.style.left) + 2.5;
+            const pointY = parseFloat(point.style.top) + 2.5;
+
+            if (bottomInfoBoxes[index]) {
+                const box = bottomInfoBoxes[index];
+                const rect = box.getBoundingClientRect();
+                const canvasRect = canvas.getBoundingClientRect();
+                const boxCenterX = rect.left + rect.width / 2 - canvasRect.left;
+            
+               // 윗변 중간점으로 Y 좌표 수정
+                const boxCenterY = rect.top - canvasRect.top; // 여기를 수정하여 윗변으로 조정
+
+                // 선 그리기
+                ctx.beginPath();
+                ctx.moveTo(pointX, pointY);
+                ctx.lineTo(boxCenterX, boxCenterY);
+                ctx.strokeStyle = 'white';
+                ctx.stroke();
+            }
+        });
+    }
+
+
+    // 선택 이미지 미리보기 로직
+    document.getElementById('imgfile').addEventListener('change', function(event) {
+        var file = event.target.files[0];
+        if (file && file.type.match('image.*')) { // 파일이 이미지인지 확인
+            var reader = new FileReader();
+            
+            reader.onload = function(e) {
+                var previewContainer = document.getElementById('preview-container');
+                // 미리보기 이미지가 이미 있다면 제거
+                previewContainer.innerHTML = ''; 
+                
+                // 새 이미지 미리보기 생성
+                var img = document.createElement('img');
+                img.src = e.target.result;
+                img.style.width = '100%'; // 미리보기 크기 조절, 필요에 따라 조정
+                img.style.height = 'auto';
+                
+                previewContainer.appendChild(img); // 미리보기 컨테이너에 이미지 추가
+            };
+            
+            reader.readAsDataURL(file); // 파일 읽기
+        }
+    });
 
     function uploadImage() {
-        var form_data = new FormData();
+        var ageInput = document.getElementById('ageInput').value; // 나이 입력값 가져오기
         var file_input = document.getElementById('imgfile');
-        var canvas = document.getElementById('output-image');
+
+        // 나이와 이미지 모두 입력되었는지 확인
+        if (!file_input.files[0] || ageInput === "" || parseInt(ageInput) < 1) {
+            alert("이미지와 나이를 올바르게 입력해주세요.");
+            return; // 함수 실행 중지
+        }
+
+        var form_data = new FormData();
+        var uploadButton = document.querySelector("button[onclick='uploadImage()']"); // 업로드 버튼 선택
+        uploadButton.disabled = true; // 업로드 시작 시 버튼 비활성화
+
+        var canvas = document.getElementById('canvas-layer');
         var ctx = canvas.getContext('2d');
 
+        var topInfoBoxContainer = document.getElementById('top-infobox-container');
+        var bottomInfoBoxContainer = document.getElementById('bottom-infobox-container');
+        var resultDrawLayer = document.getElementById('result-draw-layer');
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        topInfoBoxContainer.innerHTML = '';
+        bottomInfoBoxContainer.innerHTML = '';
+        // resultDrawLayer 내의 canvas를 제외한 모든 요소를 제거합니다.
+        Array.from(resultDrawLayer.childNodes).forEach(child => {
+            if (child.id !== 'canvas-layer') {
+                resultDrawLayer.removeChild(child);
+            }
+        });
+        
         form_data.append('imgfile', file_input.files[0]);
+        form_data.append('age', ageInput); // 나이 데이터를 FormData에 추가
+
 
         fetch('{% url "diagnosis_home" %}', {
             method: 'POST',
@@ -152,22 +455,27 @@
         })
         .then(response => response.json())
         .then(data => {
+
             // 서버로부터 받은 이미지(Base64 문자열)를 이미지 객체로 로드
             var img = new Image();
+            img.src = 'data:image/jpeg;base64,' + data.graded_data[0].encoded_image;
+
             img.onload = function() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                
+     
                 // 치아 정보(등급과 스코어) 표시 로직
                 data.graded_data.forEach(item => {
-                    let textX, textY;
+                    let textX, textY, typ;
                     if (item.cej_type === 'up') {
-                        textX = item.start_coordinate[0] - 5;
-                        textY = item.start_coordinate[1] - 5;
+                        textX = item.start_coordinate[0];
+                        textY = item.start_coordinate[1];
+                        typ = "up"
                         
                     } else {
-                        textX = item.end_coordinate[0] - 5;
-                        textY = item.end_coordinate[1] + 15;
+                        textX = item.end_coordinate[0];
+                        textY = item.end_coordinate[1];
+                        typ = "low"
                     }
                     // // 각 치아 좌표 근처에 텍스트 그리기
                     // ctx.font = "16px Arial";
@@ -179,12 +487,14 @@
                     // ctx.beginPath(); 
                     // ctx.arc(textX, textY, 5, 0, 2 * Math.PI);
                     // ctx.fill();
-                    addGradeRatio('canvas-container', textX, textY, item.grade, item.ratio, item.cej_type);
-                    addLocation('canvas-container', textX, textY);
+                    addLocationPoint(textX, textY, typ);
+                    addGradeRatio(textX, textY, item.grade, item.ratio, item.cej_type);
                 });
+                orderInfoBoxes();
+                cloneAndArrangeBoxes();
+                drawLineFromPointToBox();
             };
-            // 첫 번째 아이템의 인코딩된 이미지를 사용하여 캔버스에 로드
-            img.src = 'data:image/jpeg;base64,' + data.graded_data[0].encoded_image;
+            uploadButton.disabled = false; // 서버 응답 후 버튼 다시 활성화
         })
         .catch(error => {
             console.error('Error:', error);

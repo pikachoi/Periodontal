@@ -1,112 +1,199 @@
+{% extends 'Diagnosis_base.html' %}
+{% load static %}
+
+<title>LTLUX-P: Single</title>
+
 {% block content %}
+<a href="{% url 'login' %}">로그인 화면으로</a>
 
-<canvas id="canvas" width="400" height="400" style="border: 1px solid black;"></canvas>
+<h1>Diagnosis</h1>
+<form id="upload-form" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" id="imgfile" accept="image/*" required>
+    <button type="button" onclick="uploadImage()">Upload</button>
+</form>
 
-<script src="https://cdn.jsdelivr.net/npm/line-intersect@2/dist/line-intersect.js"></script>
+<div id="target-container" style="border: solid 3px; width: 1024px; margin-top: 200px; height: 100px; display: flex; justify-content: center; align-items: center;"></div>
+
+<div id="canvas-container" style="position: relative; width: 1024px; height: 512px; border: solid 2px; border: solid 3px;">
+    <canvas id="output-image" width="1024" height="512"></canvas>
+</div>
+
+<style>
+    .info-box {
+      border: 1px solid black; 
+      padding: 5px;
+      text-align: center;
+      background-color: white; /* 박스의 배경색 */
+      position: absolute;
+      z-index: 20; /* 캔버스 위에 표시 */
+    }
+
+    .info-box:focus {
+      border:101px solid black; 
+      padding: 5px;
+      text-align: center;
+      background-color: rgb(151, 40, 40); /* 박스의 배경색 */
+      position: absolute;
+      z-index: 20; /* 캔버스 위에 표시 */
+    }
+
+    .info-box:active {
+      border: 1px solid black; 
+      padding: 5px;
+      text-align: center;
+      background-color: rgb(32, 77, 148); /* 박스의 배경색 */
+      position: absolute;
+      z-index: 20; /* 캔버스 위에 표시 */
+    }
+  </style>
+
 <script>
-    // 전역 객체에 lineIntersect 추가
-    const lineIntersect = window.lineIntersect;
+    function addGradeRatio(x, y, grade, ratio, cejType) {
+        const container = document.getElementById('canvas-container');
+        const infoBox = document.createElement('div');
+        infoBox.classList.add('info-box');
+        
+        let boxY;
 
-    // 선분1과 선분2의 교점을 찾는 함수
-    function findIntersection(line1, line2) {
-        const inter = lineIntersect.intersection(line1, line2);
-        if (inter.type === 'intersecting') {
-            return [inter.point.x, inter.point.y];
+        if (cejType === 'up') {
+        boxY = -60; // 상단 박스 y 좌표
         } else {
-            return null; // 교점이 없는 경우
+            boxY = container.offsetHeight + 1; // 하단 박스 y 좌표
         }
-    }
 
-    // 캔버스에 선분 그리기
-    function drawLine(ctx, line, color) {
-        ctx.beginPath();
-        ctx.moveTo(line[0][0], line[0][1]);
-        ctx.lineTo(line[1][0], line[1][1]);
-        ctx.strokeStyle = color;
-        ctx.stroke();
-    }
+        infoBox.style.left = `${x}px`;
+        infoBox.style.top = `${boxY}px`;
 
-    // 캔버스 요소와 2D 컨텍스트 가져오기
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
-
-    // 선분들
-    const line1 = [[50, 50], [350, 350]]; // 시작점과 끝점 좌표
-    const line2 = [[50, 350], [350, 50]]; // 시작점과 끝점 좌표
-
-    // 교점 찾기
-    const intersectionPoint = findIntersection(line1, line2);
-    console.log('Intersection point:', intersectionPoint);
-
-    // 캔버스에 선분들 그리기
-    drawLine(ctx, line1, 'red');
-    drawLine(ctx, line2, 'blue');
-
-    // 교점이 있으면 캔버스에 그리기
-    if (intersectionPoint) {
-        ctx.fillStyle = 'green';
-        ctx.beginPath();
-        ctx.arc(intersectionPoint[0], intersectionPoint[1], 5, 0, Math.PI * 2);
-        ctx.fill();
+        container.appendChild(infoBox);
+        infoBox.innerHTML = `<strong>${grade}</strong><br>${ratio}%`;
     }
 
 
+    function orderTopInfoBoxes() {
+        // 상단 infoBox들을 모두 선택
+        const infoBoxes = document.querySelectorAll('.info-box');
+        const topInfoBoxes = Array.from(infoBoxes).filter(box => {
+            // 상단에 위치한 infoBox만 필터링 (예제 기준으로 조정 필요)
+            return box.offsetTop < 0;
+        });
+
+        // x 좌표를 기준으로 정렬
+        topInfoBoxes.sort((a, b) => a.offsetLeft - b.offsetLeft);
+
+        // 정렬된 박스에 순서 번호를 매김
+        topInfoBoxes.forEach((box, index) => {
+            // 박스에 순서 번호를 표시
+            // box.innerHTML = `<strong>${index + 1}</strong><br>` + box.innerHTML;
+        });
+        }
 
 
+    function cloneAndArrangeBoxes() {
+        const targetContainer = document.querySelector('div[id="target-container"]'); // 목표 컨테이너 선택
+        const infoBoxes = document.querySelectorAll('.info-box');
+        
+        // 상단 infoBox의 배열을 만들고 x 좌표에 따라 정렬
+        const topInfoBoxes = Array.from(infoBoxes).filter(box => box.offsetTop < 0);
+        topInfoBoxes.sort((a, b) => a.offsetLeft - b.offsetLeft);
 
+        let currentX = 50; // 시작 x 좌표, 여기서는 컨테이너의 왼쪽 여백을 고려하여 10으로 설정
+        const gap = 10; // 박스 사이의 간격
 
+        topInfoBoxes.forEach((box, index) => {
+            const clone = box.cloneNode(true); // 박스 복제
+            clone.style.position = 'absolute'; // 복제된 박스의 위치 지정 방식 변경
+            clone.style.left = `${currentX}px`; // 현재 x 좌표를 기준으로 왼쪽 정렬
 
+            targetContainer.appendChild(clone); // 복제된 박스를 목표 컨테이너에 추가
 
+            currentX += clone.offsetWidth + gap; // 다음 박스의 x 좌표를 계산
+        });
 
-
-
-
-
-
-
-
-
-    // 전역 변수로 박스의 가로 위치 추적
-let topBoxX = 0; // 상단 박스의 시작 x 좌표
-let bottomBoxX = 0; // 하단 박스의 시작 x 좌표
-
-function addGradeRatio(containerId, x, y, grade, ratio, cejType) {
-    const container = document.getElementById(containerId);
-    const infoBox = document.createElement('div');
-    infoBox.classList.add('info-box');
-    infoBox.innerHTML = `<strong>${grade}</strong><br>${ratio}%`;
-
-    let boxY;
-    let incrementX = 110; // 박스 너비 + 간격
-
-    if (cejType === 'up') {
-        boxY = 0; // 상단에 박스 위치
-        infoBox.style.left = `${topBoxX}px`;
-        topBoxX += incrementX; // 다음 박스의 위치 업데이트
-    } else {
-        boxY = container.offsetHeight - 30; // 하단에 박스 위치 (30은 박스 높이를 대략적으로 고려한 값)
-        infoBox.style.left = `${bottomBoxX}px`;
-        bottomBoxX += incrementX; // 다음 박스의 위치 업데이트
-    }
-
-    infoBox.style.top = `${boxY}px`;
-    container.appendChild(infoBox);
-
-    // 선 연결 로직 (선의 시작점, 끝점, 그리고 각도 계산 로직을 여기에 추가)
-    const line = document.createElement('div');
-    line.classList.add('info-line');
-    line.style.height = `2px`;
-    // 선의 길이 및 각도 계산
-    const lineLength = Math.abs(y - boxY); // 세로 거리
-    line.style.width = `${lineLength}px`;
-    line.style.left = `${x}px`;
-    line.style.top = y < boxY ? `${y}px` : `${boxY}px`; // 위치 점이 박스 위에 있으면 선을 그 위치에서 시작
-    const angle = 90; // 선은 항상 수직
-    line.style.transform = `rotate(${angle}deg)`;
-    line.style.transformOrigin = '0 0';
-    container.appendChild(line);
+    // 컨테이너 내부 요소들을 정렬하기 위해 position 속성을 relative로 설정
+    targetContainer.style.position = 'relative';
+    targetContainer.style.height = 'auto'; // 컨테이너의 높이를 자동 조정하도록 변경
 }
 
-</script>
+    
+    function addLocation(x, y) {
+        const container = document.getElementById('canvas-container');
+        const point = document.createElement('div');
+        point.style.position = 'absolute';
+        point.style.left = `${x}px`;
+        point.style.top = `${y}px`;
+        point.style.width = '10px'; // 점의 크기
+        point.style.height = '10px'; // 점의 크기
+        point.style.backgroundColor = 'cyan'; // 점의 색상
+        point.style.borderRadius = '50%'; // 원 모양으로 만들기 위해
+        point.style.zIndex = '10'; // 캔버스 위에 표시되도록 z-index 설정
+        
+        // 점을 컨테이너에 추가
+        container.appendChild(point);
+    }
 
+
+    function uploadImage() {
+        var form_data = new FormData();
+        var file_input = document.getElementById('imgfile');
+        var canvas = document.getElementById('output-image');
+        var ctx = canvas.getContext('2d');
+
+        form_data.append('imgfile', file_input.files[0]);
+
+        fetch('{% url "diagnosis_home" %}', {
+            method: 'POST',
+            body: form_data,
+            headers: {
+                'X-CSRFToken': document.querySelector('input[name="csrfmiddlewaretoken"]').value
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+
+            // 서버로부터 받은 이미지(Base64 문자열)를 이미지 객체로 로드
+            var img = new Image();
+            img.onload = function() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                
+                // 치아 정보(등급과 스코어) 표시 로직
+                data.graded_data.forEach(item => {
+                    let textX, textY;
+                    if (item.cej_type === 'up') {
+                        textX = item.start_coordinate[0] - 5;
+                        textY = item.start_coordinate[1] - 5;
+                        
+                    } else {
+                        textX = item.end_coordinate[0] - 5;
+                        textY = item.end_coordinate[1] + 15;
+                    }
+                    // // 각 치아 좌표 근처에 텍스트 그리기
+                    // ctx.font = "16px Arial";
+                    // ctx.fillStyle = "yellow";
+                    // ctx.fillText(`${item.grade}, ${item.ratio}`, textX, textY);
+                    
+                    // // 치아 좌표 시각화
+                    // ctx.fillStyle = "red"; 
+                    // ctx.beginPath(); 
+                    // ctx.arc(textX, textY, 5, 0, 2 * Math.PI);
+                    // ctx.fill();
+                    addGradeRatio(textX, textY, item.grade, item.ratio, item.cej_type);
+                    addLocation(textX, textY);
+
+                });
+                orderTopInfoBoxes();
+                cloneAndArrangeBoxes();
+
+            };
+            // 첫 번째 아이템의 인코딩된 이미지를 사용하여 캔버스에 로드
+            img.src = 'data:image/jpeg;base64,' + data.graded_data[0].encoded_image;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('이미지를 처리하는 중 오류가 발생했습니다.');
+        });
+    }
+</script>
 {% endblock %}
+<!-- 박스들그대로 복제하는방식 -->

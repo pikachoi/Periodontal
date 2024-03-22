@@ -126,20 +126,40 @@ def grading(current_img, age):
             
             color_grade = tuple(int(c) for c in color_grade)
 
-            if row['cej 유형'] == 'up':
-                text_pos_grade = (row['시작 좌표'][0] - 5, row['시작 좌표'][1] - 5)
-                text_pos_ratio = (int((row['시작 좌표'][0] + row['pbl 교점'][0]) / 2) - 15, int((row['시작 좌표'][1] + row['pbl 교점'][1]) / 2))
-            else:
-                text_pos_grade = (row['종료 좌표'][0] - 5, row['종료 좌표'][1] + 15)
-                text_pos_ratio = (int((row['종료 좌표'][0] + row['pbl 교점'][0]) / 2) - 15, int((row['종료 좌표'][1] + row['pbl 교점'][1]) / 2))
+            # if row['cej 유형'] == 'up':
+            #     text_pos_grade = (row['시작 좌표'][0] - 5, row['시작 좌표'][1] - 5)
+            #     text_pos_ratio = (int((row['시작 좌표'][0] + row['pbl 교점'][0]) / 2) - 15, int((row['시작 좌표'][1] + row['pbl 교점'][1]) / 2))
+            # else:
+            #     text_pos_grade = (row['종료 좌표'][0] - 5, row['종료 좌표'][1] + 15)
+            #     text_pos_ratio = (int((row['종료 좌표'][0] + row['pbl 교점'][0]) / 2) - 15, int((row['종료 좌표'][1] + row['pbl 교점'][1]) / 2))
             
-            cv2.putText(current_img, f"{row['grade']}", text_pos_grade, cv2.FONT_HERSHEY_SIMPLEX, 0.4, color_grade, 1)
-            cv2.putText(current_img, f"{str(int(row['비율']))}%", text_pos_ratio, cv2.FONT_HERSHEY_SIMPLEX, 0.3, color_grade, 1)
+            # cv2.putText(current_img, f"{row['grade']}", text_pos_grade, cv2.FONT_HERSHEY_SIMPLEX, 0.4, color_grade, 1)
+            # cv2.putText(current_img, f"{str(int(row['비율']))}%", text_pos_ratio, cv2.FONT_HERSHEY_SIMPLEX, 0.3, color_grade, 1)
 
     return df_grade
+'''
+<div class="a" style="background-color: rgb(200, 255, 200);"> </div>
+<div class="a" style="background-color: rgb(200, 255, 120);"> </div>
+<div class="a" style="background-color: rgb(255, 208, 0);"> </div>
+<div class="a" style="background-color: rgb(255, 111, 0);;"> </div>
+<div class="a" style="background-color: rgb(255, 0, 0);"> </div>
+<div class="a" style="background-color: rgb(238, 0, 255);"> </div>
+.a{
+    width: 50px;
+    height: 50px;
     
+}
+
+등급에 따라 무조건 정해진 색상 사이로 제한
+1. A등급(0%~20%) 일 때 rgb(200, 255, 200) ~ rgb(200, 255, 120) 사이
+2. B등급(0%~20%) 일 때 rgb(255, 208, 0) ~ rgb(255, 111, 0) 사이
+3. C등급(0%~20%) 일 때 rgb(255, 0, 0) ~ rgb(238, 0, 255) 사이
+
+같은 등급이라도 비율에 따라 시작색에서 끝색으로 변화해야 함
+'''
 def diagnosis_home(request):
     if request.method == "POST":
+
         globals()['df_line'] = pd.DataFrame(index=range(0), columns=['시작 좌표', '종료 좌표', 'pbl 교점', 'cej 교점', 'cej 유형', '비율', '길이'])
         globals()['df_pbl'] = pd.DataFrame(index=range(0), columns=['좌표'])
         globals()['df_cej_up'] = pd.DataFrame(index=range(0), columns=['좌표'])
@@ -147,6 +167,9 @@ def diagnosis_home(request):
 
         size_x = 1024
         size_y = 512
+
+        age_input = request.POST.get('age', None)
+        age = int(age_input)
 
         image_file = request.FILES["imgfile"] 
         image_data = image_file.read()
@@ -163,6 +186,7 @@ def diagnosis_home(request):
         img = img[top:bottom, left:right]
         current_img = cv2.resize(img, (size_x, size_y))
         current_img_copy = copy.deepcopy(current_img)
+        
 
         results = model_tooth.predict(current_img, conf=0.6)
         results_pbl = model_pbl.predict(current_img) 
@@ -183,9 +207,9 @@ def diagnosis_home(request):
             else:
                 globals()['df_cej_up']['좌표'] = optimizationSeg(list(map(lambda x: [int(x[0]), int(x[1])], list(results_cej[0].masks.xy[0]))))
 
-        # cv2.polylines(current_img, [np.array(globals()[f'df_pbl']['좌표'].tolist())], True, (0, 255, 0), 1,lineType=cv2.LINE_AA)
-        # cv2.polylines(current_img, [np.array(globals()[f'df_cej_up']['좌표'].tolist())], True, (0, 0, 255), 1,lineType=cv2.LINE_AA)
-        # cv2.polylines(current_img, [np.array(globals()[f'df_cej_low']['좌표'].tolist())], True, (255, 0, 0), 1,lineType=cv2.LINE_AA)
+        cv2.polylines(current_img, [np.array(globals()[f'df_pbl']['좌표'].tolist())], True, (0, 255, 0), 1,lineType=cv2.LINE_AA)
+        cv2.polylines(current_img, [np.array(globals()[f'df_cej_up']['좌표'].tolist())], True, (0, 0, 255), 1,lineType=cv2.LINE_AA)
+        cv2.polylines(current_img, [np.array(globals()[f'df_cej_low']['좌표'].tolist())], True, (255, 0, 0), 1,lineType=cv2.LINE_AA)
 
         additional_data = {
             'df_cej_up': globals()['df_cej_up'].to_json(orient="records"),
@@ -221,22 +245,21 @@ def diagnosis_home(request):
             globals()['df_line'].loc[len(globals()['df_line'])] = {'시작 좌표' : axis_line[0], '종료 좌표' : axis_line[1]}
 
 
-        # for i, row in globals()['df_line'].iterrows():
-        #             cv2.line(current_img, row["시작 좌표"], row["종료 좌표"],(71, 200, 62), 1, lineType=cv2.LINE_AA)
-        #             cv2.circle(current_img, row["시작 좌표"], 1, (0, 0, 0), -1)
-        #             cv2.circle(current_img, row["종료 좌표"], 1, (0, 0, 0), -1)
+        for i, row in globals()['df_line'].iterrows():
+                    cv2.line(current_img, row["시작 좌표"], row["종료 좌표"],(255, 255, 0), 1, lineType=cv2.LINE_AA)
+                    # cv2.circle(current_img, row["시작 좌표"], 1, (0, 0, 0), -1)
+                    # cv2.circle(current_img, row["종료 좌표"], 1, (0, 0, 0), -1)
         
         
         numericalCalculation(current_img)
-        age = 40
         df_grade = grading(current_img, age)
 
-        cv2.imshow("Results", current_img)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        # cv2.imshow("Results", current_img)
+        # cv2.waitKey(0)
+        # cv2.destroyAllWindows()
 
-        encoded_image = encode_image_to_base64(current_img)
-
+        encoded_image = encode_image_to_base64(current_img_copy)
+        # encoded_image = encode_image_to_base64(current_img)
         graded_results = []
 
         for i, row in df_grade.iterrows():
