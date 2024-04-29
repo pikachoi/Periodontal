@@ -38,7 +38,7 @@
     <div class="accounts-box2" style="width: 100%;">
         <form method="POST" action="{% url 'signup' %}">
         {% csrf_token %}
-            <div class="div-custom">
+            <div class="div-h">
                 <div style="margin: 0px 10px;">
                     <div class="input-box">
                         <input name="{{ form.username.html_name }}" type="text" required="">

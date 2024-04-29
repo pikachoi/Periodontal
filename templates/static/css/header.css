@@ -1,0 +1,90 @@
+header {
+  height: 55px;
+  margin-bottom: 10px;
+  background-color: rgb(34, 56, 70);
+}
+
+.logo-p {
+  white-space: nowrap; 
+  color: rgb(160, 212, 235);
+  text-shadow: 0px 0px 10px rgba(87, 166, 206, 0.8),
+  0 0 1em rgba(87, 166, 206, 0.7),
+  0 0 0.2em rgba(87, 166, 206, 0.5);
+  margin: 0px; 
+  margin-right: 40px; 
+  margin-bottom: 5px; 
+  font-size: 24px;
+}
+
+.url-btn {
+    width: 150px;
+    height: 22px;
+    border-top: solid 4px rgb(10, 15, 17);
+    border-left: solid 6px rgb(10, 15, 17);
+    border-bottom: solid 0px;
+    border-right: solid 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    color: rgb(120, 193, 224);
+    transform: skewX(-40deg); /* 왼쪽으로 20도 기울기 */
+  }
+
+  .url-btn:hover {
+    /* background-color: rgb(15, 31, 40); */
+    color: rgb(183, 233, 255);
+    text-shadow: 0px 0px 10px rgba(87, 166, 206, 0.8),
+    0 0 1em rgba(87, 166, 206, 0.7),
+    0 0 0.2em rgba(87, 166, 206, 0.5);
+  }
+  
+  .url-text {
+    transform: skewX(40deg); /* 텍스트를 다시 직선으로 */
+    white-space: nowrap;
+  }
+
+  .loader2 {
+    height: 2px;
+    width: 300px;
+    background: rgb(9, 6, 11); 
+    position: relative;
+    overflow: hidden;
+  }
+
+  .loader2 .black_overlay {
+    background: linear-gradient(
+      87deg,
+      rgb(0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.14) 30%,
+      rgba(0, 0, 0, 0.14) 70%,
+      rgb(0, 0, 0) 100%
+    );
+    position: absolute;
+    inset: 0px;
+  }
+  
+  .loader2 .light {
+    width: 70px;
+    height: 100%;
+    position: absolute;
+    left: -20%;
+    top: 0px;
+    background: linear-gradient(
+      87deg,
+      rgba(0, 0, 0, 0) 0%,
+      #9cffff 40%,
+      #9cffff 60%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    animation: light 2s infinite ease-in-out;
+  }
+  
+  @keyframes light {
+    from {
+      left: -30%;
+    }
+    to {
+      left: 100%;
+    }
+  }

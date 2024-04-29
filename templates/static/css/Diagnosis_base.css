@@ -1,0 +1,759 @@
+/* ------------------------------최상단 배경------------------------------------ */
+.fist-back {
+  width: 100%;
+  height: 100vh;
+  min-height: 1650px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+.back-container{
+  min-width: 1130px;
+  height: 100%;
+  background-color: rgb(10, 15, 17);
+  display: flex;
+  align-items: start;
+  justify-content: center;
+}
+
+.back-container-right{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+}
+/* ---------------------------------------------------------------------------- */
+
+/* ------------------------------베이스 css------------------------------------ */
+.base-input{
+  color: rgb(95, 95, 95);
+  background: none;
+  font-size: 14px;
+  height: 30px; 
+  /* height: 22px; */
+  border: none;
+  padding: 1px 10px 1px 10px;
+  border-right: solid 1px rgb(34, 56, 70);
+  text-align: center;
+}
+
+.base-column {
+  width: 48px; 
+  height: 21.3px; 
+  font-size: 12px;
+  color: #c1c1c1;
+  background-color: rgb(18, 38, 50);
+  border-right: solid 1px rgb(63, 84, 96);
+}
+
+.css-base{
+  position: absolute; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: -11px; 
+  top: 0px; 
+  border: solid 1px rgb(34, 56, 70); 
+  background: rgb(10, 15, 17);
+  width: 18px; 
+  height: 12px;
+  z-index: 20;
+}
+
+.css-light {
+  width: 40%; height: 40%; 
+  border-radius: 30%;
+  background-color: rgb(182, 238, 255, 0.9);
+  border-radius: 30%;
+  box-shadow:
+  0 0 20px 10px rgba(132, 226, 255, 0.2),
+  0 0 50px 20px rgba(132, 226, 255, 0.1),
+  0 0 100px 40px rgba(132, 226, 255, 0.1),
+  0 0 200px 80px rgba(132, 226, 255, 0.1);    
+}
+
+.css-circle {
+  background: none;
+  width: 20px; 
+  height: 20px;
+  border-radius: 50%;
+}
+
+.css-line {
+  background: none;
+  border: solid 0px;
+  border-top: solid 1px rgb(34, 56, 70); 
+  width: 30px;
+}
+
+.css-dot {
+  background: none;
+  border: none;
+  flex-direction: column;
+  width: 8px;
+  height: 40px;
+}
+
+.css-dot2 {
+  background-color: rgb(34, 56, 70); 
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  margin-bottom: 4px;
+}
+/* --------------------------------------------------------------------------- */
+
+/* ------------------------------눈금 자------------------------------------ */
+.pixel-ruler1 {
+  position: absolute;
+  width: 40px;
+  height: 508px;
+  left: -33px;
+  top: 0px;
+  border: solid 0px;
+  border-top: solid 1px #626262;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.pixel-ruler2 {
+  position: absolute;
+  width: 1024px;
+  height: 42px;
+  left: 0px;
+  top: -34px;
+  border: solid 0px;
+  border-left: solid 1px #626262;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+}
+
+.p1 {
+  width: 20px;
+  height: 50px;
+  border: solid 0px;
+  color: #646464;
+  font-size: 12px;
+  text-align: center;
+  border-bottom: solid 1px #626262;
+}
+
+.p2 {
+  width: 200px;
+  height: 15px;
+  border: solid 0px;
+  color: #646464;
+  font-size: 12px;
+  text-align: start;
+  border-right: solid 1px #626262;
+  margin-left: 5px;
+
+}
+
+.p1-text {
+  position: absolute;
+  width: 20px;
+  left: 0px;
+  bottom: -35px;
+  font-size: 12px;
+}
+
+.p2-text {
+  position: absolute;
+  width: 200px;
+  left: -30px;
+  bottom: -10px;
+  font-size: 12px;
+}
+/* ------------------------------------------------------------------------ */ 
+
+.grade-text {
+    color: white;
+    font-size: 18px;
+    text-align: center;
+    padding-right: 10px;
+    margin-bottom: 4px;
+}
+
+.gradient-box1 {
+    width: 120px;
+    height: 7px;
+    border-radius: 2px;
+    margin: 1px 0px;
+    background: linear-gradient(to right, 
+        rgb(224, 240, 241),
+        rgb(0, 221, 235),
+        rgb(0, 113, 121)
+    );
+}
+
+.gradient-box2 {
+    width: 119px;
+    height: 7px;
+    border-radius: 2px;
+    margin: 1px 0px;
+    background: linear-gradient(to right, 
+        rgb(158, 166, 255),
+        rgb(102, 23, 229),
+        rgb(61, 0, 158)
+    );
+}
+.gradient-box3 {
+    width: 120px;
+    height: 7px;
+    border-radius: 2px;
+    margin: 1px 0px;
+    background: linear-gradient(to right, 
+        rgb(202, 127, 255),
+        rgb(161, 2, 127),
+        rgb(112, 0, 88)
+    );
+}
+
+.bar-chart1 {
+  position: relative; 
+  padding: 4px 4px; 
+  border-left: solid 1px rgb(95, 95, 95);
+  border-bottom: solid 1px rgb(95, 95, 95);
+  gap: 7px; 
+  width: 118px; 
+  height: 57px; 
+  display: flex; 
+  justify-content: center; 
+  align-items: end; 
+  text-align: center;
+}
+
+.bar-chart2 {
+  font-weight: bold;
+  font-size: 14px;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  background-color: rgb(126, 136, 143);
+  width: 17px; 
+  color: rgb(10, 15, 17);
+}
+
+.cover-box{
+    border: solid 1px rgb(34, 56, 70);
+    border-top: solid 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin: 10px;
+    padding: 2px;
+    padding-top: 27px;
+  }
+
+  .cover-title1{
+    background-color: rgb(34, 56, 70);
+    width: 100%;
+    height: 25px;
+    position: absolute;
+    top: 0px;
+    left: -1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1px;
+  }
+
+  .cover-title2{
+    background-color: rgb(163, 177, 189);
+    width: 10px;
+    height: 100%;
+  }
+
+  .cover-title3{
+    width: 100%;
+    height: 100%;
+    color: rgb(183, 233, 255);
+    text-shadow: 0px 0px 10px rgba(87, 166, 206, 0.8),
+    0 0 1em rgba(87, 166, 206, 0.7),
+    0 0 0.2em rgba(87, 166, 206, 0.5);
+    font-size: 14px;
+    padding-left: 15px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    font-size: 12px;
+  }
+
+#preview-container{
+    position: relative;
+    color: rgb(95, 95, 95);
+    overflow: auto;
+    padding: 1%;
+    font-size: 18px;
+    width: 307.2px;
+    height: 153.6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: solid 1px rgb(34, 56, 70);;
+}
+/* ------------------------------파일 선택, 나이 입력------------------------------------ */
+.input-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border-top: solid 1px rgb(34, 56, 70); 
+}
+
+.input-box label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* color: rgb(93, 201, 231); */
+  color: rgb(182, 238, 255, 1);
+  text-shadow: 0 0 8px rgba(182, 238, 255, 0.5);
+  vertical-align: middle;
+  cursor: pointer;
+  width: 70px;
+  height: 100%;
+  font-size: 14px;
+  border-right: solid 1px rgb(34, 56, 70); 
+}
+
+.new-input{
+  color: rgb(95, 95, 95);
+  background: none;
+  font-size: 14px;
+  width: 120px;
+  height: 30px;
+  border: none;
+  padding-left: 10px;
+}
+
+.new-input:focus{
+  color: rgb(215, 215, 215);
+  outline: none;  /* 기본 테두리 제거 */
+}
+
+.input-box input[type="file"] {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+}
+/* ------------------------------------------------------------------------------------- */
+
+/* ------------------------------등급 색 설명------------------------------------ */
+.gradient-A {
+  width: 70px; 
+  height: 8px; 
+  border: solid 1px rgb(137, 137, 137);
+  background: linear-gradient(to right, 
+    rgb(224, 240, 241),
+    rgb(0, 221, 235),
+    rgb(0, 113, 121)
+  );
+}
+
+.gradient-B {
+  width: 70px; 
+  height: 8px; 
+  border: solid 1px rgb(137, 137, 137);
+  background: linear-gradient(to right, 
+      rgb(202, 127, 255),
+      rgb(161, 2, 127),
+      rgb(112, 0, 88)
+  );
+}
+
+.gradient-C {
+  width: 70px; 
+  height: 8px; 
+  border: solid 1px rgb(137, 137, 137);
+  background: linear-gradient(to right, 
+    rgb(158, 166, 255),
+    rgb(102, 23, 229),
+    rgb(61, 0, 158)
+  );
+}
+
+.grade-lagende {
+  width: 15px; 
+  height: 15px;
+  font-size: 12px;
+  font-weight: bold;
+  background-color: rgb(47, 53, 57);
+  color: #c1c1c1;
+  border-radius: 2px;
+}
+/* ----------------------------------------------------------------------------- */
+
+/* ------------------------------표------------------------------------ */
+.row1 {
+  background-color: rgb(31, 41, 48);
+  height: 22px;
+  color: #c1c1c1;
+  font-size: 14px;
+  border-radius: 5px;
+  margin-bottom: 12px;
+  margin-left: 10px;
+  padding: 0px 5px;
+}
+
+.row2 {
+  background-color: rgb(217, 193, 193);
+  border-radius: 2px;
+  width: 50px;
+  height: 18px;
+  margin-left: 6px;
+  margin-right: 5px;
+}
+
+.small-text {
+  font-size: 12px;
+  margin-left: 5px;
+  margin-top: 2px;
+}
+
+.text-A {
+  font-size: 14px;
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+.color-A {
+  background-color: rgb(217, 193, 193);
+  border-radius: 2px;
+  width: 18px;
+  height: 18px;
+  margin-left: 6px;
+  margin-right: 10px;
+}
+/* -------------------------------------------------------------------- */
+
+.submission-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    width: 100%;
+    height: 272px;
+    color: white;
+    margin-left: 25px;
+    /* border: solid 1px rgb(117, 117, 117); */
+}
+
+.main-top-container {
+  justify-content: start; 
+  width: 100%; 
+  height: 174.07px; 
+  border-bottom: solid 1px rgb(34, 56, 70);
+}
+
+.main-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin: 50px 0px 150px 0px;
+
+}
+
+#top-infobox-container {
+    /* border-top: solid 1px rgb(255, 255, 255); */
+    position: absolute;
+    top: 50px;
+    height: 50px;
+    width: 1024px;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    gap: 12px;
+    z-index: 20;
+}
+
+#bottom-infobox-container {
+    /* border: solid 1px red; */
+    position: absolute;
+    bottom: -50px;
+    height: 50px;
+    width: 1024px;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    gap: 12px;
+    z-index: 20;
+}
+
+#result-draw-layer{
+    position: relative;
+    width: 1024px;
+    height: 512px;
+    border-radius: -1px;
+    /* border: solid 1px white; */
+}
+
+.result-draw-layer2{
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 1024px;
+  height: 512px;
+  border-radius: 10px;
+  z-index: 10;
+}
+
+.info-box {
+  position: absolute;
+  font-size: 7px;
+  z-index: -1; /* 캔버스 뒤에 숨김 */
+}
+
+.info-box2{
+    display: flex;
+    justify-content: end;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 5px;
+    padding: 4px;
+    font-size: 14px;
+}
+
+.info-box3{
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 5px;
+    padding: 3px;
+}
+
+.info-box2:hover {
+    box-shadow:
+    0px 0px 10px rgb(255, 255, 255),
+    0 0 1em rgb(255, 255, 255),
+    0 0 0.2em rgb(255, 255, 255);
+}
+
+.info-box3:hover {
+    box-shadow:
+    0px 0px 10px rgb(255, 255, 255),
+    0 0 1em rgb(255, 255, 255),
+    0 0 0.2em rgb(255, 255, 255);
+}
+ /* 부드러운 전환 효과 */
+/* .info-box {
+    transition: all 0.3s ease;
+} */
+
+.max-ratio-box {
+    border: 1px solid rgb(255, 255, 255);
+    box-shadow:
+    0px 0px 15px rgb(255, 29, 29),
+    0 0 1em rgb(255, 29, 29),
+    0 0 0.2em rgb(255, 29, 29);
+}
+
+.max-ratio-box:hover {
+    border: 1px solid rgb(255, 255, 255);
+    box-shadow:
+    0px 0px 20px rgb(255, 29, 29),
+    0 0 3em rgb(255, 29, 29),
+    0 0 0.4em rgb(255, 29, 29);
+}
+
+.upload-btn {
+  position: relative;
+  height: 26px;
+  border: 1px solid rgb(182, 238, 255, 0.9);
+  outline: none;
+  background-color: transparent;
+  transition: 0.7s;
+  font-size: 14px;
+  cursor: pointer;
+  width: 100%;
+  color: rgb(182, 238, 255, 1);
+  text-shadow: 0 0 8px rgba(182, 238, 255, 0.5);
+}
+
+.upload-btn::after {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: 10px;
+  width: 90%;
+  height: 4px;
+  background-color: rgb(10, 15, 17);
+  transition: 0.3s;
+  transform-origin: center;
+}
+
+.upload-btn::before {
+  content: "";
+  transform-origin: center;
+  position: absolute;
+  bottom: -3px;
+  left: 10px;
+  width: 90%;
+  height: 4px;
+  background-color: rgb(10, 15, 17);
+  transition: 0.3s;
+}
+
+.upload-btn:hover::before, button:hover::after {
+  transform: scale(0)
+}
+
+.upload-btn:hover {
+  text-shadow: none;
+  box-shadow:
+  inset 0 0 2px 2px rgba(132, 226, 255, 0.2),
+  inset 0 0 5px 5px rgba(132, 226, 255, 0.1),
+  inset 0 0 10px 10px rgba(132, 226, 255, 0.1);
+}   
+
+#loader-box {
+  position: absolute;
+  z-index: 30;
+  top: 50%;
+  left: 50%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+}
+.loader {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 200px;
+  perspective: 780px;
+}
+
+.text {
+  font-size: 20px;
+  font-weight: 700;
+  color: #cecece;
+  z-index: 10;
+}
+
+.load-inner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border-radius: 50%;
+}
+
+.load-inner.load-one {
+  left: 0%;
+  top: 0%;
+  border-bottom: 3px solid #5c5edc;
+  animation: rotate1 1.15s linear infinite;
+}
+
+.load-inner.load-two {
+  right: 0%;
+  top: 0%;
+  border-right: 3px solid #9147ff;
+  animation: rotate2 1.15s 0.1s linear infinite;
+}
+
+.load-inner.load-three {
+  right: 0%;
+  bottom: 0%;
+  border-top: 3px solid rgb(0, 221, 235);
+  animation: rotate3 1.15s 0.15s linear infinite;
+}
+
+@keyframes rotate1 {
+  0% {
+    transform: rotateX(45deg) rotateY(-45deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(45deg) rotateY(-45deg) rotateZ(360deg);
+  }
+}
+@keyframes rotate2 {
+  0% {
+    transform: rotateX(45deg) rotateY(45deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(45deg) rotateY(45deg) rotateZ(360deg);
+  }
+}
+@keyframes rotate3 {
+  0% {
+    transform: rotateX(-60deg) rotateY(0deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(-60deg) rotateY(0deg) rotateZ(360deg);
+  }
+}
+
+.tips {
+  color: #434343;
+  border: solid 1px #434343;
+  font-size: 13px;
+  position: absolute;
+  left: -556px;
+  top: 7px;
+  font-size: 12px;
+}
+.tips-title {
+    width: 176px;
+    text-align: center;
+    padding: 3px 1px;
+}
+.tips1 {
+    width: 57px; 
+    border-style: solid; 
+    border-width: 1px 1px 0px 0px; 
+    border-color: #434343;
+    padding: 3px;
+}
+.tips2 {
+    width: 108px; 
+    border-style: solid; 
+    border-width: 1px 0px 0px 0px; 
+    border-color: #434343;
+    padding: 3px;
+}
+
+.standard {
+    position: relative;
+    width: 0px;
+    height: 0px;
+    /* background-color: #9cffff; */
+}
+/* ------------------------ 결과 요약 ------------------------*/
+.summary-form {
+  width: 100%;
+  height: 500px;
+  border: solid 1px rgb(255, 255, 255);
+  color:  rgb(255, 255, 255);
+}
+
+.index-column {
+  border: solid 1px rgb(109, 228, 212);
+  color: rgb(109, 228, 212);;
+  font-size: 10px;
+  padding: 5px;
+}
+
+.data-entry {
+  border: solid 1px rgb(78, 142, 209);
+  color: rgb(78, 142, 209);
+  font-size: 10px;
+  padding: 5px;
+}
+/* -----------------------------------------------------------*/

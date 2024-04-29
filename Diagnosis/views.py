@@ -20,6 +20,10 @@ def encode_image_to_base64(image):
     _, buffer = cv2.imencode('.jpg', image)
     return base64.b64encode(buffer).decode()
 
+def png_encode_image_to_base64(image):
+    _, buffer = cv2.imencode('.png', image)  # PNG 형식으로 인코딩
+    base64_encoded_image = base64.b64encode(buffer).decode('utf-8')
+    return base64_encoded_image
 
 # 포인트 감소
 def optimizationSeg(segmentation_points):
@@ -109,6 +113,9 @@ def numericalCalculation(current_img):
                 globals()['df_line']['길이'][i] = loss_distance
                 globals()['df_line']['비율'][i] = int(loss_distance / distance(start_kp[0], start_kp[1], int(kp.x), int(kp.y)) * 100)
 
+                # globals()['df_line']['비율'][i] = loss_distance / distance(start_kp[0], start_kp[1], int(kp.x), int(kp.y)) * 100 # 반올림 하지 않음
+                # globals()['df_line']['비율'][i] = round(globals()['df_line']['비율'][i], 2) # 소수점 두자리까지
+
 
 def grading(current_img, age):
     if len(list(filter(lambda x: pd.isna(x) == False, globals()['df_line']['비율']))) != 0 and isinstance(age, int):
@@ -137,225 +144,200 @@ def grading(current_img, age):
             # cv2.putText(current_img, f"{str(int(row['비율']))}%", text_pos_ratio, cv2.FONT_HERSHEY_SIMPLEX, 0.3, color_grade, 1)
 
     return df_grade
-'''
-<div class="a" style="background-color: rgb(200, 255, 200);"> </div>
-<div class="a" style="background-color: rgb(200, 255, 120);"> </div>
-<div class="a" style="background-color: rgb(255, 208, 0);"> </div>
-<div class="a" style="background-color: rgb(255, 111, 0);;"> </div>
-<div class="a" style="background-color: rgb(255, 0, 0);"> </div>
-<div class="a" style="background-color: rgb(238, 0, 255);"> </div>
-.a{
-    width: 50px;
-    height: 50px;
-    
-}
 
-등급에 따라 무조건 정해진 색상 사이로 제한
-1. A등급(0%~20%) 일 때 rgb(200, 255, 200) ~ rgb(200, 255, 120) 사이
-2. B등급(0%~20%) 일 때 rgb(255, 208, 0) ~ rgb(255, 111, 0) 사이
-3. C등급(0%~20%) 일 때 rgb(255, 0, 0) ~ rgb(238, 0, 255) 사이
 
-같은 등급이라도 비율에 따라 시작색에서 끝색으로 변화해야 함
-'''
+def apply_mask_operations(results):
+    # 완전 투명한 이미지 크기 설정
+    img_height, img_width = 512, 1024
+    transparent_img = np.zeros((img_height, img_width, 4), dtype=np.uint8)  # 4채널 RGBA, 모든 채널을 0으로 초기화
+
+    # 각 영역의 마스크를 생성
+    cej_up_mask = np.zeros((img_height, img_width), dtype=np.uint8)
+    cej_low_mask = np.zeros((img_height, img_width), dtype=np.uint8)
+    pbl_mask = np.zeros((img_height, img_width), dtype=np.uint8)
+    tooth_mask = np.zeros((img_height, img_width), dtype=np.uint8)
+
+    # 영역별 마스크 적용 로직
+    cv2.fillPoly(cej_up_mask, [np.array(globals()['df_cej_up']['좌표'].tolist(), dtype=np.int32)], 255)
+    cv2.fillPoly(cej_low_mask, [np.array(globals()['df_cej_low']['좌표'].tolist(), dtype=np.int32)], 255)
+    cv2.fillPoly(pbl_mask, [np.array(globals()['df_pbl']['좌표'].tolist(), dtype=np.int32)], 255)
+
+    # 치아 마스크 생성
+    for tooth in results[0].masks.xy:
+        cv2.fillPoly(tooth_mask, [np.array(tooth, dtype=np.int32)], 255)
+
+    # CEJ 마스크 합성
+    cej_mask = cv2.bitwise_or(cej_up_mask, cej_low_mask)
+
+    # PBL에서 CEJ 마스크 제외
+    pbl_without_cej = cv2.bitwise_and(pbl_mask, cv2.bitwise_not(cej_mask))
+
+    # 'a' (PBL without CEJ)와 'b' (치아 마스크)의 겹치는 영역 계산
+    intersection_mask = cv2.bitwise_and(pbl_without_cej, tooth_mask)
+
+    # 결과 시각화
+    # 투명한 배경 위에 교차 영역을 녹색으로 표시 (녹색의 알파 값은 255로 불투명하게)
+    transparent_img[intersection_mask == 255] = [0, 0, 255, 50]
+
+    return transparent_img
+
+
 def diagnosis_home(request):
     if request.method == "POST":
+        try:
+            globals()['df_line'] = pd.DataFrame(index=range(0), columns=['시작 좌표', '종료 좌표', 'pbl 교점', 'cej 교점', 'cej 유형', '비율', '길이'])
+            globals()['df_pbl'] = pd.DataFrame(index=range(0), columns=['좌표'])
+            globals()['df_cej_up'] = pd.DataFrame(index=range(0), columns=['좌표'])
+            globals()['df_cej_low'] = pd.DataFrame(index=range(0), columns=['좌표'])
 
-        globals()['df_line'] = pd.DataFrame(index=range(0), columns=['시작 좌표', '종료 좌표', 'pbl 교점', 'cej 교점', 'cej 유형', '비율', '길이'])
-        globals()['df_pbl'] = pd.DataFrame(index=range(0), columns=['좌표'])
-        globals()['df_cej_up'] = pd.DataFrame(index=range(0), columns=['좌표'])
-        globals()['df_cej_low'] = pd.DataFrame(index=range(0), columns=['좌표'])
+            size_x = 1024
+            size_y = 512
 
-        size_x = 1024
-        size_y = 512
+            age_input = request.POST.get('age', None)
+            age = int(age_input)
 
-        age_input = request.POST.get('age', None)
-        age = int(age_input)
+            image_file = request.FILES["imgfile"] 
+            image_data = image_file.read()
 
-        image_file = request.FILES["imgfile"] 
-        image_data = image_file.read()
+            img_array = np.frombuffer(image_data, np.uint8)
+            img = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
+            img_height, img_width, _ = img.shape
+            center_x, center_y = img_width // 2, img_height // 2
+            cutting_ratio = 0.75
+            left = int(center_x - cutting_ratio / 2 * img_width)
+            right = int(center_x + cutting_ratio / 2 * img_width)
+            top = int(center_y - cutting_ratio / 2 * img_height)
+            bottom = int(center_y + cutting_ratio / 2 * img_height)
+            img = img[top:bottom, left:right]
+            current_img = cv2.resize(img, (size_x, size_y))
+            current_img_copy = copy.deepcopy(current_img)
 
-        img_array = np.frombuffer(image_data, np.uint8)
-        img = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
-        img_height, img_width, _ = img.shape
-        center_x, center_y = img_width // 2, img_height // 2
-        cutting_ratio = 0.75
-        left = int(center_x - cutting_ratio / 2 * img_width)
-        right = int(center_x + cutting_ratio / 2 * img_width)
-        top = int(center_y - cutting_ratio / 2 * img_height)
-        bottom = int(center_y + cutting_ratio / 2 * img_height)
-        img = img[top:bottom, left:right]
-        current_img = cv2.resize(img, (size_x, size_y))
-        current_img_copy = copy.deepcopy(current_img)
-        
+            results = model_tooth.predict(current_img, conf=0.6)
+            results_pbl = model_pbl.predict(current_img) 
+            results_cej = model_cej.predict(current_img)
 
-        results = model_tooth.predict(current_img, conf=0.6)
-        results_pbl = model_pbl.predict(current_img) 
-        results_cej = model_cej.predict(current_img)
+            globals()['df_pbl']['좌표'] = optimizationSeg(list(map(lambda x: [int(x[0]), int(x[1])], list(results_pbl[0].masks.xy[0]))))
+            if len(results_cej[0].boxes.cls.tolist()) == 2:
+                if results_cej[0].boxes.cls.tolist()[0] == 1:
+                    globals()['df_cej_up']['좌표'] = optimizationSeg(list(map(lambda x: [int(x[0]), int(x[1])], list(results_cej[0].masks.xy[1]))))
+                    globals()['df_cej_low']['좌표'] = optimizationSeg(list(map(lambda x: [int(x[0]), int(x[1])], list(results_cej[0].masks.xy[0]))))
+                else:
+                    globals()['df_cej_up']['좌표'] = optimizationSeg(list(map(lambda x: [int(x[0]), int(x[1])], list(results_cej[0].masks.xy[0]))))
+                    globals()['df_cej_low']['좌표'] = optimizationSeg(list(map(lambda x: [int(x[0]), int(x[1])], list(results_cej[0].masks.xy[1]))))
+            elif len(results_cej[0].boxes.cls.tolist()) == 1:
+                if results_cej[0].boxes.cls.tolist()[0] == 1:
+                    globals()['df_cej_low']['좌표'] = optimizationSeg(list(map(lambda x: [int(x[0]), int(x[1])], list(results_cej[0].masks.xy[0]))))
+                else:
+                    globals()['df_cej_up']['좌표'] = optimizationSeg(list(map(lambda x: [int(x[0]), int(x[1])], list(results_cej[0].masks.xy[0]))))
 
-        
-        globals()['df_pbl']['좌표'] = optimizationSeg(list(map(lambda x: [int(x[0]), int(x[1])], list(results_pbl[0].masks.xy[0]))))
-        if len(results_cej[0].boxes.cls.tolist()) == 2:
-            if results_cej[0].boxes.cls.tolist()[0] == 1:
-                globals()['df_cej_up']['좌표'] = optimizationSeg(list(map(lambda x: [int(x[0]), int(x[1])], list(results_cej[0].masks.xy[1]))))
-                globals()['df_cej_low']['좌표'] = optimizationSeg(list(map(lambda x: [int(x[0]), int(x[1])], list(results_cej[0].masks.xy[0]))))
-            else:
-                globals()['df_cej_up']['좌표'] = optimizationSeg(list(map(lambda x: [int(x[0]), int(x[1])], list(results_cej[0].masks.xy[0]))))
-                globals()['df_cej_low']['좌표'] = optimizationSeg(list(map(lambda x: [int(x[0]), int(x[1])], list(results_cej[0].masks.xy[1]))))
-        elif len(results_cej[0].boxes.cls.tolist()) == 1:
-            if results_cej[0].boxes.cls.tolist()[0] == 1:
-                globals()['df_cej_low']['좌표'] = optimizationSeg(list(map(lambda x: [int(x[0]), int(x[1])], list(results_cej[0].masks.xy[0]))))
-            else:
-                globals()['df_cej_up']['좌표'] = optimizationSeg(list(map(lambda x: [int(x[0]), int(x[1])], list(results_cej[0].masks.xy[0]))))
+            cv2.polylines(current_img, [np.array(globals()[f'df_pbl']['좌표'].tolist())], True, (0, 255, 0), 1,lineType=cv2.LINE_AA)
+            cv2.polylines(current_img, [np.array(globals()[f'df_cej_up']['좌표'].tolist())], True, (0, 0, 255), 1,lineType=cv2.LINE_AA)
+            cv2.polylines(current_img, [np.array(globals()[f'df_cej_low']['좌표'].tolist())], True, (255, 0, 0), 1,lineType=cv2.LINE_AA)
 
-        cv2.polylines(current_img, [np.array(globals()[f'df_pbl']['좌표'].tolist())], True, (0, 255, 0), 1,lineType=cv2.LINE_AA)
-        cv2.polylines(current_img, [np.array(globals()[f'df_cej_up']['좌표'].tolist())], True, (0, 0, 255), 1,lineType=cv2.LINE_AA)
-        cv2.polylines(current_img, [np.array(globals()[f'df_cej_low']['좌표'].tolist())], True, (255, 0, 0), 1,lineType=cv2.LINE_AA)
 
-        additional_data = {
-            'df_cej_up': globals()['df_cej_up'].to_json(orient="records"),
-            'df_cej_low': globals()['df_cej_low'].to_json(orient="records"),
-            'df_pbl': globals()['df_pbl'].to_json(orient="records"),
-        }
+            # ---------------------------------------------------------------- 마스크 이미지 생성
+            mask_image = apply_mask_operations(results)
+            # 마스크 이미지를 Base64로 인코딩
+            encoded_mask_image = png_encode_image_to_base64(mask_image)
+            # ----------------------------------------------------------------
 
-        for v in results[0]:
-            box_x, box_y, box_w, box_h = int(v.boxes.data[0][0]), int(v.boxes.data[0][1]), (
-                        int(v.boxes.data[0][2]) - int(v.boxes.data[0][0])), (
-                        int(v.boxes.data[0][3]) - int(v.boxes.data[0][1]))
+            additional_data = {
+                'df_cej_up': globals()['df_cej_up'].to_json(orient="records"),
+                'df_cej_low': globals()['df_cej_low'].to_json(orient="records"),
+                'df_pbl': globals()['df_pbl'].to_json(orient="records"),
+                'mask_image': encoded_mask_image,  # 마스크 이미지 추가
+            }
+
+            for v in results[0]:
+                box_x, box_y, box_w, box_h = int(v.boxes.data[0][0]), int(v.boxes.data[0][1]), (
+                            int(v.boxes.data[0][2]) - int(v.boxes.data[0][0])), (
+                            int(v.boxes.data[0][3]) - int(v.boxes.data[0][1]))
+                
+                segmentation_points = np.array(list(v.masks.xy))
+                mask = np.zeros((size_y, size_x), dtype=np.uint8)
+                cv2.fillPoly(mask, [np.array(segmentation_points, np.int32)], 255)
+                
+                moments = cv2.moments(mask)
+                cx = int(moments['m10'] / moments['m00'])
+                cy = int(moments['m01'] / moments['m00'])
+                angle = 0.5 * np.arctan2(2 * moments['mu11'], moments['mu20'] - moments['mu02'])
+
+                x1 = cx + np.cos(angle)
+                y1 = cy + np.sin(angle)
+                x2 = cx - np.cos(angle)
+                y2 = cy - np.sin(angle)
+
+                slope = (y2 - y1) / (x2 - x1)
+                intercept = y1 - slope * x1
+                
+                axis_line = draw_axis([box_x, box_y, box_w, box_h], slope, intercept)
+
+                # 축 좌표 저장
+                globals()['df_line'].loc[len(globals()['df_line'])] = {'시작 좌표' : axis_line[0], '종료 좌표' : axis_line[1]}
+
+
+            for i, row in globals()['df_line'].iterrows():
+                        cv2.line(current_img, row["시작 좌표"], row["종료 좌표"],(255, 255, 0), 1, lineType=cv2.LINE_AA)
+                        # cv2.circle(current_img, row["시작 좌표"], 1, (0, 0, 0), -1)
+                        # cv2.circle(current_img, row["종료 좌표"], 1, (0, 0, 0), -1)
             
-            segmentation_points = np.array(list(v.masks.xy))
-            mask = np.zeros((size_y, size_x), dtype=np.uint8)
-            cv2.fillPoly(mask, [np.array(segmentation_points, np.int32)], 255)
-            
-            moments = cv2.moments(mask)
-            cx = int(moments['m10'] / moments['m00'])
-            cy = int(moments['m01'] / moments['m00'])
-            angle = 0.5 * np.arctan2(2 * moments['mu11'], moments['mu20'] - moments['mu02'])
+            numericalCalculation(current_img)
+            df_grade = grading(current_img, age)
 
-            x1 = cx + np.cos(angle)
-            y1 = cy + np.sin(angle)
-            x2 = cx - np.cos(angle)
-            y2 = cy - np.sin(angle)
+            # ---------------------------------------------------------------- 크롭 이미지 생성
+            # 최대 골소실률 치아의 바운딩 박스 정보 추출
+            max_ratio_index = df_grade['비율'].idxmax()
+            max_ratio_box = results[0].boxes.data[max_ratio_index]
+            expand_ratio = 0.2  # 바운딩 박스를 10% 확장
+            box_x = int(max_ratio_box[0])
+            box_y = int(max_ratio_box[1])
+            box_w = int(max_ratio_box[2] - max_ratio_box[0])
+            box_h = int(max_ratio_box[3] - max_ratio_box[1])
+            # 확장 로직 적용
+            expand_w = int(box_w * expand_ratio)
+            expand_h = int(box_h * expand_ratio)
+            # 바운딩 박스 확장 및 이미지 경계 처리
+            new_x = max(box_x - expand_w, 0)
+            new_y = max(box_y - expand_h, 0)
+            new_w = box_w + 2 * expand_w
+            new_h = box_h + 2 * expand_h
+            # 이미지 크기 제한 (예: 이미지 경계 넘어가지 않게 처리)
+            new_w = min(new_w, current_img_copy.shape[1] - new_x)
+            new_h = min(new_h, current_img_copy.shape[0] - new_y)
+            # 이미지 크롭
+            cropped_img = current_img_copy[new_y:new_y + new_h, new_x:new_x + new_w]
+            # 크롭된 이미지 인코딩 및 기타 처리
+            encoded_cropped_image = encode_image_to_base64(cropped_img)
+            additional_data['cropped_image'] = encoded_cropped_image
+            # ----------------------------------------------------------------
 
-            slope = (y2 - y1) / (x2 - x1)
-            intercept = y1 - slope * x1
-            
-            axis_line = draw_axis([box_x, box_y, box_w, box_h], slope, intercept)
+            # cv2.imshow("Results", current_img)
+            # cv2.waitKey(0)
+            # cv2.destroyAllWindows()
 
-            # 축 좌표 저장
-            globals()['df_line'].loc[len(globals()['df_line'])] = {'시작 좌표' : axis_line[0], '종료 좌표' : axis_line[1]}
+            encoded_image = encode_image_to_base64(current_img_copy)
+            # encoded_image = encode_image_to_base64(current_img)
+            graded_results = []
 
+            for i, row in df_grade.iterrows():
+                graded_results.append({
+                    'encoded_image': encoded_image,
+                    'cej_type': row['cej 유형'],
+                    'start_coordinate': row['시작 좌표'],
+                    'end_coordinate': row['종료 좌표'],
+                    'pbl_intersection': row['pbl 교점'],
+                    'cej_intersection': row['cej 교점'],
+                    'ratio': row['비율'],
+                    'score': row['score'],
+                    'grade': row['grade'],
+                })
 
-        for i, row in globals()['df_line'].iterrows():
-                    cv2.line(current_img, row["시작 좌표"], row["종료 좌표"],(255, 255, 0), 1, lineType=cv2.LINE_AA)
-                    # cv2.circle(current_img, row["시작 좌표"], 1, (0, 0, 0), -1)
-                    # cv2.circle(current_img, row["종료 좌표"], 1, (0, 0, 0), -1)
-        
-        
-        numericalCalculation(current_img)
-        df_grade = grading(current_img, age)
-
-        # cv2.imshow("Results", current_img)
-        # cv2.waitKey(0)
-        # cv2.destroyAllWindows()
-
-        encoded_image = encode_image_to_base64(current_img_copy)
-        # encoded_image = encode_image_to_base64(current_img)
-        graded_results = []
-
-        for i, row in df_grade.iterrows():
-            graded_results.append({
-                'encoded_image': encoded_image,
-                'cej_type': row['cej 유형'],
-                'start_coordinate': row['시작 좌표'],
-                'end_coordinate': row['종료 좌표'],
-                'pbl_intersection': row['pbl 교점'],
-                'cej_intersection': row['cej 교점'],
-                'ratio': row['비율'],
-                'score': row['score'],
-                'grade': row['grade'],
+            return JsonResponse({
+                'graded_data': graded_results,
+                'additional_data': additional_data
             })
-
-        return JsonResponse({
-            'graded_data': graded_results,
-            'additional_data': additional_data
-        })
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
     
     else:
         return render(request, "Diagnosis_main.html")
-
-
-
-
-# 위 서버 코드에서 제이슨으로 리턴할 때 데이터 프레임에 저장된 df_cej_up, df_cej_low, df_pbl, 치아외곽, 치아 축 이 5가지를 추가해서 같이 리턴하고 아래의 프론트측 코드에 추가된 5개를 기존의 그림에 같이 그리고싶어
-
-# {% extends 'Diagnosis_base.html' %}
-# {% load static %}
-
-# <title>LTLUX-P: Single</title>
-
-# {% block content %}
-# <a href="{% url 'login' %}">로그인 화면으로</a>
-
-# <h1>Diagnosis</h1>
-# <form id="upload-form" enctype="multipart/form-data">
-#     {% csrf_token %}
-#     <input type="file" id="imgfile" accept="image/*" required>
-#     <button type="button" onclick="uploadImage()">Upload</button>
-# </form>
-
-# <div id="image-container">
-#     <canvas style="border: solid 2px;" id="output-image" width="1024" height="512"></canvas>
-# </div>
-
-# <script>
-#     function uploadImage() {
-#         var form_data = new FormData();
-#         var file_input = document.getElementById('imgfile');
-#         var canvas = document.getElementById('output-image');
-#         var ctx = canvas.getContext('2d');
-
-#         form_data.append('imgfile', file_input.files[0]);
-
-#         fetch('{% url "diagnosis_home" %}', {
-#             method: 'POST',
-#             body: form_data,
-#             headers: {
-#                 'X-CSRFToken': document.querySelector('input[name="csrfmiddlewaretoken"]').value
-#             }
-#         })
-#         .then(response => response.json())
-#         .then(data => {
-#             // 서버로부터 받은 이미지(Base64 문자열)를 이미지 객체로 로드
-#             var img = new Image();
-#             img.onload = function() {
-#                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-#                 ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                
-#                 // 치아 정보(등급과 스코어) 표시 로직
-#                 data.graded_data.forEach(item => {
-#                     let textX, textY;
-#                     if (item.cej_type === 'up') {
-#                         textX = item.start_coordinate[0] - 5;
-#                         textY = item.start_coordinate[1] - 5;
-#                     } else {
-#                         textX = item.end_coordinate[0] - 5;
-#                         textY = item.end_coordinate[1] + 15;
-#                     }
-#                     // 텍스트 그리기
-#                     ctx.font = "16px Arial";
-#                     ctx.fillStyle = "yellow";
-#                     ctx.fillText(`${item.grade}, ${item.ratio}`, textX, textY);
-
-#                     // 추가적으로 등급과 비율 표시 위치를 조정하려면, 필요에 따라 조정
-#                 });
-#             };
-#             // 첫 번째 아이템의 인코딩된 이미지를 사용하여 캔버스에 로드
-#             img.src = 'data:image/jpeg;base64,' + data.graded_data[0].encoded_image;
-#         })
-#         .catch(error => {
-#             console.error('Error:', error);
-#             alert('이미지를 처리하는 중 오류가 발생했습니다.');
-#         });
-#     }
-# </script>
-# {% endblock %}
