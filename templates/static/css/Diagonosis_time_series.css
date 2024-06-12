@@ -1,0 +1,133 @@
+/* ts: time series */
+
+.ts-main-form {
+    width: 1000px; 
+    height: 1300px;
+    color: #dcdcdc;
+    border: solid 1px rgb(63, 84, 96);
+    border-top: solid 0px rgb(63, 84, 96);
+    position: relative;
+    padding-top: 29px;
+    margin: 10px;
+}
+
+.ts-input-form-cover1 {
+    border-bottom: 1px solid rgb(63, 84, 96);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.ts-input-form-cover2 {
+    width: 100%;
+    height: 330px;
+    border-bottom: 1px solid rgb(63, 84, 96);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ts-input-form {
+    width: 100%;
+    height: 100%;
+    padding: 0px 20px;
+    border-right: solid 1px  rgb(63, 84, 96);
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    color: #dcdcdc;
+}
+
+.ts-results-select-cover {
+    width: 100%;
+    height: 100px;
+    border-bottom: 1px solid rgb(63, 84, 96);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* -------------------------- 달력 --------------------------*/
+.flatpickr-input {
+    width: 70%;
+    height: 100%;
+    background: none;
+    border: 1px solid rgb(182, 238, 255, 0.6);
+    text-shadow: 0 0 8px rgba(182, 238, 255, 0.5);
+    color: #dcdcdc;
+    box-shadow:
+    inset 0 0 2px 2px rgba(132, 226, 255, 0.1),
+    inset 0 0 5px 5px rgba(132, 226, 255, 0.07),
+    inset 0 0 10px 10px rgba(132, 226, 255, 0.04);
+    text-align: center;
+    font-size: 14px;
+    margin-left: 15px;
+}
+
+.flatpickr-input::placeholder {
+    color: rgb(182, 238, 255, 1);
+}
+
+.flatpickr-input:hover,
+.flatpickr-input:focus,
+.flatpickr-input.active {
+    outline: none; /* 기본 outline 제거 */
+    border: 1px solid rgb(182, 238, 255, 0.8);
+    box-shadow:
+    inset 0 0 2px 2px rgba(132, 226, 255, 0.25),
+    inset 0 0 5px 5px rgba(132, 226, 255, 0.15),
+    inset 0 0 10px 10px rgba(132, 226, 255, 0.15);
+}
+/* ---------------------- 이미지 미리보기 ----------------------*/
+#ts-preview-container0, #ts-preview-container1, #ts-preview-container2{
+    border: solid 1px  rgb(63, 84, 96);
+    margin-top: 18px;
+    position: relative;
+    color: #dcdcdc;
+    overflow: auto;
+    font-size: 14px;
+    width: 100%;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ts-age-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(182, 238, 255, 1);
+    border: solid 1px rgb(182, 238, 255, 0.6);
+    text-shadow: 0 0 8px rgba(182, 238, 255, 0.5);
+    box-shadow:
+    inset 0 0 2px 2px rgba(132, 226, 255, 0.1),
+    inset 0 0 5px 5px rgba(132, 226, 255, 0.07),
+    inset 0 0 10px 10px rgba(132, 226, 255, 0.04);
+    vertical-align: middle;
+    cursor: no-drop;
+    width: 85px;
+    height: 100%;
+    font-size: 14px;
+}
+
+.select-results {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #dcdcdc;
+    border-bottom: 1px solid rgb(63, 84, 96);
+    gap: 15%;
+}
+
+.coo {
+    width: 200px;
+    transition: all 1s linear;
+}
+
+.coo:active {
+    transform: rotate( 1720deg );
+}

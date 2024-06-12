@@ -11,7 +11,7 @@
     <div class="accounts-box2" style="text-align: center;">
         <form method="POST" action="{% url 'logout' %}">
         {% csrf_token %}
-        <P>현재 로그인 상태 입니다.<br><br>로그아웃 이후에 시도해주세요.</P>
+        <P>You are currently logged in.<br><br>Please try again after logging out.</P>
             <center>
                 <button class="send" style="margin-top: 20px;" href="#" type="submit">
                     Logout
@@ -19,7 +19,7 @@
                 </button>
             </center>
             <small style="font-size: 16px; margin: 0px; color: rgb(157, 157, 157);">&</small>
-            <a href="{% url 'diagnosis_home' %}">
+            <a href="{% url 'diagnosis_single' %}">
                 <center>
                     <div class="send" style="margin-top: 0px;">
                         home

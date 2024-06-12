@@ -28,39 +28,52 @@ input:-webkit-autofill,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s;
-  /* text-indent: 90px; */
   -webkit-text-fill-color: #949494;
 }
 
 .account-navi {
+  z-index: -1;
   width: 100%;
   height: 60px;
-  /* background-color: rgb(102, 120, 153); */
-  /* background-color: rgb(112, 150, 171); */
-  /* background-color: rgb(115, 125, 131); */
-  /* background-color: rgb(120, 120, 120); */
-  background-color: rgb(236, 236, 236);
-
-  color: #a5a5a5;
+  background-color: rgb(45, 72, 88);
+  color: #dcdcdc;
   font-size: 14px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: left;
-  /* border-bottom: solid rgba(0,0,0,.3) 3px; */
+}
+
+.account-navi-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  color: rgb(160, 212, 235);
+  font-size: 13px;
+}
+
+a:hover {
+  text-shadow: 0px 0px 10px rgba(87, 166, 206, 0.8),
+  0 0 1em rgba(87, 166, 206, 0.7),
+  0 0 0.2em rgba(87, 166, 206, 0.5);
 }
 
 .accounts-box {
+  z-index: 1;
+  padding: 2px;
   width: 400px;
-  background: rgba(255, 255, 255, 0.987);
+  background-color: rgb(10, 15, 17);
   box-sizing: border-box;
-  box-shadow: 0 15px 25px rgba(0,0,0,.6);
-  border-radius: 10px;
+  border: 1px solid rgb(182, 238, 255, 0.6);
+  box-shadow:
+  inset 0 0 2px 1px rgba(132, 226, 255, 0.7),
+  inset 0 0 5px 7px rgba(132, 226, 255, 0.07),
+  inset 0 0 10px 15px rgba(132, 226, 255, 0.04);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  border: solid 1px rgb(45, 72, 88);
 }
 
 .accounts-box2 {
@@ -73,14 +86,25 @@ input:-webkit-autofill:active {
   position: relative;
 }
 
+.question {
+  color: #dcdcdc; 
+  background-color: rgb(10, 15, 17); 
+  width: 100%; 
+  height: 39.2px; 
+  padding: 10px 0; 
+  margin-bottom: 30px; 
+  border: none; 
+  border-bottom: solid 1px;
+}
+
 .accounts-box .input-box input {
   width: 100%;
   padding: 10px 0;
   font-size: 16px;
-  color: black;
+  color: #dcdcdc;
   margin-bottom: 30px;
   border: none;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #dcdcdc;
   outline: none;
   background: transparent;
 }
@@ -91,7 +115,7 @@ input:-webkit-autofill:active {
   left: 0;
   padding: 10px 0;
   font-size: 16px;
-  color: black;
+  color: #dcdcdc;
   pointer-events: none;
   transition: .5s;
 }
@@ -100,19 +124,19 @@ input:-webkit-autofill:active {
 .accounts-box .input-box input:valid ~ label {
   top: -20px;
   left: 0;
-  color: black;
+  color: #dcdcdc;
   font-size: 12px;
 }
 
 .send{
-  background-color: rgba(255, 255, 255, 0);
+  background-color: rgb(10, 15, 17);
   border: 0;
 }
 .accounts-box form .send {
   position: relative;
   display: inline-block;
   padding: 10px 20px;
-  color: black;
+  color: #dcdcdc;
   font-size: 16px;
   text-decoration: none;
   text-transform: uppercase;
@@ -123,13 +147,11 @@ input:-webkit-autofill:active {
 }
 
 .accounts-box .send:hover {
-  background: #ffffff;
-  color: black;
+  color: rgb(160, 212, 235);
   border-radius: 20px;
-  text-shadow: 0 0 5px #ffb73c,
-              0 0 10px #ffb73c,
-              0 0 20px #ffb73c,
-              0 0 40px #ffb73c;
+  text-shadow: 0 0 5px rgba(87, 166, 206, 0.8),
+  0 0 1em rgba(87, 166, 206, 0.7),
+  0 0 0.2em rgba(87, 166, 206, 0.5);
 }
 
 .accounts-box .send span {
@@ -152,7 +174,7 @@ input:-webkit-autofill:active {
   left: -100%;
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #ffb73c);
+  background: linear-gradient(90deg, transparent, rgb(160, 212, 235));
   animation: btn-anim1 2s linear infinite;
 }
 

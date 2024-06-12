@@ -19,7 +19,7 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user:
                 login(request, user)
-                return redirect("diagnosis_home")
+                return redirect("diagnosis_single")
             else:
                 form.add_error(None, "등록되지 않은 아이디이거나 아이디 또는 비밀번호를 잘못 입력했습니다.")
     else:

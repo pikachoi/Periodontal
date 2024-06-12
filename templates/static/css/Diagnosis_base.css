@@ -24,18 +24,16 @@
   align-items: center;
   justify-content: start;
 }
-/* ---------------------------------------------------------------------------- */
-
 /* ------------------------------베이스 css------------------------------------ */
 .base-input{
-  color: rgb(95, 95, 95);
+  color: #dcdcdc;
   background: none;
   font-size: 14px;
   height: 30px; 
   /* height: 22px; */
   border: none;
   padding: 1px 10px 1px 10px;
-  border-right: solid 1px rgb(34, 56, 70);
+  border-right: solid 1px rgb(45, 72, 88);
   text-align: center;
 }
 
@@ -43,7 +41,7 @@
   width: 48px; 
   height: 21.3px; 
   font-size: 12px;
-  color: #c1c1c1;
+  color: #dcdcdc;
   background-color: rgb(18, 38, 50);
   border-right: solid 1px rgb(63, 84, 96);
 }
@@ -55,7 +53,7 @@
   align-items: center;
   right: -11px; 
   top: 0px; 
-  border: solid 1px rgb(34, 56, 70); 
+  border: solid 1px rgb(45, 72, 88);
   background: rgb(10, 15, 17);
   width: 18px; 
   height: 12px;
@@ -84,7 +82,7 @@
 .css-line {
   background: none;
   border: solid 0px;
-  border-top: solid 1px rgb(34, 56, 70); 
+  border-top: solid 1px rgb(45, 72, 88);
   width: 30px;
 }
 
@@ -97,82 +95,15 @@
 }
 
 .css-dot2 {
-  background-color: rgb(34, 56, 70); 
+  background-color: rgb(45, 72, 88);
   width: 3px;
   height: 3px;
   border-radius: 50%;
   margin-bottom: 4px;
 }
 /* --------------------------------------------------------------------------- */
-
-/* ------------------------------눈금 자------------------------------------ */
-.pixel-ruler1 {
-  position: absolute;
-  width: 40px;
-  height: 508px;
-  left: -33px;
-  top: 0px;
-  border: solid 0px;
-  border-top: solid 1px #626262;
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-}
-
-.pixel-ruler2 {
-  position: absolute;
-  width: 1024px;
-  height: 42px;
-  left: 0px;
-  top: -34px;
-  border: solid 0px;
-  border-left: solid 1px #626262;
-  display: flex;
-  justify-content: center;
-  align-items: start;
-}
-
-.p1 {
-  width: 20px;
-  height: 50px;
-  border: solid 0px;
-  color: #646464;
-  font-size: 12px;
-  text-align: center;
-  border-bottom: solid 1px #626262;
-}
-
-.p2 {
-  width: 200px;
-  height: 15px;
-  border: solid 0px;
-  color: #646464;
-  font-size: 12px;
-  text-align: start;
-  border-right: solid 1px #626262;
-  margin-left: 5px;
-
-}
-
-.p1-text {
-  position: absolute;
-  width: 20px;
-  left: 0px;
-  bottom: -35px;
-  font-size: 12px;
-}
-
-.p2-text {
-  position: absolute;
-  width: 200px;
-  left: -30px;
-  bottom: -10px;
-  font-size: 12px;
-}
-/* ------------------------------------------------------------------------ */ 
-
 .grade-text {
-    color: white;
+    color: #dcdcdc;
     font-size: 18px;
     text-align: center;
     padding-right: 10px;
@@ -217,8 +148,8 @@
 .bar-chart1 {
   position: relative; 
   padding: 4px 4px; 
-  border-left: solid 1px rgb(95, 95, 95);
-  border-bottom: solid 1px rgb(95, 95, 95);
+  border-left: solid 1px #dcdcdc;
+  border-bottom: solid 1px #dcdcdc;
   gap: 7px; 
   width: 118px; 
   height: 57px; 
@@ -240,7 +171,7 @@
 }
 
 .cover-box{
-    border: solid 1px rgb(34, 56, 70);
+    border: solid 1px rgb(45, 72, 88);
     border-top: solid 0px;
     display: flex;
     flex-direction: column;
@@ -253,8 +184,10 @@
   }
 
   .cover-title1{
-    background-color: rgb(34, 56, 70);
-    width: 100%;
+    /* background-color: rgb(45, 72, 88); */
+    background-color: rgb(18, 38, 50);
+    border: 1px solid rgb(63, 84, 96);
+    width: 99.8%;
     height: 25px;
     position: absolute;
     top: 0px;
@@ -288,16 +221,16 @@
 
 #preview-container{
     position: relative;
-    color: rgb(95, 95, 95);
+    color: #dcdcdc;
     overflow: auto;
     padding: 1%;
-    font-size: 18px;
+    font-size: 14px;
     width: 307.2px;
     height: 153.6px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-right: solid 1px rgb(34, 56, 70);;
+    border-right: solid 1px rgb(45, 72, 88);
 }
 /* ------------------------------파일 선택, 나이 입력------------------------------------ */
 .input-box {
@@ -305,26 +238,51 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  border-top: solid 1px rgb(34, 56, 70); 
+  border-top: solid 1px rgb(45, 72, 88);
 }
 
 .input-box label {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* color: rgb(93, 201, 231); */
+  color: rgb(182, 238, 255, 1);
+  border: solid 1px rgb(182, 238, 255, 0.6);
+  text-shadow: 0 0 8px rgba(182, 238, 255, 0.5);
+  box-shadow:
+  inset 0 0 2px 2px rgba(132, 226, 255, 0.1),
+  inset 0 0 5px 5px rgba(132, 226, 255, 0.07),
+  inset 0 0 10px 10px rgba(132, 226, 255, 0.04);
+  vertical-align: middle;
+  cursor: pointer;
+  width: 100%;
+  height: 92%;
+  font-size: 14px;
+}
+
+.input-box label:hover {
+  border: 1px solid rgb(182, 238, 255, 0.8);
+  box-shadow:
+  inset 0 0 2px 2px rgba(132, 226, 255, 0.25),
+  inset 0 0 5px 5px rgba(132, 226, 255, 0.15),
+  inset 0 0 10px 10px rgba(132, 226, 255, 0.15);
+}
+
+.age-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: rgb(182, 238, 255, 1);
   text-shadow: 0 0 8px rgba(182, 238, 255, 0.5);
   vertical-align: middle;
-  cursor: pointer;
-  width: 70px;
+  cursor: no-drop;
+  width: 100%;
   height: 100%;
   font-size: 14px;
-  border-right: solid 1px rgb(34, 56, 70); 
+  border-right: solid 1px rgb(45, 72, 88);
 }
 
 .new-input{
-  color: rgb(95, 95, 95);
+  color: #dcdcdc;
   background: none;
   font-size: 14px;
   width: 120px;
@@ -346,17 +304,14 @@
   overflow: hidden;
   border: 0;
 }
-/* ------------------------------------------------------------------------------------- */
-
 /* ------------------------------등급 색 설명------------------------------------ */
 .gradient-A {
   width: 70px; 
   height: 8px; 
   border: solid 1px rgb(137, 137, 137);
   background: linear-gradient(to right, 
-    rgb(224, 240, 241),
-    rgb(0, 221, 235),
-    rgb(0, 113, 121)
+    rgb(243, 255, 255),
+    rgb(14, 219, 212)
   );
 }
 
@@ -365,9 +320,8 @@
   height: 8px; 
   border: solid 1px rgb(137, 137, 137);
   background: linear-gradient(to right, 
-      rgb(202, 127, 255),
-      rgb(161, 2, 127),
-      rgb(112, 0, 88)
+    rgb(220, 207, 255),
+    rgb(78, 23, 229)
   );
 }
 
@@ -376,9 +330,8 @@
   height: 8px; 
   border: solid 1px rgb(137, 137, 137);
   background: linear-gradient(to right, 
-    rgb(158, 166, 255),
-    rgb(102, 23, 229),
-    rgb(61, 0, 158)
+      rgb(251, 207, 255),
+      rgb(193, 10, 209)
   );
 }
 
@@ -388,54 +341,10 @@
   font-size: 12px;
   font-weight: bold;
   background-color: rgb(47, 53, 57);
-  color: #c1c1c1;
+  color: #dcdcdc;
   border-radius: 2px;
 }
 /* ----------------------------------------------------------------------------- */
-
-/* ------------------------------표------------------------------------ */
-.row1 {
-  background-color: rgb(31, 41, 48);
-  height: 22px;
-  color: #c1c1c1;
-  font-size: 14px;
-  border-radius: 5px;
-  margin-bottom: 12px;
-  margin-left: 10px;
-  padding: 0px 5px;
-}
-
-.row2 {
-  background-color: rgb(217, 193, 193);
-  border-radius: 2px;
-  width: 50px;
-  height: 18px;
-  margin-left: 6px;
-  margin-right: 5px;
-}
-
-.small-text {
-  font-size: 12px;
-  margin-left: 5px;
-  margin-top: 2px;
-}
-
-.text-A {
-  font-size: 14px;
-  font-weight: bold;
-  margin-left: 5px;
-}
-
-.color-A {
-  background-color: rgb(217, 193, 193);
-  border-radius: 2px;
-  width: 18px;
-  height: 18px;
-  margin-left: 6px;
-  margin-right: 10px;
-}
-/* -------------------------------------------------------------------- */
-
 .submission-form{
     display: flex;
     flex-direction: column;
@@ -443,16 +352,15 @@
     align-items: center;
     width: 100%;
     height: 272px;
-    color: white;
+    color: #dcdcdc;
     margin-left: 25px;
-    /* border: solid 1px rgb(117, 117, 117); */
 }
 
 .main-top-container {
   justify-content: start; 
   width: 100%; 
   height: 174.07px; 
-  border-bottom: solid 1px rgb(34, 56, 70);
+  border-bottom: solid 1px rgb(45, 72, 88);
 }
 
 .main-container{
@@ -461,25 +369,23 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    margin: 50px 0px 150px 0px;
-
+    margin: 70px 0px 140px 0px;
 }
 
 #top-infobox-container {
-    /* border-top: solid 1px rgb(255, 255, 255); */
     position: absolute;
-    top: 50px;
-    height: 50px;
+    top: -60px;
+    height: 160px;
     width: 1024px;
     display: flex;
     justify-content: center;
     align-items: end;
-    gap: 12px;
-    z-index: 20;
+    gap: 9px;
+    z-index: 15;
+    background-color: rgb(10, 15, 17);
 }
 
 #bottom-infobox-container {
-    /* border: solid 1px red; */
     position: absolute;
     bottom: -50px;
     height: 50px;
@@ -487,8 +393,8 @@
     display: flex;
     justify-content: center;
     align-items: start;
-    gap: 12px;
-    z-index: 20;
+    gap: 9px;
+    z-index: 15;
 }
 
 #result-draw-layer{
@@ -496,7 +402,6 @@
     width: 1024px;
     height: 512px;
     border-radius: -1px;
-    /* border: solid 1px white; */
 }
 
 .result-draw-layer2{
@@ -512,7 +417,7 @@
 .info-box {
   position: absolute;
   font-size: 7px;
-  z-index: -1; /* 캔버스 뒤에 숨김 */
+  z-index: -1;
 }
 
 .info-box2{
@@ -521,8 +426,7 @@
     flex-direction: column;
     align-items: center;
     border: 1px solid rgb(255, 255, 255);
-    border-radius: 5px;
-    padding: 4px;
+    padding: 3px;
     font-size: 14px;
 }
 
@@ -532,7 +436,6 @@
     flex-direction: column;
     align-items: center;
     border: 1px solid rgb(255, 255, 255);
-    border-radius: 5px;
     padding: 3px;
 }
 
@@ -549,25 +452,17 @@
     0 0 1em rgb(255, 255, 255),
     0 0 0.2em rgb(255, 255, 255);
 }
- /* 부드러운 전환 효과 */
-/* .info-box {
-    transition: all 0.3s ease;
-} */
 
 .max-ratio-box {
     border: 1px solid rgb(255, 255, 255);
-    box-shadow:
-    0px 0px 15px rgb(255, 29, 29),
-    0 0 1em rgb(255, 29, 29),
-    0 0 0.2em rgb(255, 29, 29);
+    box-shadow: 0px 0px 10px 5px rgba(255, 255, 0, 0.7);
 }
 
 .max-ratio-box:hover {
     border: 1px solid rgb(255, 255, 255);
     box-shadow:
-    0px 0px 20px rgb(255, 29, 29),
-    0 0 3em rgb(255, 29, 29),
-    0 0 0.4em rgb(255, 29, 29);
+    0px 0px 10px 5px rgba(255, 255, 0, 0.7),
+    0 0 2em rgba(255, 255, 0, 0.7);
 }
 
 .upload-btn {
@@ -629,13 +524,14 @@
   height: auto;
   transform: translate(-50%, -50%);
 }
+
 .loader {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 200px;
-  height: 200px;
+  width: 170px;
+  height: 170px;
   perspective: 780px;
 }
 
@@ -657,22 +553,25 @@
 .load-inner.load-one {
   left: 0%;
   top: 0%;
-  border-bottom: 3px solid #5c5edc;
+  border-bottom: 3px solid rgb(147, 246, 250);
   animation: rotate1 1.15s linear infinite;
+  /* box-shadow: 0px 0px 8px rgba(147, 246, 250, 0.7); */
 }
 
 .load-inner.load-two {
   right: 0%;
   top: 0%;
-  border-right: 3px solid #9147ff;
+  border-right: 3px solid rgb(147, 246, 250);
   animation: rotate2 1.15s 0.1s linear infinite;
+  /* box-shadow: 0px 0px 8px rgba(147, 246, 250, 0.7); */
 }
 
 .load-inner.load-three {
   right: 0%;
   bottom: 0%;
-  border-top: 3px solid rgb(0, 221, 235);
+  border-top: 3px solid rgb(147, 246, 250);
   animation: rotate3 1.15s 0.15s linear infinite;
+  /* box-shadow: 0px 0px 8px rgba(147, 246, 250, 0.7); */
 }
 
 @keyframes rotate1 {
@@ -701,31 +600,41 @@
 }
 
 .tips {
-  color: #434343;
-  border: solid 1px #434343;
-  font-size: 13px;
+  color: #dcdcdc;
+  border: solid 1px rgb(63, 84, 96);
   position: absolute;
-  left: -556px;
-  top: 7px;
+  left: 760px;
+  top: 10px;
   font-size: 12px;
 }
+
 .tips-title {
-    width: 176px;
-    text-align: center;
-    padding: 3px 1px;
-}
-.tips1 {
-    width: 57px; 
-    border-style: solid; 
-    border-width: 1px 1px 0px 0px; 
-    border-color: #434343;
+    width: 169px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 3px;
 }
+
+.tips1 {
+    width: 57px; 
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    border-style: solid; 
+    border-width: 1px 1px 0px 0px; 
+    border-color: rgb(63, 84, 96);
+    padding: 3px;
+}
+
 .tips2 {
-    width: 108px; 
+    width: 105px; 
+    display: flex;
+    justify-content: left;
+    align-items: center;
     border-style: solid; 
     border-width: 1px 0px 0px 0px; 
-    border-color: #434343;
+    border-color: rgb(63, 84, 96);
     padding: 3px;
 }
 
@@ -733,27 +642,161 @@
     position: relative;
     width: 0px;
     height: 0px;
-    /* background-color: #9cffff; */
+}
+/* ------------------------ 메뉴 버튼 ------------------------*/
+.menu-btn {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  background-color: rgb(51, 65, 70);
+  width: 90%; 
+  padding-left: 10px;
+  height: 37px;
+  margin-top: 5px;
+  border-radius: 3px;
+  color: aliceblue;
+}
+
+.menu-btn:hover {
+  background-color: rgb(31, 42, 46);
+}
+/* ------------------------ 온 오프 버튼 ------------------------*/
+.on-off-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  width: 100%;
+  height: 35px;
+  cursor: pointer;
+  color: rgb(182, 238, 255, 1);
+  border: 1px solid rgb(182, 238, 255, 0.6);
+  text-shadow: 0 0 8px rgba(182, 238, 255, 0.5);
+  box-shadow:
+  inset 0 0 2px 2px rgba(132, 226, 255, 0.1),
+  inset 0 0 5px 5px rgba(132, 226, 255, 0.07),
+  inset 0 0 10px 10px rgba(132, 226, 255, 0.04);
+  margin: 2px;
+}
+
+.on-off-btn:hover {
+  border: 1px solid rgb(182, 238, 255, 0.8);
+  box-shadow:
+  inset 0 0 2px 2px rgba(132, 226, 255, 0.25),
+  inset 0 0 5px 5px rgba(132, 226, 255, 0.15),
+  inset 0 0 10px 10px rgba(132, 226, 255, 0.15);
+}
+/* ------------------------ 크롭 이미지 ------------------------*/
+.cropped-image-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: solid 1px rgb(45, 72, 88);
+  width: 100%;
+  height: 170px;
 }
 /* ------------------------ 결과 요약 ------------------------*/
 .summary-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  height: 500px;
-  border: solid 1px rgb(255, 255, 255);
-  color:  rgb(255, 255, 255);
+  height: 300px;
+  border-top: solid 1px rgb(45, 72, 88);
+  border-bottom: solid 1px rgb(45, 72, 88);
 }
 
 .index-column {
-  border: solid 1px rgb(109, 228, 212);
-  color: rgb(109, 228, 212);;
-  font-size: 10px;
-  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: rgb(186, 255, 232);
+  width: 110px;
+  height: 15px;
+  font-size: 14px;
+  margin: 8px 0px;
+  margin-left: 15px;
+  border-left: solid 3px #dcdcdc;
+  border-right: solid 1px #dcdcdc;
 }
 
 .data-entry {
-  border: solid 1px rgb(78, 142, 209);
-  color: rgb(78, 142, 209);
-  font-size: 10px;
-  padding: 5px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  text-align: center;
+  /* border: solid 1px rgb(78, 142, 209); */
+  color: rgb(116, 192, 255);
+  width: 50px;
+  height: 15px;
+  font-size: 14px;
+  margin-left: 7px;
 }
-/* -----------------------------------------------------------*/
+/* ------------------------ 파이 차트 ------------------------*/
+.pieChart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 220px;
+}
+/* ------------------------ 치주염 공식 참고 지표 ------------------------*/
+.grading-table-cover {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.stage-table-cover {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+table {
+    height: 100%;
+    border-collapse: collapse;
+    color: #dcdcdc;
+    font-size: 14px;
+    width: 1256px;
+}
+
+th, td {
+  border: 1px solid rgb(63, 84, 96);
+  vertical-align: top;  /* 텍스트를 상단에 붙임 */
+  text-align: left;
+  padding: 7px;
+}
+
+th {
+  background-color: rgb(18, 38, 50);
+  font-size: 14px;
+  color: rgb(183, 233, 255);
+  text-shadow: 0px 0px 10px rgba(87, 166, 206, 0.8), 
+  0 0 1em rgba(87, 166, 206, 0.7), 
+  0 0 0.2em rgba(87, 166, 206, 0.5);
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+.row-column {
+  /* background-color: rgb(45, 72, 88); */
+  /* border: solid 1px rgb(94, 117, 130); */
+  font-size: 14px;
+  color: rgb(183, 233, 255);
+  vertical-align: middle;
+}
+/* ------------------------ 위험인자 체크 박스 ------------------------*/
+select {
+  display: none;
+}

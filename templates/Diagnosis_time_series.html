@@ -1,0 +1,206 @@
+{% extends 'Diagnosis_base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/Diagonosis_time_series.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+<div class="div-v">
+    <div class="ts-main-form">
+        <div class="cover-title1">
+            <div class="cover-title2"></div>
+            <div class="cover-title3">MAIN FORM</div>
+            <div class="cover-title3" style="width: 5%;">X-RAY</div>
+            <div class="cover-title2"></div>
+        </div>
+        <!------------------------------------------ 제출 폼 ------------------------------------------>
+        <form class="ts-input-form-cover1" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="ts-input-form-cover2">
+                <!-- 기준 이미지 -->
+                <div class="ts-input-form">
+                    <p>Reference Image</p>
+                    <div class="input-box" style="border: solid 1px rgb(63, 84, 96);">
+                        <input type="file" id="imgfile0" accept="image/*" required>
+                        <label  style="width: 65px; height: 100%;" for="imgfile0">File</label> 
+                        <input class="new-input" id="filename0" style="width: 100%" value="" placeholder="Click 'File'" required>
+                    </div>
+                    <div class="div-h" style="margin-top: 18px; height: 32px;">
+                        <div class="input-box" style="height: 100%; border: solid 1px rgb(63, 84, 96);">
+                            <div class="ts-age-btn">Age</div> 
+                            <input class="new-input" id="ageInput0" style="width: 100%" value="" placeholder="Click here" type="number" min="1" step="1" required>
+                        </div>
+                        <input type="text" id="datePicker0" placeholder="Select Date" >
+                    </div>
+                    <div id="ts-preview-container0"> Preview</div>
+                </div>
+                <!-- 첫번째 이미지 -->
+                <div class="ts-input-form">
+                    <p>Image 1</p>
+                    <div class="input-box" style="border: solid 1px rgb(63, 84, 96);">
+                        <input type="file" id="imgfile1" accept="image/*" required>
+                        <label  style="width: 65px; height: 100%;" for="imgfile1">File</label> 
+                        <input class="new-input" id="filename1" style="width: 100%" value="" placeholder="Click 'File'" required>
+                    </div>
+                    <div class="div-h" style="margin-top: 18px; height: 32px;">
+                        <div class="input-box" style="height: 100%; border: solid 1px rgb(63, 84, 96);">
+                            <div class="ts-age-btn">Age</div> 
+                            <input class="new-input" id="ageInput1" style="width: 100%" value="" placeholder="Click here" type="number" min="1" step="1" required>
+                        </div>
+                        <input type="text" id="datePicker1" placeholder="Select Date" >
+                    </div>
+                    <div id="ts-preview-container1"> Preview</div>
+                </div>
+                <!-- 두번째 이미지 -->
+                <div class="ts-input-form" style="border: 0px;">
+                    <p>Image 2</p>
+                    <div class="input-box" style="border: solid 1px rgb(63, 84, 96);">
+                        <input type="file" id="imgfile2" accept="image/*" required>
+                        <label  style="width: 65px;  height: 100%;" for="imgfile2">File</label> 
+                        <input class="new-input" id="filename2" style="width: 100%" value="" placeholder="Click 'File'" required>
+                    </div>
+                    <div class="div-h" style="margin-top: 18px; height: 32px;">
+                        <div class="input-box" style="height: 100%; border: solid 1px rgb(63, 84, 96);">
+                            <div class="ts-age-btn">Age</div> 
+                            <input class="new-input" id="ageInput2" style="width: 100%" value="" placeholder="Click here" type="number" min="1" step="1" required>
+                        </div>
+                        <input type="text" id="datePicker2" placeholder="Select Date" >
+                    </div>
+                    <div id="ts-preview-container2"> Preview</div>
+                </div>
+            </div>
+            <button class="upload-btn" style="width: 200px; height: 35px;" type="button" onclick="uploadMultipleImages()">Upload</button>
+        </form>
+        <!-------------------------------------------------------------------------------------------->
+        <div class="select-results">
+            <p id="ymd_dff_1_and_0" style="width: 200px; height: 40px; background-color: aqua; color: black;"></p>
+            <p id="ymd_dff_2_and_0" style="width: 200px; height: 40px; background-color: aqua; color: black;"></p>
+        </div>
+        <!-- <img class="coo" src="{% static 'img/Baking-delicious-chocolate-chip-cookies-top-view--10.png' %}"> -->
+        
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<script>
+    // ------------------------------ 선택한 이미지 파일명 표시 ------------------------------
+    window.onload = function() {
+        var fileInputs = document.querySelectorAll('input[type="file"]');
+        fileInputs.forEach(function(fileInput) {
+            fileInput.addEventListener('change', function() {
+                var fileNameField = document.getElementById('filename' + this.id.slice(-1));
+                if (this.files.length > 0) {
+                    var fileName = this.files[0].name;
+                    fileNameField.value = fileName; // 파일명을 입력 필드에 표시
+                }
+            });
+        });
+
+        // ------------------------------ 달력 표시 ------------------------------
+        flatpickr("#datePicker0", {
+            dateFormat: "Y-m-d",
+            disableMobile: true,
+        });
+        flatpickr("#datePicker1", {
+            dateFormat: "Y-m-d",
+            disableMobile: true,
+        });
+        flatpickr("#datePicker2", {
+            dateFormat: "Y-m-d",
+            disableMobile: true,
+        });
+    };
+
+    // ------------------------------ 이미지 미리보기 ------------------------------
+    function setupPreview(inputId, containerId) {
+        document.getElementById(inputId).addEventListener('change', function(event) {
+            var file = event.target.files[0];
+            if (file && file.type.match('image.*')) { // 파일이 이미지인지 확인
+                var reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    var previewContainer = document.getElementById(containerId);
+                    // 미리보기 이미지가 이미 있다면 제거
+                    previewContainer.innerHTML = ''; 
+                    
+                    // 새 이미지 미리보기 생성
+                    var img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.width = '100%'; // 미리보기 크기 조절, 필요에 따라 조정
+                    img.style.height = 'auto';
+                    
+                    previewContainer.appendChild(img); // 미리보기 컨테이너에 이미지 추가
+                };
+                
+                reader.readAsDataURL(file); // 파일 읽기
+            }
+        });
+    }
+
+    setupPreview('imgfile0', 'ts-preview-container0');
+    setupPreview('imgfile1', 'ts-preview-container1');
+    setupPreview('imgfile2', 'ts-preview-container2');
+
+
+    function uploadMultipleImages() {
+        var ageInput0 = document.getElementById('ageInput0').value;
+        var ageInput1 = document.getElementById('ageInput1').value;
+        var ageInput2 = document.getElementById('ageInput2').value;
+
+        var imgInput0 = document.getElementById('imgfile0');
+        var imgInput1 = document.getElementById('imgfile1');
+        var imgInput2 = document.getElementById('imgfile2');
+
+        var datePicker0 = document.getElementById('datePicker0').value;
+        var datePicker1 = document.getElementById('datePicker1').value;
+        var datePicker2 = document.getElementById('datePicker2').value;
+
+        if (!imgInput0.files[0] || ageInput0 == "" || parseInt(ageInput0) < 1) {
+            alert ("Please enter a valid image and age.");
+            return;
+        } else if (!imgInput1.files[0] || ageInput1 == "" || parseInt(ageInput1) < 1) {
+            alert ("please enter a valid image and age.");
+            return;
+        } else if (!imgInput2.files[0] || ageInput2 == "" || parseInt(ageInput2) < 1) {
+            alert ("please enter a valid image and age.");
+            return;
+        }
+
+        var formData = new FormData();
+
+        formData.append('img0', imgInput0.files[0]);
+        formData.append('img1', imgInput1.files[0]);
+        formData.append('img2', imgInput2.files[0]);
+
+        formData.append('age0', ageInput0);
+        formData.append('age1', ageInput1);
+        formData.append('age2', ageInput2);
+
+        formData.append('date0', datePicker0);
+        formData.append('date1', datePicker1);
+        formData.append('date2', datePicker2);
+
+        fetch('{% url "diagnosis_time_series" %}', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': document.querySelector('input[name="csrfmiddlewaretoken"]').value
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.ymd_dff_1_and_0) {
+                document.getElementById('ymd_dff_1_and_0').textContent = data.ymd_dff_1_and_0;
+            }
+            if (data.ymd_dff_2_and_0) {
+                document.getElementById('ymd_dff_2_and_0').textContent = data.ymd_dff_2_and_0;
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+    
+    
+</script>
+{% endblock %}

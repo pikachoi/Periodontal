@@ -7,24 +7,28 @@
         <link rel="stylesheet" href="{% static 'css/1_base.css' %}">
         <link rel="stylesheet" href="{% static 'css/header.css' %}">
         <link rel="stylesheet" href="{% static 'css/Diagnosis_base.css' %}">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     </head>
     <body>
         <header>
             <div class="div-h" style="width: 100%; height: 100%; align-items: end;">
                 <div class="div-h" style="width: 100%;"></div>
-                <div class="div-h">
-                    <img style="margin-right: 10px; width: 80px;" src="{% static 'img/LTLUX_logo_1.png' %}">
+                <div class="div-h" style="margin-bottom: 5px;">
+                    <img style="margin-right: 5px; width: 80px;" src="{% static 'img/LTLUX_logo_1.png' %}">
                     <h1 class="logo-p">- P</h1>
+                    <div class="sub-line"></div>
                 </div>
                 <div class="div-h" style="align-items: end; height: 75px; font-size: 14px; color: white; position: relative;">
                     <div class="url-btn">
-                        <a class="url-text" href="{% url 'logout' %}">SINGLE</a>
+                        <a class="url-text" href="{% url 'diagnosis_single' %}">SINGLE</a>
                     </div>
                     <div class="url-btn">
-                        <a class="url-text" href="{% url 'logout' %}">TIME SERIES</a>
+                        <a class="url-text" href="{% url 'diagnosis_time_series' %}">TIME SERIES</a>
                     </div>
                     <div class="url-btn">
-                        <a class="url-text" href="{% url 'logout' %}">CLINIC FORM</a>
+                        <a class="url-text" href="{% url 'clinic' %}">CLINIC FORM</a>
                     </div>
                     <div class="url-btn">
                         <a class="url-text" href="{% url 'logout' %}">CHART</a>
@@ -32,24 +36,154 @@
                     <div class="url-btn" style="margin-right: 200px;">
                         <a class="url-text" href="{% url 'logout' %}">LOGOUT</a>
                     </div>
-                    <div class="div-h" style="color: #a3a3a3;  font-size: 14px; position: absolute; left: 20px; top: 25px;">
+                    <div class="div-h" style="color: #dcdcdc; font-size: 14px; position: absolute; left: 20px; top: 20px;">
                         AI SaMD for Diagnostic Assistance interpretation of Periodontitis
-                        <div class="loader2" style="position: absolute; left: -50px; bottom: -8px; width: 1000px; margin-left: 50px; height: 1px; border-radius: 1px;">
+                        <!-- <div class="loader2" style="position: absolute; left: -50px; bottom: -8px; width: 1000px; margin-left: 50px; height: 1px; border-radius: 1px;">
                             <div class="light"></div>
                             <div class="black_overlay"></div>
-                        </div>
+                        </div> -->
                     </div>
-                    <div class="url-btn" style="width: 250px; position: absolute; background-color: rgb(10, 15, 17); right: -55px; bottom: 0px;"></div>
                 </div>
                 <div class="div-h" style="align-items: end; height: 100%; width: 100%;">
-                    <div style=" width: 100%; height: 22px; background-color: rgb(10, 15, 17); border-top: solid 4px rgb(10, 15, 17);">
-                    </div>
                 </div>
-                
             </div>
+            <div class="header-bottom-line"></div>
+
         </header>
         {% block content %} 
         {% endblock %}
+        <!-- ================================================================================================================================== -->
+        <div class="grading-table-cover">
+            <h2 style="color: #c1c1c1; margin-top: 30px;">Grade-based classification</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="3">Periodontitis grade</th>
+                        <th>Grade A:<br>Slow rate<br>of progression</th>
+                        <th>Grade B:<br>Moderate rate<br>of progression</th>
+                        <th>Grade C:<br>Rapid rate<br>of progression</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="3" class="row-column">Primary criteria</td> 
+                        <td>Direct evidence of progression</td> 
+                        <td>Longitudinal data (radiographic bone loss or CAL)</td>
+                        <td>Evidence of no loss over 5 years</td>
+                        <td>＜2 mm over 5 years</td>
+                        <td>≥2 mm over 5 years</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2" style="vertical-align: middle;">Indirect evidence of progression</td> 
+                        <td>% bone loss/age</td> 
+                        <td>＜0.25</td>
+                        <td>0.25 to 1.0</td>
+                        <td>＞1.0</td>
+                    </tr>
+                    <tr>
+                        <td>Case phenotype</td> 
+                        <td>Heavy biofilm deposits with low levels of destruction</td> 
+                        <td>Destruction commensurate with biofilm deposits</td>
+                        <td>
+                            Destruction exceeds expectation given biofilm deposits; specific clinical patterns suggestive 
+                            of periods of rapid progression and/or early onset disease (e.g., molar/incisor pattern; lack of 
+                            expected response to standard bacterial control therapies)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2" class="row-column">Grade modifiers</td> 
+                        <td rowspan="2" style="vertical-align: middle;">Risk factors</td> 
+                        <td>Smoking</td>
+                        <td>Non-smoker</td>
+                        <td>Smoker＜10 cigarettes/day</td>
+                        <td>Smoker≥10 cigarettes/day</td>
+                    </tr>
+                    <tr>
+                        <td>Diabetes</td> 
+                        <td>Normoglycemic / no diagnosis of diabetes</td> 
+                        <td>HbAlc＜7.0% in patients with diabetes</td>
+                        <td>HbAlc≥7.0% in patients with diabetes</td>
+                    </tr>
+                    <tr>
+                        <td class="row-column">Risk of systemic inpact of Periodontitis</td> 
+                        <td>Inflammatory burden</td> 
+                        <td>High sensitivity CRP (hsCRP)</td>
+                        <td>＜1 mg/L</td>
+                        <td>1 to 3 mg/L</td>
+                        <td>＞3 mg/L</td>
+                    </tr>
+                    <tr>
+                        <td class="row-column">Biomarkers</td> 
+                        <td>Indicators of CAL/bone loss</td> 
+                        <td>Saliva, gingival crevicular fluid, serum</td>
+                        <td>?</td>
+                        <td>?</td>
+                        <td>?</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="grading-table-cover">
+            <h2 style="color: #c1c1c1; margin-top: 40px;">Stage-based classification</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="2">Periodontitis stage</th>
+                        <th>Stage Ⅰ</th>
+                        <th>Stage Ⅱ</th>
+                        <th>Stage Ⅲ</th>
+                        <th>Stage Ⅳ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="3" class="row-column">Severity</td>
+                        <td>Interdental CAL at site of greatest loss</td>
+                        <td>1 to 2 mm</td>
+                        <td>3 to 4 mm</td>
+                        <td>≥5 mm</td>
+                        <td>≥5 mm</td>
+                    </tr>
+                    <tr>
+                        <td>Radiographic bone loss</td>
+                        <td>Coronal thid (＜15%)</td>
+                        <td>Coronal thid (＜15% to 33%)</td>
+                        <td>Extending to middle or apical third of the root</td>
+                        <td>Extending to middle or apocal rhied of the root</td>
+                    </tr>
+                    <tr>
+                        <td>Tooth loss</td>
+                        <td colspan="2">No tooth loss due to periodontitis</td>
+                        <td>Tooth loss due to periodontitis of ≤4 teeth</td>
+                        <td>Tooth loss due periodontitis of ≥5 teeth</td>
+                    </tr>
+                    <tr>
+                        <td class="row-column">Complexity</td>
+                        <td>Local</td>
+                        <td>Maximum probing depth ≤4 mm Mostly horizontal bone loss</td>
+                        <td>Maximum probing depth ≤5 mm Mostly horizontal bone loss</td>
+                        <td>In addition to stage Ⅱ Complexity:<br><br>
+                            Probing depth ≥6 mm<br><br>
+                            Vertical bone loss ≥3 mm<br><br>
+                            Furvation involvement Class Ⅱ or Ⅲ<br><br>
+                            Moderate ridge defect</td>
+                        <td>In addition to stage Ⅲ complexity:<br><br>
+                            Need for complex rehabilitation due to:<br><br>
+                            Masticatory dysfunction Secondary occlusal trauma (tooth mobility degree ≥2)
+                            Severe ridge defect Bite collapse, drifting, flaring Less than 20 remaining teeth(10 opposing pairs)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="row-column">Extent and distribution</td>
+                        <td>Add to stage as descriptor</td>
+                        <td colspan="4">For each stage, describe extent as localized (＜30% of teeth involved), generalized, or molar/incisor pattern</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    
+        <!-- ================================================================================================================================== -->
         <footer>            
         </footer>
     </body>

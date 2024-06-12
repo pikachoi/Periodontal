@@ -1,0 +1,871 @@
+{% extends 'Diagnosis_base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="back-container">
+    <!-- <div class="back-container-left">
+        <div class="cover-box" style="width: 210px; height: 1390px;">
+        <div class="cover-title1">
+            <div class="cover-title2"></div>
+            <div class="cover-title3">OUPUT FORM</div>
+            <div class="cover-title3" style="width: 65px;">X-RAY</div>
+            <div class="cover-title2"></div>
+        </div>
+        asdasdasdasd
+        </div>
+    </div> -->
+
+<!-- 중앙 메인 폼 ====================================================================================================================== -->
+    <div class="div-v">
+        <!------------------------- 확대축소 팁 ------------------------->
+        <div class="standard">
+            <div class="div-v tips" style="align-items: start;">
+                <div class="div-h">
+                    <div class="tips-title">Page Zoom</div>
+                </div>
+                <div class="div-h">
+                    <div class="tips1">Zoom in</div>
+                    <div class="tips2">Ctrl + Wheel up</div>
+                </div>
+                <div class="div-h">
+                    <div class="tips1">Zoom out</div>
+                    <div class="tips2">Ctrl + Wheel doun</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cover-box">
+            <div class="cover-title1">
+                <div class="cover-title2"></div>
+                <div class="cover-title3">MAIN FORM</div>
+                <div class="cover-title3" style="width: 65px;">X-RAY</div>
+                <div class="cover-title2"></div>
+            </div>
+            
+            <!-- 뱌경 css 요소들 -->
+            <div class="css-base" style="top: 320px;"><div class="css-light"></div></div>
+            <div class="css-base" style="top: 620px;"><div class="css-light"></div></div>
+
+            <div class="css-base css-circle" style="top: 500px;"></div>
+
+            <div class="css-base css-line" style="top: 60px;"></div>
+            <div class="css-base css-line" style="top: 460px;"></div>
+
+            <div class="css-base css-dot" style="top: 380px;">
+                <div class="css-dot2"></div><div class="css-dot2"></div><div class="css-dot2"></div>
+                <div class="css-dot2"></div><div class="css-dot2"></div>
+            </div>
+
+            <!-- 인풋박스 -->
+            <div class="div-h main-top-container">
+                <div id="preview-container"> Preview</div>
+                <form class="div-v" style="color: #ddffff; justify-content: end; height: 174.07px; border-right: solid 1px rgb(45, 72, 88);" enctype="multipart/form-data">
+                    <!-- Age in Years -->
+                    {% csrf_token %}
+                    <div class="div-h base-input base-column" style="width: 186px; border: none; border-top: solid 1px rgb(45, 72, 88);">
+                        Input Form
+                    </div>
+                    <div class="input-box">
+                        <input type="file" id="imgfile" accept="image/*" required>
+                        <label for="imgfile">File</label> 
+                        <input class="new-input" value="" placeholder="Click 'File'" required>
+                    </div>
+                    <div class="input-box">
+                        <div class="age-label">Age</div> 
+                        <input class="new-input" value="" placeholder="Click here" type="number" id="ageInput" min="1" step="1" required>
+                    </div>
+                    <div class="input-box" style="padding: 3px; width: 200px;">
+                        <button class="upload-btn" type="button" onclick="uploadImage()">Upload</button>
+                    </div>
+                </form>
+                <!-- 등급 박스 변화 설명 -->  
+                <div class="div-v" style="width: 189px; justify-content: end; height: 174.07px; border-right: solid 1px rgb(45, 72, 88);">    
+                    <div class="css-line" style="width: 100%; height: 24px;"></div>
+                    <div class="bar-chart1">
+                        <div class="bar-chart2" style="height: 42px;">1<br>%</div>
+                        <div class="bar-chart2" style="height: 47px;">3<br>%</div>
+                        <div class="bar-chart2" style="height: 52px;">5<br>%</div>
+                        <div class="bar-chart2" style="height: 57px;">7<br>%</div>
+                        <div class="bar-chart2" style="height: 62px;">9<br>%</div>
+                        <div style=" font-size: 12px; padding-right: 4px; border-top: solid 0px; color: #c1c1c1; position: absolute; left: -1px; top: -20px;">Height</div>
+                    </div>
+                    <div class="div-h" style="height: 32px; color: #c1c1c1; font-size: 14px; font-size: 12px;">Ratio</div>
+                </div>  
+                <!-- 등급 색 설명 -->
+                <div class="div-v" style="justify-content: end; height: 174.07px;">
+                    <div class="input-box">
+                        <div class="div-h base-input base-column" style="width: 48px;">Grade</div>
+                        <div class="div-h base-input base-column" style="width: 46px;">Color</div>
+                        <div class="div-h base-input base-column" style="width: 89px;">Shade Darkens</div>
+                        <div class="div-h base-input base-column" style="width: 48px; border-right: none;">Legend</div>
+                    </div>
+                    <div class="input-box">
+                        <div class="div-h base-input" style="width: 48px;">A</div>
+                        <div class="div-h base-input" style="width: 46px;">
+                            <div style="width: 10px; height: 10px; background: rgb(67, 235, 229);"></div>
+                        </div>
+                        <div class="div-h base-input" style="width: 89px;">
+                            <div class="gradient-A"></div>
+                        </div>
+                        <div class="div-h base-input" style="width: 48px; border: none;">
+                            <div class="div-h grade-lagende">?</div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="div-h base-input" style="width: 48px;">B</div>
+                        <div class="div-h base-input" style="width: 46px;">
+                            <div style="width: 10px; height: 10px; background: rgb(132, 92, 243);"></div>
+
+                        </div>
+                        <div class="div-h base-input" style="width: 89px;">
+                            <div class="gradient-B"></div>
+                        </div>
+                        <div class="div-h base-input" style="width: 48px; border: none;">
+                            <div class="div-h grade-lagende">?</div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <div class="div-h base-input" style="width: 48px;">C</div>
+                        <div class="div-h base-input" style="width: 46px;">
+                            <div style="width: 10px; height: 10px; background: rgb(217, 63, 231);"></div>
+                        </div>
+                        <div class="div-h base-input" style="width: 89px;">
+                            <div class="gradient-C"></div>
+                        </div>
+                        <div class="div-h base-input" style="width: 48px; border: none;">
+                            <div class="div-h grade-lagende">?</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-container">
+                <div id="top-infobox-container"></div> <!-- canvas 컨테이너에서 복사한 결과 표시 레이어 -->
+                <div class="result-draw-layer2" id="mask-image-container"></div>
+                    <div id="result-draw-layer"><!-- 서버에서 받은 좌표로 css요소를 그리는 레이어 -->
+                        <canvas id="canvas-layer" width="1024px" height="512px"></canvas> <!-- 이미지만 들어가는 레이어 -->
+                    </div>
+                    <div id="loader-box"></div>
+                <div id="bottom-infobox-container"></div>
+            </div>
+            <!---------------- matin 하단 ---------------->
+            <div class="div-h" style="width: 100%; height: 200px; border-top: solid 1px rgb(45, 72, 88); color: #c1c1c1;">
+               
+                    <table style="width: 700px; height: 10px;">
+                        <tr>
+                            <th onclick="showOptions('smoking')">Smoking</th>
+                            <th onclick="showOptions('diabetes')">Diabetes</th>
+                        </tr>
+                        <tr>
+                            <td id="value-smoking">Click to select</td>
+                            <td id="value-diabetes">Click to select</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div class="div-h">
+                                    <select style="margin-left: 90px; margin-right: 130px; display: block; border: none; background: none; width: 120px; color: #dcdcdc;" id="select-smoking" onchange="updateValue('smoking', this.value)">
+                                        <option value="Non-smoker">Non-smoker</option>
+                                        <option value="Smoker＜10 cigarettes/day">Smoker＜10 cigarettes/day</option>
+                                        <option value="Smoker≥10 cigarettes/day">Smoker≥10 cigarettes/day</option>
+                                    </select>
+                                    <select style="margin-left: 0px; display: block; border: none; background: none; width: 290px; color: #dcdcdc;" id="select-diabetes" onchange="updateValue('diabetes', this.value)">
+                                        <option value="Normoglycemic / no diagnosis of diabetes">Normoglycemic / no diagnosis of diabetes</option>
+                                        <option value="HbAlc＜7.0% in patients with diabetes">HbAlc＜7.0% in patients with diabetes</option>
+                                        <option value="HbAlc≥7.0% in patients with diabetes">HbAlc≥7.0% in patients with diabetes</option>
+                                    </selct>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+            </div>
+        </div>
+    </div>
+<!-- 우측 서브 폼 ======================================================================================================================= -->
+    <div class="back-container-right">
+        <div class="cover-box" style="width: 200px; height: 1097px; justify-content: end;">
+            <div class="cover-title1">
+                <div class="cover-title2"></div>
+                <div class="cover-title3" style="width: 60%;">SUB FORM</div>
+                <div class="cover-title3" style="width: 30%;">X-RAY</div>
+                <div class="cover-title2"></div>
+            </div>
+            <!----------------------------- 온/오프 버튼 ----------------------------->
+            <div class="div-v" style="width: 100%; border-top: solid 1px rgb(45, 72, 88);">
+                <div class="menu-btn">menu_1</div>
+                <div class="menu-btn">menu_2</div>
+                <div class="menu-btn">menu_3</div>
+                <div class="menu-btn">menu_4</div>
+                <div class="menu-btn" style="margin-bottom: 5px;">menu_5</div>
+            </div>
+            <!----------------------------- 온/오프 버튼 ----------------------------->
+            <div class="div-v" style="width: 100%; height: 90px; border-top: solid 1px rgb(45, 72, 88);">
+                <div class="div-h" style="width: 97%;">
+                    <div class="on-off-btn" id="toggle-mask">Mask</div>
+                    <div class="on-off-btn" id="toggle-mask">PBL</div>
+                    <div class="on-off-btn" id="toggle-mask">CEJ</div>
+                </div>
+                <div class="div-h" style="width: 97%;">
+                    <div class="on-off-btn" id="toggle-mask">Axis</div>
+                    <div class="on-off-btn" id="toggle-mask">Teeth</div>
+                    <div class="on-off-btn" id="toggle-mask">All</div>
+                </div>
+            </div>
+            <!----------------------------- 골소실이 가장 심한 크롭 이미지 ----------------------------->
+            <div class="cropped-image-form" id="cropped-image-container">
+                <img id="cropped-image" src="" alt="Cropped Image" style="max-width: 100%; height: auto; display: none;">
+            </div>
+            <!----------------------------- 결과 요약 ----------------------------->
+            <div class="summary-form" id="summary-container"></div>
+            <!----------------------------- 등급 비율 파이차트 ----------------------------->
+            <div class="div-h" style="position: relative; width: 100%; height: 260px;">
+                <canvas class="pieChart" id="gradeChart"></canvas>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function showOptions(column) {
+      const select = document.getElementById(`select-${column}`);
+      if (select.style.display === 'none') {
+        select.style.display = 'block';
+      } else {
+        select.style.display = 'none';
+      }
+    }
+    
+    function updateValue(column, value) {
+      document.getElementById(`value-${column}`).innerText = value;
+      document.getElementById(`select-${column}`).style.display = 'none';
+    }
+    </script>
+
+<!---------------------------------선택한 인풋 파일명 표시--------------------------------->
+<script>
+    // 선택한 인풋 파일명 표시
+    window.onload = function() {
+        var fileInput = document.getElementById('imgfile');
+        var fileNameField = document.querySelector('.new-input');
+
+        fileInput.addEventListener('change', function() {
+            var fileName = this.files[0].name;
+            fileNameField.value = fileName; // 파일명을 입력 필드에 표시
+        });
+    };
+</script>
+<!------------------------------- 결과 요약 ------------------------------->
+<script>
+    var dentalData = {
+        maxLoss: 'none',
+        minLoss: 'none',
+        totalLosses: 'none',
+        lossCount: 'none',
+        gradeCounts: { A: 'none', B: 'none', C: 'none' },
+        age: 'none',
+        averageLoss: 'none',
+        updateMetrics: function(item) {
+            let ratio = parseFloat(item.ratio);
+            if (this.maxLoss === 'none' || this.maxLoss < ratio) {
+                this.maxLoss = ratio;
+            }
+            if (this.minLoss === 'none' || this.minLoss > ratio) {
+                this.minLoss = ratio;
+            }
+            this.totalLosses = this.totalLosses === 'none' ? 0 : this.totalLosses;
+            this.totalLosses += ratio;
+            this.lossCount = this.lossCount === 'none' ? 0 : this.lossCount;
+            this.lossCount++;
+
+            // Update grade counts
+            if (this.gradeCounts[item.grade] === 'none') {
+                this.gradeCounts[item.grade] = 0;
+            }
+            this.gradeCounts[item.grade]++;
+
+            this.finalizeData();
+        },
+        setAge: function(age) {
+            this.age = age;
+            this.displaySummary();
+        },
+        finalizeData: function() {
+            if (this.lossCount !== 'none') {
+                this.averageLoss = this.totalLosses / this.lossCount;
+                this.displaySummary();
+            }
+        },
+        displaySummary: function() {
+            const container = document.getElementById('summary-container');
+            if (!container) {
+                console.error("Summary container not found");
+                return;
+            }
+            container.innerHTML = `
+                <div class="div-h">
+                    <div class="index-column">Patient Age</div>
+                    <div class="data-entry">${this.age}</div>
+                </div>
+                <div class="div-h">
+                    <div class="index-column">Maximum Loss</div>
+                    <div class="data-entry">${this.maxLoss !== 'none' ? this.maxLoss.toFixed(2) + "%" : this.maxLoss}</div>
+                </div>
+                <div class="div-h">
+                    <div class="index-column">Minimum Loss</div>
+                    <div class="data-entry">${this.minLoss !== 'none' ? this.minLoss.toFixed(2) + "%" : this.minLoss}</div>
+                </div>
+                <div class="div-h">
+                    <div class="index-column">Average Loss</div>
+                    <div class="data-entry">${this.averageLoss !== 'none' ? this.averageLoss.toFixed(2) + "%" : this.averageLoss}</div>
+                </div>
+                <div class="div-h">
+                    <div class="index-column">Total Teeth</div>
+                    <div class="data-entry">${this.lossCount !== 'none' ? this.lossCount : this.lossCount}</div>
+                </div>
+                <div class="div-h">
+                    <div class="index-column">Grade A Coun</div>
+                    <div class="data-entry">${this.gradeCounts.A !== 'none' ? this.gradeCounts.A : this.gradeCounts.A}</div>
+                </div>
+                <div class="div-h">
+                    <div class="index-column">Grade B Coun</div>
+                    <div class="data-entry">${this.gradeCounts.B !== 'none' ? this.gradeCounts.B : this.gradeCounts.B}</div>
+                </div>
+                <div class="div-h">
+                    <div class="index-column">Grade C Coun</div>
+                    <div class="data-entry">${this.gradeCounts.C !== 'none' ? this.gradeCounts.C : this.gradeCounts.C}</div>
+                </div>
+                `;
+            this.drawPieChart();
+        },
+        drawPieChart: function() {
+            const ctx = document.getElementById('gradeChart').getContext('2d');
+            const data = {
+                labels: ['A', 'B', 'C'],
+                datasets: [{
+                    label: 'Grade Counts',
+                    data: [
+                        this.gradeCounts.A !== 'none' ? this.gradeCounts.A : 0,
+                        this.gradeCounts.B !== 'none' ? this.gradeCounts.B : 0,
+                        this.gradeCounts.C !== 'none' ? this.gradeCounts.C : 0
+                    ],
+                    backgroundColor: ['rgb(67, 235, 229)', ' rgb(132, 92, 243)', 'rgb(217, 63, 231)'],
+                    hoverOffset: 4,
+                    borderWidth: 0 // 파이 차트 섹션 테두리 선 제거
+                }]
+            };
+            const options = {
+                responsive: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            usePointStyle: true,
+                            pointStyle: 'rect',
+                            color: 'white',
+                            font: {
+                                size: 16,
+                                family: 'Arial',
+                                style: 'normal',
+                                weight: 'bold',
+                            },
+                            padding: 22 // 라벨 사이 간격
+                        }
+                    },
+                    // 차트 위에 결과 표시
+                    datalabels: {
+                        color: 'black',
+                        font: {
+                            size: 16,
+                            weight: 'bold'
+                        },
+                        formatter: (value, ctx) => {
+                            // 0이 아닌 데이터만 표시
+                            if (value > 0) {
+                                const label = ctx.chart.data.labels[ctx.dataIndex];
+                                return `${value}`;
+                            } else {
+                                return '';
+                            }
+                        }
+                    }
+                }
+            };
+            if (this.chartInstance) {
+                this.chartInstance.data = data;
+                this.chartInstance.options = options;
+                this.chartInstance.update();
+            } else {
+                this.chartInstance = new Chart(ctx, {
+                    type: 'pie',
+                    data: data,
+                    options: options,
+                    plugins: [ChartDataLabels] // datalabels 플러그인을 추가
+                });
+            }
+        }
+
+    };
+    // 페이지 로드 시 요약 정보를 초기화합니다.
+    document.addEventListener('DOMContentLoaded', function() {
+        dentalData.displaySummary();
+    });
+</script>
+
+<!-----------------------------------서버에서 가져온 위치 좌표를 점으로 표시----------------------------------->
+<script>
+    function addLocationPoint(x, y, m, typ) {
+        const container = document.getElementById('result-draw-layer');
+        const point = document.createElement('div');
+        point.style.position = 'absolute';
+        // point.style.top = `${y-2.5}px`;
+        // point.style.left = `${x-2}px`; 
+
+        point.style.top = `${m[1] - 2.5}px`; // 중간점의 y 좌표를 사용
+        point.style.left = `${m[0] - 2}px`; // 중간점의 x 좌표를 사용
+
+        point.style.width = '5px';
+        point.style.height = '5px';
+        point.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
+        point.style.borderRadius = '50%'; // 원형 점
+        point.style.zIndex = '10'; // 캔버스 위에 보이도록
+        
+        // 데이터 속성 추가
+        if (typ === 'up') {
+            point.setAttribute('data-cej-type', 'up');
+            // point.style.top = `${y+15}px`;
+        } else if (typ === 'low') {
+            point.setAttribute('data-cej-type', 'low');
+            // point.style.top = `${y-15}px`;
+        }
+        
+        container.appendChild(point);
+    }
+
+    // -----------------------------------서버에서 받은 등급과 비율을 각각의 infoBox안에 표시-----------------------------------
+    function addGradeRatio(x, y, grade, ratio, cejType) {
+        const container = document.getElementById('result-draw-layer');
+        const infoBox = document.createElement('div');
+        infoBox.classList.add('info-box');
+        
+        let boxY;
+
+        if (cejType === 'up') {
+            boxY = -1; // 상단 박스 y 좌표
+        } else {
+            boxY = container.offsetHeight - 20; // 하단 박스 y 좌표
+        }
+
+        infoBox.style.left = `${x}px`;
+        infoBox.style.top = `${boxY}px`;
+
+        // 등급과 비율 정보를 데이터 속성으로 추가
+        infoBox.setAttribute('data-grade', grade);
+        infoBox.setAttribute('data-ratio', ratio);
+
+        container.appendChild(infoBox);
+        infoBox.innerHTML = `<div class="div-v"">
+                                <strong style="font-size: 18px;">${grade}</strong>
+                                <div class="div-h" style="align-items: end;">
+                                    <strong style="font-size: 15px;">${ratio}</strong>
+                                    <strong style="font-size: 12px;">%</strong>
+                                </div>
+                            </div>`;
+    }
+
+    // -----------------------------------result-draw-layer 에 그려진 infoBox에 인덱스를 부여함 좌->우-----------------------------------
+    function orderInfoBoxes() {
+        const infoBoxes = document.querySelectorAll('.info-box');
+        const topInfoBoxes = Array.from(infoBoxes).filter(box => {
+            // 상단에 위치한 infoBox만
+            return box.offsetTop < 0;
+        });
+        const bottomInfoBoxes = Array.from(infoBoxes).filter(box => {
+            // 상단에 위치한 infoBox만
+            return box.offsetTop > 0;
+        });
+
+        // x 좌표를 기준으로 정렬
+        topInfoBoxes.sort((a, b) => a.offsetLeft - b.offsetLeft);
+        bottomInfoBoxes.sort((a, b) => a.offsetLeft - b.offsetLeft);
+    }
+
+    // -----------------------------------비율에 따른 색상 스타일 적용-----------------------------------
+    function DetermineColorBasedOnRatio(box, grade, ratio, maxRatio) {
+        let startColor, endColor;
+        let divide = 0;
+        
+        if (grade === 'A') {
+            startColor = { r: 243, g: 255, b: 255 };
+            endColor = { r: 14, g: 219, b: 212 };
+            divide = 40
+        } else if (grade === 'B') {
+            startColor = { r: 220, g: 207, b: 255 };
+            endColor = { r: 78, g: 23, b: 229 };
+            divide = 40
+        } else if (grade === 'C') {
+            startColor = { r: 251, g: 207, b: 255 };
+            endColor = { r: 193, g: 10, b: 209 };
+            divide = 40
+        } else {
+            // 기본값이나 예외 처리
+            box.style.backgroundColor = 'rgb(0, 0, 0)'; // 흰색
+            return;
+        }
+
+        // 비율에 따른 색상 계산
+        let ratioColor = {
+            r: calculateColor(startColor.r, endColor.r, ratio, divide),
+            g: calculateColor(startColor.g, endColor.g, ratio, divide),
+            b: calculateColor(startColor.b, endColor.b, ratio, divide)
+        };
+
+        box.style.backgroundColor = `rgb(${ratioColor.r}, ${ratioColor.g}, ${ratioColor.b})`;
+        box.style.height = `${(ratio * 2) + 35}px`;
+
+            // 최대 비율을 가진 박스에 특별한 스타일 적용
+            if (ratio === maxRatio) {
+                box.classList.add('max-ratio-box');
+            } else {
+                box.classList.remove('max-ratio-box');
+            }
+    }
+
+    function calculateColor(start, end, ratio, divide) {
+        // 비율에 따른 색상 값 계산 (선형 보간) 각 등급이 20% 차이니 20으로 나눔
+        return Math.round(start + (end - start) * (ratio / divide));
+    }
+
+    // -------------------- infoBox의 내용만 순서대로 info-box2에 복사하고 top-infobox-container에 넣음 --------------------
+let maxRatio = 0;  // 전역 변수로 최대 비율 저장
+    function cloneAndArrangeBoxes() {
+        const topInfoBoxContainer = document.querySelector('div[id="top-infobox-container"]');
+        const bottomInfoBoxContainer = document.querySelector('div[id="bottom-infobox-container"]');
+
+        const infoBoxes = document.querySelectorAll('.info-box');
+
+        // 상단 infoBox의 배열을 만들고 x 좌표에 따라 정렬
+        const topInfoBoxes = Array.from(infoBoxes).filter(box => box.offsetTop < 0);
+        topInfoBoxes.sort((a, b) => a.offsetLeft - b.offsetLeft);
+        
+        const bottomInfoBoxes = Array.from(infoBoxes).filter(box => box.offsetTop > 0);
+        bottomInfoBoxes.sort((a, b) => a.offsetLeft - b.offsetLeft);
+
+        maxRatio = 0; // 최대 비율 초기화
+        // 모든 박스를 검사하여 최대 비율 찾기
+        infoBoxes.forEach(box => {
+            const ratio = parseFloat(box.getAttribute('data-ratio'));
+            if (ratio > maxRatio) {
+                maxRatio = ratio;
+            }
+        });
+
+        topInfoBoxes.forEach((box, index) => {
+            // 데이터 속성에서 등급과 비율 정보 읽기
+            const grade = box.getAttribute('data-grade');
+            const ratio = parseFloat(box.getAttribute('data-ratio'));
+
+            const topNewDiv = document.createElement('div');
+            topNewDiv.innerHTML = box.innerHTML;
+            topNewDiv.className = 'info-box2';
+            topInfoBoxContainer.appendChild(topNewDiv);
+
+            DetermineColorBasedOnRatio(topNewDiv, grade, ratio, maxRatio);
+        });
+
+        bottomInfoBoxes.forEach((box, index) => {
+            // 데이터 속성에서 등급과 비율 정보 읽기
+            const grade = box.getAttribute('data-grade');
+            const ratio = parseFloat(box.getAttribute('data-ratio'));
+            
+            const bottomNewDiv = document.createElement('div');
+            bottomNewDiv.innerHTML = box.innerHTML;
+            bottomNewDiv.className = 'info-box3';
+            bottomInfoBoxContainer.appendChild(bottomNewDiv);
+
+            DetermineColorBasedOnRatio(bottomNewDiv, grade, ratio, maxRatio);
+        });
+    }
+
+    // --------------------------------포인트와 박스2, 3를 선으로 매칭함. 여기선 x좌표만을 기준으로 가장 가까운 포인트와 박스를 매칭해 이어줌 --------------------------------
+    function drawLineFromPointToBox() {
+        const canvas = document.getElementById('canvas-layer');
+        const ctx = canvas.getContext('2d');
+
+        const topPoints = Array.from(document.querySelectorAll('div[data-cej-type="up"]')).sort((a, b) => parseFloat(a.style.left) - parseFloat(b.style.left));
+        const bottomPoints = Array.from(document.querySelectorAll('div[data-cej-type="low"]')).sort((a, b) => parseFloat(a.style.left) - parseFloat(b.style.left));
+
+        const topInfoBoxes = Array.from(document.querySelectorAll('.info-box2')).sort((a, b) => {
+            const rectA = a.getBoundingClientRect();
+            const rectB = b.getBoundingClientRect();
+            return rectA.left - rectB.left;
+        });
+
+        const bottomInfoBoxes = Array.from(document.querySelectorAll('.info-box3')).sort((a, b) => {
+            const rectA = a.getBoundingClientRect();
+            const rectB = b.getBoundingClientRect();
+            return rectA.left - rectB.left;
+        });
+
+        function drawDoubleLine(fromX, fromY, toX, toY, outerColor, innerColor, outerWidth, innerWidth) {
+            // 외부 선 그리기 (검은색)
+            ctx.beginPath();
+            ctx.moveTo(fromX, fromY);
+            ctx.lineTo(toX, toY);
+            ctx.strokeStyle = outerColor;
+            ctx.lineWidth = outerWidth;
+            ctx.stroke();
+
+            // 내부 선 그리기 (흰색)
+            ctx.beginPath();
+            ctx.moveTo(fromX, fromY);
+            ctx.lineTo(toX, toY);
+            ctx.strokeStyle = innerColor;
+            ctx.lineWidth = innerWidth;
+            ctx.stroke();
+        }
+
+        topPoints.forEach((point, index) => {
+            const pointX = parseFloat(point.style.left) + 2.5;
+            const pointY = parseFloat(point.style.top) + 2.5;
+
+            if (topInfoBoxes[index]) {
+                const box = topInfoBoxes[index];
+                const rect = box.getBoundingClientRect();
+                const canvasRect = canvas.getBoundingClientRect();
+                const boxCenterX = rect.left + rect.width / 2 - canvasRect.left;
+                // 아랫변 중간점으로 Y 좌표 수정
+                const boxCenterY = rect.top + rect.height - canvasRect.top;
+
+                // 이중선 그리기 (검은색 외곽선 + 흰색 내부선)
+                drawDoubleLine(pointX, pointY, boxCenterX, boxCenterY, 'black', 'white', 4, 2);
+            }
+        });
+
+        bottomPoints.forEach((point, index) => {
+            const pointX = parseFloat(point.style.left) + 2.5;
+            const pointY = parseFloat(point.style.top) + 2.5;
+
+            if (bottomInfoBoxes[index]) {
+                const box = bottomInfoBoxes[index];
+                const rect = box.getBoundingClientRect();
+                const canvasRect = canvas.getBoundingClientRect();
+                const boxCenterX = rect.left + rect.width / 2 - canvasRect.left;
+
+                // 윗변 중간점으로 Y 좌표 수정
+                const boxCenterY = rect.top - canvasRect.top;
+
+                // 이중선 그리기 (검은색 외곽선 + 흰색 내부선)
+                drawDoubleLine(pointX, pointY, boxCenterX, boxCenterY, 'black', 'white', 4, 2);
+            }
+        });
+    }
+
+    // ------------------------------ 선택 이미지 미리보기 로직 ------------------------------
+    document.getElementById('imgfile').addEventListener('change', function(event) {
+        var file = event.target.files[0];
+        if (file && file.type.match('image.*')) { // 파일이 이미지인지 확인
+            var reader = new FileReader();
+            
+            reader.onload = function(e) {
+                var previewContainer = document.getElementById('preview-container');
+                // 미리보기 이미지가 이미 있다면 제거
+                previewContainer.innerHTML = ''; 
+                
+                // 새 이미지 미리보기 생성
+                var img = document.createElement('img');
+                img.src = e.target.result;
+                img.style.width = '100%'; // 미리보기 크기 조절, 필요에 따라 조정
+                img.style.height = 'auto';
+                
+                previewContainer.appendChild(img); // 미리보기 컨테이너에 이미지 추가
+            };
+            
+            reader.readAsDataURL(file); // 파일 읽기
+        }
+    });
+
+    // ------------------------------ 로딩 애니매이션 생성 ------------------------------
+    function createLoader() {
+        const container = document.getElementById('loader-box');
+        if (!container) {
+            console.error('Container element not found');
+            return;
+        }
+        const loader = document.createElement('div');
+        loader.classList.add('loader');
+
+        const text = document.createElement('div');
+        text.classList.add('text');
+        text.textContent = "Loading...";
+        loader.appendChild(text);
+
+        // Load inner circles with unique animations
+        for (let i = 1; i <= 3; i++) {
+            const loadInner = document.createElement('div');
+            loadInner.classList.add('load-inner', `load-${i === 1 ? 'one' : i === 2 ? 'two' : 'three'}`);
+            loader.appendChild(loadInner);
+        }
+
+        container.appendChild(loader);
+    }
+
+// ------------------------------ 크롭된 이미지를 표시하는 함수 ------------------------------
+    function displayCroppedImage(base64Image) {
+        const imgElement = document.getElementById('cropped-image');
+        imgElement.src = 'data:image/jpeg;base64,' + base64Image;
+        imgElement.style.display = 'block'; // 이미지 표시
+    }
+
+// ------------------------------ 마스크 이미지를 표시하는 함수 ------------------------------
+    function displayMaskImage(base64Image) {
+        const imgContainer = document.getElementById('mask-image-container');
+        imgContainer.innerHTML = ''; // 기존 이미지 제거
+        const imgElement = document.createElement('img');
+        imgElement.src = 'data:image/png;base64,' + base64Image;
+        imgElement.style.width = '1024px';  // 이미지 폭 설정
+        imgElement.style.height = '512px';  // 이미지 높이 설정
+        imgContainer.appendChild(imgElement);
+    }
+
+// ---------------------------------- 업로드 시 작동 함수 ----------------------------------
+    function uploadImage() {
+        var ageInput = document.getElementById('ageInput').value; // 나이 입력값 가져오기
+        var file_input = document.getElementById('imgfile');
+
+        // 나이와 이미지 모두 입력되었는지 확인
+        if (!file_input.files[0] || ageInput === "" || parseInt(ageInput) < 1) {
+            alert("Please enter a valid image and age.");
+            return; // 함수 실행 중지
+        }
+        dentalData.setAge(parseInt(ageInput)); // 나이 데이터를 dentalData 객체에 설정
+
+        var form_data = new FormData();
+        var uploadButton = document.querySelector("button[onclick='uploadImage()']"); // 업로드 버튼 선택
+        uploadButton.disabled = true; // 업로드 시작 시 버튼 비활성화
+
+        var canvas = document.getElementById('canvas-layer');
+        var ctx = canvas.getContext('2d');
+
+        var topInfoBoxContainer = document.getElementById('top-infobox-container');
+        var bottomInfoBoxContainer = document.getElementById('bottom-infobox-container');
+        var resultDrawLayer = document.getElementById('result-draw-layer');
+        var loaderBox = document.getElementById('loader-box');
+        var maskImgContainer = document.getElementById('mask-image-container');
+        maskImgContainer.innerHTML = '';
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        topInfoBoxContainer.innerHTML = '';
+        bottomInfoBoxContainer.innerHTML = '';
+
+        // resultDrawLayer 내의 canvas를 제외한 모든 요소를 제거합니다.
+        Array.from(resultDrawLayer.childNodes).forEach(child => {
+            if (child.id !== 'canvas-layer') {
+                resultDrawLayer.removeChild(child);
+            }
+        });
+
+        // 로딩 애니매이션 호출
+        createLoader();
+        
+        form_data.append('imgfile', file_input.files[0]);
+        form_data.append('age', ageInput); // 나이 데이터를 FormData에 추가
+
+        fetch('{% url "diagnosis_single" %}', {
+            method: 'POST',
+            body: form_data,
+            headers: {
+                'X-CSRFToken': document.querySelector('input[name="csrfmiddlewaretoken"]').value
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+
+            // 서버로부터 받은 이미지(Base64 문자열)를 이미지 객체로 로드
+            var img = new Image();
+            img.src = 'data:image/jpeg;base64,' + data.graded_data[0].encoded_image;
+
+            img.onload = function() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+     
+                // 치아 정보(등급과 스코어) 표시 로직
+                data.graded_data.forEach(item => {
+                    let textX, textY, textM, typ;
+                    if (item.cej_type === 'up') {
+                        textX = item.start_coordinate[0];
+                        textY = item.start_coordinate[1];
+
+                        let endX = item.end_coordinate[0];
+                        let endY = item.end_coordinate[1];
+                        textM = [(textX + endX) / 2, (textY + endY) / 2]; // 중간점 계산
+                        typ = "up"
+                        
+                    } else {
+                        textX = item.end_coordinate[0];
+                        textY = item.end_coordinate[1];
+
+                        let startX = item.start_coordinate[0];
+                        let startY = item.start_coordinate[1];
+                        textM = [(textX + startX) / 2, (textY + startY) / 2]; // 중간점 계산
+                        typ = "low"
+                    }
+                    // // 각 치아 좌표 근처에 텍스트 그리기
+                    // ctx.font = "16px Arial";
+                    // ctx.fillStyle = "yellow";
+                    // ctx.fillText(`${item.grade}, ${item.ratio}`, textX, textY);
+                    
+                    // // 치아 좌표 시각화
+                    // ctx.fillStyle = "red"; 
+                    // ctx.beginPath(); 
+                    // ctx.arc(textX, textY, 5, 0, 2 * Math.PI);
+                    // ctx.fill();
+                    addLocationPoint(textX, textY, textM, typ);
+                    addGradeRatio(textX, textY, item.grade, item.ratio, item.cej_type);
+
+                    dentalData.updateMetrics(item); // 요약 데이터 업데이트
+                });
+
+                dentalData.finalizeData(); // ratio 편균 계산
+                dentalData.displaySummary(); // 요약 데이터 표시
+
+                orderInfoBoxes();
+                cloneAndArrangeBoxes();
+                drawLineFromPointToBox();
+                console.log('maxRatio:', maxRatio); // maxRatio 값 콘솔에 출력
+
+            };
+            
+            if (data.additional_data.mask_image) {
+                displayCroppedImage(data.additional_data.cropped_image); // 크롭 이미지 표시함수 호출
+            }
+            if (data.additional_data.mask_image) {
+                displayMaskImage(data.additional_data.mask_image);  // 마스크 이미지 표시함수 호출
+            }
+            uploadButton.disabled = false; // 서버 응답 후 버튼 다시 활성화
+            loaderBox.innerHTML = '';
+        })
+
+        .catch(error => {
+            loaderBox.innerHTML = '';
+            console.error('Error:', error);
+            alert('이미지를 처리하는 중 오류가 발생했습니다.');
+            location.reload(); // 현재 페이지 새로고침
+
+        });
+    }
+</script>
+
+<script>
+    // 마스크 이미지 토글
+    document.getElementById('toggle-mask').addEventListener('click', function() {
+    const maskContainer = document.getElementById('mask-image-container');
+    if (maskContainer.style.display === 'none') {
+        maskContainer.style.display = 'block';  // 이미지 표시
+    } else {
+        maskContainer.style.display = 'none';  // 이미지 숨기기
+    }
+});
+</script>
+{% endblock %}

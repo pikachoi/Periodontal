@@ -3,36 +3,21 @@
 {% block content %}
 <div class="accounts-box">
   <div class="account-navi">
-    <div>
-      <img class="logo" src="{% static 'img/ltlux-logo2.png' %}">
+    <div class="div-h">
+      <img style="margin-left: 10px; margin-right: 5px; width: 70px;" src="{% static 'img/LTLUX_logo_1.png' %}">
+      <h1 class="logo-p" style="margin-right: 10px; font-size: 22px; margin-top: 2px;">- P</h1>
+      <div class="sub-line" style="margin-right: 10px; height: 35px; "></div>
     </div>
-    <h3>Sign In</h3>
-    <ul class="wrapper">
-      <a  href="{% url 'login' %}">
-        <li class="icon signin">
-          <span style="display: flex;" class="tooltip">Sign<div style="color: rgb(255, 135, 15);">In</div></span>
-          <span><i class="fab fa-facebook-f"></i></span>
-        </li>
-      </a>
-      <a  href="{% url 'signup' %}">
-        <li class="icon signup">
-          <span style="display: flex;" class="tooltip">Sign<div style="color: rgb(255, 135, 15);">Up</div></span>
-          <span><i class="fab fa-twitter"></i></span>
-        </li>
-      </a>
-      <a  href="{% url 'id_search' %}">
-        <li class="icon findid">
-          <span style="display: flex;" class="tooltip">Find<div style="color: rgb(255, 135, 15);">ID</div></span>
-          <span><i class="fab fa-instagram"></i></span>
-        </li>
-      </a>
-      <a href="{% url 'password_search' %}">
-        <li class="icon findpw">
-          <span style="display: flex;" class="tooltip">Find<div style="color: rgb(255, 135, 15);">PW</div></span>
-          <span><i class="fab fa-instagram"></i></span>
-        </li>
-      </a>
-    </ul>
+    <h3>Find ID</h3>
+    <div class="account-navi-text" style="align-items: start; margin-left: 45px;">
+      <li><a  href="{% url 'login' %}">LogIn</a></li>
+      <li><a  href="{% url 'id_search' %}">FindID</a></li>
+
+    </div>
+    <div class="account-navi-text" style="align-items: start; margin-left: 10px;">
+      <li><a  href="{% url 'signup' %}">SignUp</a></li>
+      <li><a href="{% url 'password_search' %}">FindPW</a></li>
+    </div>
   </div>
 
   <div class="accounts-box2">

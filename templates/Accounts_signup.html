@@ -3,36 +3,20 @@
 {% block content %}
 <div class="accounts-box" style="width: 500px;">
     <div class="account-navi">
-        <div>
-            <img class="logo" src="{% static 'img/ltlux-logo2.png' %}">
-        </div>
-        <h3>Sign Up</h3>
-        <ul class="wrapper">
-            <a  href="{% url 'login' %}">
-            <li class="icon signin">
-                <span style="display: flex;" class="tooltip">Sign<div style="color: rgb(255, 135, 15);">In</div></span>
-                <span><i class="fab fa-facebook-f"></i></span>
-            </li>
-            </a>
-            <a  href="{% url 'signup' %}">
-            <li class="icon signup">
-                <span style="display: flex;" class="tooltip">Sign<div style="color: rgb(255, 135, 15);">Up</div></span>
-                <span><i class="fab fa-twitter"></i></span>
-            </li>
-            </a>
-            <a  href="{% url 'id_search' %}">
-            <li class="icon findid">
-                <span style="display: flex;" class="tooltip">Find<div style="color: rgb(255, 135, 15);">ID</div></span>
-                <span><i class="fab fa-instagram"></i></span>
-            </li>
-            </a>
-            <a href="{% url 'password_search' %}">
-            <li class="icon findpw">
-                <span style="display: flex;" class="tooltip">Find<div style="color: rgb(255, 135, 15);">PW</div></span>
-                <span><i class="fab fa-instagram"></i></span>
-            </li>
-            </a>
-        </ul>
+      <div class="div-h">
+        <img style="margin-left: 10px; margin-right: 5px; width: 70px;" src="{% static 'img/LTLUX_logo_1.png' %}">
+        <h1 class="logo-p" style="margin-right: 10px; font-size: 22px; margin-top: 2px;">- P</h1>
+        <div class="sub-line" style="margin-right: 10px; height: 35px; "></div>
+      </div>
+      <h3>Sign Up</h3>
+      <div class="account-navi-text" style="align-items: start; margin-left: 120px;">
+        <li><a  href="{% url 'login' %}">LogIn</a></li>
+        <li><a  href="{% url 'id_search' %}">FindID</a></li>
+      </div>
+      <div class="account-navi-text" style="align-items: start; margin-left: 10px;">
+        <li><a  href="{% url 'signup' %}">SignUp</a></li>
+        <li><a href="{% url 'password_search' %}">FindPW</a></li>
+      </div>
     </div>
     
     <div class="accounts-box2" style="width: 100%;">
@@ -42,54 +26,54 @@
                 <div style="margin: 0px 10px;">
                     <div class="input-box">
                         <input name="{{ form.username.html_name }}" type="text" required="">
-                        <label>아이디</label>
+                        <label>ID</label>
                     </div>
                     <div class="input-box">
                         <input name="{{ form.password1.html_name }}" type="password" required="">
-                        <label>비밀번호</label>
+                        <label>Password</label>
                     </div>
                     <div class="input-box">
                         <input name="{{ form.password2.html_name }}" type="password" required="">
-                        <label>비밀번호 재확인</label>
+                        <label>Confirm Password</label>
                     </div>
                     <div class="input-box">
                         <input name="{{ form.name.html_name }}" type="text" required="">
-                        <label>성명</label>
+                        <label>Name</label>
                     </div>
                     <div class="input-box">
                         <input name="{{ form.email.html_name }}" type="email" required="">
-                        <label>이메일</label>
+                        <label>Email</label>
                     </div>
                     <div class="input-box">
                         <input name="{{ form.phonenumber.html_name }}" type="tel" required="">
-                        <label>휴대폰</label>
+                        <label>Phone Number</label>
                     </div>
                 </div>
                 <div style="margin: 0px 10px;">
                     <div class="input-box">
                         <input name="{{ form.License_Number.html_name }}" type="text" required="">
-                        <label>의사면허번호</label>
+                        <label>License Number</label>
                     </div>
                     <div class="input-box">
                         <input name="{{ form.Affiliation.html_name }}" type="text" required="">
-                        <label>소속</label>
+                        <label>Affiliation</label>
                     </div>
                     <div class="input-box">
                         <input name="{{ form.Rank.html_name }}" type="text" required="">
-                        <label>직급/직위</label>
+                        <label>Title</label>
                     </div>
                     <div class="input-box">
                         <input name="{{ form.Subject.html_name }}" type="text" required="">
-                        <label>진료과목</label>
+                        <label>Medical Specialty</label>
                     </div>
-                    <select style="width: 194.4px; height: 39.2px; padding: 10px 0; margin-bottom: 30px; border: none; border-bottom: solid 1px;" name="{{ form.question.html_name }}">
+                    <select class="question" style="width: 194.4px; height: 39.2px;" name="{{ form.question.html_name }}">
                         {% for q in question %}
                             <option>{{ q }}</option>
                         {% endfor %}
                     </select>
                     <div class="input-box">
                         <input name="{{ form.hint.html_name }}" type="text" required="">
-                        <label>답변</label>
+                        <label>Answer</label>
                     </div>
                 </div>
             </div>
