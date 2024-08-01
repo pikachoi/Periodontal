@@ -14,8 +14,6 @@ def del_records_from_all_table():
                   'Diagnosis_crop',
                   'Diagnosis_imagepath',
                   'Diagnosis_patient',
-                  'ResultDetail_interpretation',
-                  'ResultDetail_tagging',
                   'auth_group',
                   'auth_group_permissions',
                   'auth_permission',

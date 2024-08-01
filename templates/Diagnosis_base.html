@@ -8,54 +8,47 @@
         <link rel="stylesheet" href="{% static 'css/header.css' %}">
         <link rel="stylesheet" href="{% static 'css/Diagnosis_base.css' %}">
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     </head>
     <body>
         <header>
-            <div class="div-h" style="width: 100%; height: 100%; align-items: end;">
-                <div class="div-h" style="width: 100%;"></div>
-                <div class="div-h" style="margin-bottom: 5px;">
-                    <img style="margin-right: 5px; width: 80px;" src="{% static 'img/LTLUX_logo_1.png' %}">
-                    <h1 class="logo-p">- P</h1>
-                    <div class="sub-line"></div>
+            <div class="header-cover1">
+                <div class="div-h" style="height: 100%;">
+                    <a class="div-h" href="{% url 'diagnosis_single' %}">
+                        <img class="logo-img" src="{% static 'img/ltlux.svg'%}">
+                        <div class="header-p">- P</div>
+                    </a>
                 </div>
-                <div class="div-h" style="align-items: end; height: 75px; font-size: 14px; color: white; position: relative;">
-                    <div class="url-btn">
-                        <a class="url-text" href="{% url 'diagnosis_single' %}">SINGLE</a>
+                <div class="header-cover2">
+                    <div class="samd-text">
+                        ■&emsp;AI SaMD for Diagnostic Assistance interpretation of Periodontitis .
                     </div>
-                    <div class="url-btn">
-                        <a class="url-text" href="{% url 'diagnosis_time_series' %}">TIME SERIES</a>
+                    <div class="div-h" style="height: 100%; ">
+                        <div class="url-btn">
+                            <a class="url-text" href="{% url 'diagnosis_single' %}">SINGLE</a>
+                        </div>
+                        <div class="url-btn">
+                            <a class="url-text"  href="{% url 'diagnosis_time_series' %}">TIME SERIES</a>
+                        </div>
+                        <div class="url-btn">
+                            <a class="url-text"  href="{% url 'result_list' %}">CLINIC FORM</a>
+                        </div>
+                        <div class="url-btn">
+                            <a class="url-text"  href="{% url 'chart' %}">CHART</a>
+                        </div>
+                        <div class="url-btn">
+                            <a class="url-text"  href="{% url 'logout' %}">LOGOUT</a>
+                        </div>
                     </div>
-                    <div class="url-btn">
-                        <a class="url-text" href="{% url 'clinic' %}">CLINIC FORM</a>
-                    </div>
-                    <div class="url-btn">
-                        <a class="url-text" href="{% url 'logout' %}">CHART</a>
-                    </div>
-                    <div class="url-btn" style="margin-right: 200px;">
-                        <a class="url-text" href="{% url 'logout' %}">LOGOUT</a>
-                    </div>
-                    <div class="div-h" style="color: #dcdcdc; font-size: 14px; position: absolute; left: 20px; top: 20px;">
-                        AI SaMD for Diagnostic Assistance interpretation of Periodontitis
-                        <!-- <div class="loader2" style="position: absolute; left: -50px; bottom: -8px; width: 1000px; margin-left: 50px; height: 1px; border-radius: 1px;">
-                            <div class="light"></div>
-                            <div class="black_overlay"></div>
-                        </div> -->
-                    </div>
-                </div>
-                <div class="div-h" style="align-items: end; height: 100%; width: 100%;">
                 </div>
             </div>
-            <div class="header-bottom-line"></div>
-
         </header>
         {% block content %} 
         {% endblock %}
-        <!-- ================================================================================================================================== -->
         <div class="grading-table-cover">
             <h2 style="color: #c1c1c1; margin-top: 30px;">Grade-based classification</h2>
-            <table>
+            <table style="width: 1030px;">
                 <thead>
                     <tr>
                         <th colspan="3">Periodontitis grade</th>
@@ -123,10 +116,9 @@
                 </tbody>
             </table>
         </div>
-
-        <div class="grading-table-cover">
-            <h2 style="color: #c1c1c1; margin-top: 40px;">Stage-based classification</h2>
-            <table>
+        <div class="stage-table-cover">
+            <h2 style="color: #c1c1c1; margin-top: 0px;">Stage-based classification</h2>
+            <table style="width: 1030px;">
                 <thead>
                     <tr>
                         <th colspan="2">Periodontitis stage</th>
@@ -182,8 +174,6 @@
                 </tbody>
             </table>
         </div>
-    
-        <!-- ================================================================================================================================== -->
         <footer>            
         </footer>
     </body>

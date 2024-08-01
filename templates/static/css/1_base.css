@@ -1,9 +1,5 @@
-/* body, html {
-  height: 95%;
-  margin: 0;
-} */
 html {
-  background-color: rgb(10, 15, 17);
+  background-color: rgb(21, 29, 35);
   padding: 0px;
   margin: 0px;
 }
@@ -52,8 +48,6 @@ footer {
 a {
   text-decoration: none;
   color: inherit; /* 링크 색상을 부모 요소로부터 상속받음 */
-  border-radius: 50%;
-  margin: 4px;
 }
 
 .body-container {
@@ -82,42 +76,4 @@ a {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-.card {
-  padding: 10px 100px;
-  margin: 20px;
-  border-radius: 20px;
-  background: #e0e0e0;
-  box-shadow: 15px 15px 30px #bebebe,
-             -15px -15px 30px #ffffff;
-}
-
-.form-custom {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: auto;
-  border-radius: 15px;
-  padding: 5px;
-  background-color: #f7f7f7;
-  box-shadow: -3px -3px 3px white, 3px 3px 5px rgba(209, 209, 209, 0.705);
-}
-
-.btn-1 {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: rgb(228, 228, 228);
-  box-shadow: -3px -3px 5px white, 3px 3px 5px rgba(182, 182, 182, 0.705);
-}
-
-.btn-1:hover {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: rgb(228, 228, 228);
-  box-shadow: inset 6px 6px 8px rgba(39, 39, 39, 0.075),
-  3px 3px 3px rgba(255, 255, 255, 0.781);
 }

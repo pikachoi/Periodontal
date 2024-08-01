@@ -3,7 +3,7 @@
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/Diagonosis_time_series.css' %}">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
 
 <div class="div-v">
     <div class="ts-main-form">
@@ -19,73 +19,660 @@
             <div class="ts-input-form-cover2">
                 <!-- 기준 이미지 -->
                 <div class="ts-input-form">
-                    <p>Reference Image</p>
-                    <div class="input-box" style="border: solid 1px rgb(63, 84, 96);">
+                    <p>Oldest image</p>
+                    <div class="input-box" style="margin-bottom: 7px; border: solid 1px rgb(63, 84, 96);">
                         <input type="file" id="imgfile0" accept="image/*" required>
-                        <label  style="width: 65px; height: 100%;" for="imgfile0">File</label> 
-                        <input class="new-input" id="filename0" style="width: 100%" value="" placeholder="Click 'File'" required>
+                        <label  style="width: 65px; height: 30px" for="imgfile0">File</label> 
+                        <input class="new-input" id="filename0" style="width: 100%;" value="" placeholder="Upload image file" required>
                     </div>
-                    <div class="div-h" style="margin-top: 18px; height: 32px;">
-                        <div class="input-box" style="height: 100%; border: solid 1px rgb(63, 84, 96);">
-                            <div class="ts-age-btn">Age</div> 
-                            <input class="new-input" id="ageInput0" style="width: 100%" value="" placeholder="Click here" type="number" min="1" step="1" required>
-                        </div>
-                        <input type="text" id="datePicker0" placeholder="Select Date" >
+                    <div class="input-box" style="margin-bottom: 7px; border: solid 1px rgb(63, 84, 96);">
+                        <div class="ts-age-btn">Age</div> 
+                        <input class="new-input" id="ageInput0" style="width: 100%;" value="" placeholder="Enter patient age" type="number" min="1" step="1" required>
+                    </div>
+                    <div class="input-box" style="border: solid 1px rgb(63, 84, 96);">
+                        <label  style="width: 65px; height: 30px" for="datePicker0">Date</label> 
+                        <input type="text" id="datePicker0" class="datepicker-input" placeholder="Enter date taken" >
                     </div>
                     <div id="ts-preview-container0"> Preview</div>
                 </div>
                 <!-- 첫번째 이미지 -->
                 <div class="ts-input-form">
-                    <p>Image 1</p>
-                    <div class="input-box" style="border: solid 1px rgb(63, 84, 96);">
+                    <p>Previous Image</p>
+                    <div class="input-box" style="margin-bottom: 7px; border: solid 1px rgb(63, 84, 96);">
                         <input type="file" id="imgfile1" accept="image/*" required>
-                        <label  style="width: 65px; height: 100%;" for="imgfile1">File</label> 
-                        <input class="new-input" id="filename1" style="width: 100%" value="" placeholder="Click 'File'" required>
+                        <label  style="width: 65px; height: 30px" for="imgfile1">File</label> 
+                        <input class="new-input" id="filename1" style="width: 100%;" value="" placeholder="Upload image file" required>
                     </div>
-                    <div class="div-h" style="margin-top: 18px; height: 32px;">
-                        <div class="input-box" style="height: 100%; border: solid 1px rgb(63, 84, 96);">
-                            <div class="ts-age-btn">Age</div> 
-                            <input class="new-input" id="ageInput1" style="width: 100%" value="" placeholder="Click here" type="number" min="1" step="1" required>
-                        </div>
-                        <input type="text" id="datePicker1" placeholder="Select Date" >
+                    <div class="input-box" style="margin-bottom: 7px; border: solid 1px rgb(63, 84, 96);">
+                        <div class="ts-age-btn">Age</div> 
+                        <input class="new-input" id="ageInput1" style="width: 100%;" value="" placeholder="Enter patient age" type="number" min="1" step="1" required>
+                    </div>
+                    <div class="input-box" style="border: solid 1px rgb(63, 84, 96);">
+                        <label  style="width: 65px; height: 30px" for="datePicker1">Date</label> 
+                        <input type="text" id="datePicker1" class="datepicker-input" placeholder="Enter date taken" >
                     </div>
                     <div id="ts-preview-container1"> Preview</div>
                 </div>
                 <!-- 두번째 이미지 -->
                 <div class="ts-input-form" style="border: 0px;">
-                    <p>Image 2</p>
-                    <div class="input-box" style="border: solid 1px rgb(63, 84, 96);">
+                    <p>Newest Images</p>
+                    <div class="input-box" style="margin-bottom: 7px; border: solid 1px rgb(63, 84, 96);">
                         <input type="file" id="imgfile2" accept="image/*" required>
-                        <label  style="width: 65px;  height: 100%;" for="imgfile2">File</label> 
-                        <input class="new-input" id="filename2" style="width: 100%" value="" placeholder="Click 'File'" required>
+                        <label  style="width: 65px; height: 30px" for="imgfile2">File</label> 
+                        <input class="new-input" id="filename2" style="width: 100%;" value="" placeholder="Upload image file" required>
                     </div>
-                    <div class="div-h" style="margin-top: 18px; height: 32px;">
-                        <div class="input-box" style="height: 100%; border: solid 1px rgb(63, 84, 96);">
-                            <div class="ts-age-btn">Age</div> 
-                            <input class="new-input" id="ageInput2" style="width: 100%" value="" placeholder="Click here" type="number" min="1" step="1" required>
-                        </div>
-                        <input type="text" id="datePicker2" placeholder="Select Date" >
+                    <div class="input-box" style="margin-bottom: 7px; border: solid 1px rgb(63, 84, 96);">
+                        <div class="ts-age-btn">Age</div> 
+                        <input class="new-input" id="ageInput2" style="width: 100%;" value="" placeholder="Enter patient age" type="number" min="1" step="1" required>
+                    </div>
+                    <div class="input-box" style="border: solid 1px rgb(63, 84, 96);">
+                        <label  style="width: 65px; height: 30px" for="datePicker2">Date</label> 
+                        <input type="text" id="datePicker2" class="datepicker-input" placeholder="Enter date taken">
                     </div>
                     <div id="ts-preview-container2"> Preview</div>
                 </div>
             </div>
-            <button class="upload-btn" style="width: 200px; height: 35px;" type="button" onclick="uploadMultipleImages()">Upload</button>
+            <!-- 결과 이미지 선택, 업로드 버튼 -->
+            <div class="div-h" style="gap: 100px;">
+                <div class="div-h">
+                    <label for="results_checkbox_1">Show Previous Image Results</label>
+                    <input id="results_checkbox_1" type="checkbox" onchange="toggleResults()">
+                </div>
+                <button class="upload-btn" style="width: 200px; height: 40px;" type="button" onclick="uploadMultipleImages()">Upload</button>                
+                <div class="div-h">
+                    <label for="results_checkbox_2">Show Newest Images Results</label>
+                    <input id="results_checkbox_2" type="checkbox" onchange="toggleResults2()">
+                </div>
+            </div>
+
         </form>
         <!-------------------------------------------------------------------------------------------->
-        <div class="select-results">
-            <p id="ymd_dff_1_and_0" style="width: 200px; height: 40px; background-color: aqua; color: black;"></p>
-            <p id="ymd_dff_2_and_0" style="width: 200px; height: 40px; background-color: aqua; color: black;"></p>
+        <div style="color: #949494; margin: 15px 25px; font-size: 20px;">
+            The grade within the color box is an estimated grade 5 years after the oldest image.
         </div>
-        <!-- <img class="coo" src="{% static 'img/Baking-delicious-chocolate-chip-cookies-top-view--10.png' %}"> -->
         
+        <div class="ts-main-container" id="visualization-container1">
+            <div id="top-infobox-container1"></div>
+            <div id="result-draw-layer">
+                <canvas id="canvas-layer" width="1024px" height="512px"></canvas>
+            </div>
+            <div id="loader-box"></div>
+            <!-- <div id="ts-results-control1">
+            </div> -->
+            <div id="ts-results-summary1">
+                <div class="summary-title">Previous Image</div>
+                <!----------------------------- 날짜 차이 문구 ----------------------------->
+                <div class="df_day_text">
+                    <div>Date difference from</div>
+                    <div style="position: relative; margin-top: 3px;">image 0 :
+                        <div style="position: absolute; top: -3px; left: 55px;" id="elapsed_date_1"></div>
+                        &emsp;&emsp;&emsp;day
+                    </div>
+                </div>
+                <!----------------------------- 결과 요약 ----------------------------->
+                <div class="summary-form" id="summary-container"></div>
+                <!----------------------------- 등급 비율 파이차트 ----------------------------->
+                <canvas style="width: 100%; border-bottom: solid 1px rgb(111, 141, 158);" id="gradeChart"></canvas>
+                <!-- Save 버튼 추가 -->
+                <button id="save-button" style="margin-top: 20px;">Tagging</button>
+            </div>
+            <div id="bottom-infobox-container1"></div>
+        </div>
+        
+        <div class="ts-main-container" id="visualization-container2">
+            <div id="top-infobox-container2"></div>
+            <div id="result-draw-layer2">
+                <canvas id="canvas-layer2" width="1024px" height="512px"></canvas>
+            </div>
+            <div id="loader-box"></div>
+            <!-- <div id="ts-results-control2">
+            </div> -->
+            <div id="ts-results-summary2">
+                <div class="summary-title">Previous Image</div>
+                <!----------------------------- 날짜 차이 문구2 ----------------------------->
+                <div class="df_day_text">
+                    <div>Date difference from</div>
+                    <div style="position: relative; margin-top: 3px;">image 0 :
+                        <div style="position: absolute; top: -3px; left: 55px;" id="elapsed_date_2"></div>
+                        &emsp;&emsp;&emsp;day
+                    </div>
+                </div>
+                <!----------------------------- 결과 요약2 ----------------------------->
+                <div class="summary-form" id="summary-container2"></div>
+                <!----------------------------- 등급 비율 파이차트2 ----------------------------->
+                <canvas style="width: 100%; border-bottom: solid 1px rgb(111, 141, 158);" id="gradeChart2"></canvas>
+                <!-- Save 버튼 추가 -->
+                <button id="save-button2" style="margin-top: 20px;">Tagging</button>
+            </div>
+            <div id="bottom-infobox-container2"></div>
+        </div>
+
+
     </div>
 </div>
 
+<script>
+    var save_img
+    document.getElementById('save-button').addEventListener('click', function() {
+        const data = {
+            patient_age: dentalData.age || null,
+            max_loss: dentalData.maxLoss !== 'none' ? dentalData.maxLoss : null,
+            avg_loss: dentalData.averageLoss !== 'none' ? dentalData.averageLoss : null,
+            total_teeth: dentalData.lossCount !== 'none' ? dentalData.lossCount : null,
+            grade_a_count: dentalData.gradeCounts.A !== 'none' ? dentalData.gradeCounts.A : null,
+            grade_b_count: dentalData.gradeCounts.B !== 'none' ? dentalData.gradeCounts.B : null,
+            grade_c_count: dentalData.gradeCounts.C !== 'none' ? dentalData.gradeCounts.C : null,
+            visualization_image: save_img,  // 수정된 함수 사용
+            title: 'Time series'
+        };
 
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        fetch("{% url 'save_diagnosis_result' %}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                alert(`Data saved successfully at ${data.saved_at}`);
+            } else {
+                alert("Failed to save data.");
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("An error occurred while saving data.");
+        });
+    });
+
+    // // 기존 캔버스를 백업하는 변수
+    // let canvasBackup;
+
+    // // drawLineFromPointToBox 함수 호출 전의 캔버스를 백업하는 함수
+    // function backupCanvas() {
+    //     const canvas = document.getElementById('canvas-layer');
+    //     canvasBackup = document.createElement('canvas');
+    //     canvasBackup.width = canvas.width;
+    //     canvasBackup.height = canvas.height;
+    //     const ctxBackup = canvasBackup.getContext('2d');
+    //     ctxBackup.drawImage(canvas, 0, 0);
+    // }
+
+    // // 이중선이 그려지기 전의 백업된 캔버스를 기반으로 이미지를 가져오는 함수
+    // function getCanvasImageBase64WithoutLines() {
+    //     return canvasBackup.toDataURL('image/png');
+    // }
+
+</script>
 
 <script>
-    // ------------------------------ 선택한 이미지 파일명 표시 ------------------------------
+    var save_img2
+    document.getElementById('save-button2').addEventListener('click', function() {
+        const data = {
+            patient_age: dentalData2.age || null,
+            max_loss: dentalData2.maxLoss !== 'none' ? dentalData2.maxLoss : null,
+            avg_loss: dentalData2.averageLoss !== 'none' ? dentalData2.averageLoss : null,
+            total_teeth: dentalData2.lossCount !== 'none' ? dentalData2.lossCount : null,
+            grade_a_count: dentalData2.gradeCounts.A !== 'none' ? dentalData2.gradeCounts.A : null,
+            grade_b_count: dentalData2.gradeCounts.B !== 'none' ? dentalData2.gradeCounts.B : null,
+            grade_c_count: dentalData2.gradeCounts.C !== 'none' ? dentalData2.gradeCounts.C : null,
+            visualization_image: save_img2,  // 수정된 함수 사용
+            title: 'Time series2'
+        };
+
+        fetch("{% url 'save_diagnosis_result' %}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                alert(`Data saved successfully at ${data.saved_at}`);
+            } else {
+                alert("Failed to save data.");
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("An error occurred while saving data.");
+        });
+    });
+
+    // // 기존 캔버스를 백업하는 변수
+    // let canvasBackup;
+
+    // // drawLineFromPointToBox 함수 호출 전의 캔버스를 백업하는 함수
+    // function backupCanvas() {
+    //     const canvas = document.getElementById('canvas-layer');
+    //     canvasBackup = document.createElement('canvas');
+    //     canvasBackup.width = canvas.width;
+    //     canvasBackup.height = canvas.height;
+    //     const ctxBackup = canvasBackup.getContext('2d');
+    //     ctxBackup.drawImage(canvas, 0, 0);
+    // }
+
+    // // 이중선이 그려지기 전의 백업된 캔버스를 기반으로 이미지를 가져오는 함수
+    // function getCanvasImageBase64WithoutLines() {
+    //     return canvasBackup.toDataURL('image/png');
+    // }
+
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        try {
+            new Pikaday({
+                field: document.getElementById('datePicker0'),
+                format: 'YYYY-MM-DD',
+                toString(date, format) {
+                    const day = ("0" + date.getDate()).slice(-2);
+                    const month = ("0" + (date.getMonth() + 1)).slice(-2);
+                    const year = date.getFullYear();
+                    return `${year}-${month}-${day}`;
+                },
+                parse(dateString, format) {
+                    const parts = dateString.split('-');
+                    const year = parseInt(parts[0], 10);
+                    const month = parseInt(parts[1], 10) - 1;
+                    const day = parseInt(parts[2], 10);
+                    return new Date(year, month, day);
+                }
+            });
+
+            new Pikaday({
+                field: document.getElementById('datePicker1'),
+                format: 'YYYY-MM-DD',
+                toString(date, format) {
+                    const day = ("0" + date.getDate()).slice(-2);
+                    const month = ("0" + (date.getMonth() + 1)).slice(-2);
+                    const year = date.getFullYear();
+                    return `${year}-${month}-${day}`;
+                },
+                parse(dateString, format) {
+                    const parts = dateString.split('-');
+                    const year = parseInt(parts[0], 10);
+                    const month = parseInt(parts[1], 10) - 1;
+                    const day = parseInt(parts[2], 10);
+                    return new Date(year, month, day);
+                }
+            });
+
+            new Pikaday({
+                field: document.getElementById('datePicker2'),
+                format: 'YYYY-MM-DD',
+                toString(date, format) {
+                    const day = ("0" + date.getDate()).slice(-2);
+                    const month = ("0" + (date.getMonth() + 1)).slice(-2);
+                    const year = date.getFullYear();
+                    return `${year}-${month}-${day}`;
+                },
+                parse(dateString, format) {
+                    const parts = dateString.split('-');
+                    const year = parseInt(parts[0], 10);
+                    const month = parseInt(parts[1], 10) - 1;
+                    const day = parseInt(parts[2], 10);
+                    return new Date(year, month, day);
+                }
+            });
+        } catch (error) {
+            console.error("Error initializing Pikaday:", error);
+        }
+    });
+</script>
+
+
+<!------------------------------- 결과 요약 ------------------------------->
+<script>
+    var dentalData = {
+        maxLoss: 'none',
+        minLoss: 'none',
+        totalLosses: 'none',
+        lossCount: 'none',
+        gradeCounts: { A: 'none', B: 'none', C: 'none' },
+        age: 'none',
+        averageLoss: 'none',
+        updateMetrics: function(item) {
+            let ratio = parseFloat(item.ratio);
+            if (this.maxLoss === 'none' || this.maxLoss < ratio) {
+                this.maxLoss = ratio;
+            }
+            if (this.minLoss === 'none' || this.minLoss > ratio) {
+                this.minLoss = ratio;
+            }
+            this.totalLosses = this.totalLosses === 'none' ? 0 : this.totalLosses;
+            this.totalLosses += ratio;
+            this.lossCount = this.lossCount === 'none' ? 0 : this.lossCount;
+            this.lossCount++;
+
+            // Update grade counts
+            if (this.gradeCounts[item.grade] === 'none') {
+                this.gradeCounts[item.grade] = 0;
+            }
+            this.gradeCounts[item.grade]++;
+
+            this.finalizeData();
+        },
+        setAge: function(age) {
+            this.age = age;
+            this.displaySummary();
+        },
+        finalizeData: function() {
+            if (this.lossCount !== 'none') {
+                this.averageLoss = this.totalLosses / this.lossCount;
+                this.displaySummary();
+            }
+        },
+        displaySummary: function() {
+            const container = document.getElementById('summary-container');
+            if (!container) {
+                console.error("Summary container not found");
+                return;
+            }
+
+            container.innerHTML = `
+                <div class="div-h">
+                    <div class="index-column">Patient Age</div>
+                    <div class="data-entry">${this.age}</div>
+                </div>
+                <div class="div-h">
+                    <div class="index-column">Max Loss</div>
+                    <div class="data-entry">${this.maxLoss !== 'none' ? Math.round(this.maxLoss) + "%" : this.maxLoss}</div>
+                </div>
+                <div class="div-h">
+                    <div class="index-column">Avg Loss</div>
+                    <div class="data-entry">${this.averageLoss !== 'none' ? Math.round(this.averageLoss) + "%" : this.averageLoss}</div>
+                </div>
+                <div class="div-h">
+                    <div class="index-column">Total Teeth</div>
+                    <div class="data-entry">${this.lossCount !== 'none' ? this.lossCount : this.lossCount}</div>
+                </div>
+                <div class="div-h">
+                    <div class="index-column">GradeA Num</div>
+                    <div class="data-entry">${this.gradeCounts.A !== 'none' ? this.gradeCounts.A : this.gradeCounts.A}</div>
+                </div>
+                <div class="div-h">
+                    <div class="index-column">GradeB Num</div>
+                    <div class="data-entry">${this.gradeCounts.B !== 'none' ? this.gradeCounts.B : this.gradeCounts.B}</div>
+                </div>
+                <div class="div-h">
+                    <div class="index-column">GradeC Num</div>
+                    <div class="data-entry">${this.gradeCounts.C !== 'none' ? this.gradeCounts.C : this.gradeCounts.C}</div>
+                </div>
+                `;
+            this.drawPieChart();
+        },
+        drawPieChart: function() {
+            const ctx = document.getElementById('gradeChart').getContext('2d');
+            const data = {
+                labels: ['A', 'B', 'C'],
+                datasets: [{
+                    label: 'Grade Counts',
+                    data: [
+                        this.gradeCounts.A !== 'none' ? this.gradeCounts.A : 0,
+                        this.gradeCounts.B !== 'none' ? this.gradeCounts.B : 0,
+                        this.gradeCounts.C !== 'none' ? this.gradeCounts.C : 0
+                    ],
+                    backgroundColor: ['rgb(67, 235, 229)', ' rgb(132, 92, 243)', 'rgb(217, 63, 231)'],
+                    hoverOffset: 4,
+                    borderWidth: 0 // 파이 차트 섹션 테두리 선 제거
+                }]
+            };
+            const options = {
+                responsive: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            usePointStyle: true,
+                            pointStyle: 'rect',
+                            color: '#dcdcdc',
+                            font: {
+                                size: 14,
+                                family: 'Arial',
+                                style: 'normal',
+                            },
+                            padding: 16 // 라벨 사이 간격
+                        }
+                    },
+                    // 차트 위에 결과 표시
+                    datalabels: {
+                        color: 'black',
+                        font: {
+                            size: 18,
+                        },
+                        formatter: (value, ctx) => {
+                            // 0이 아닌 데이터만 표시
+                            if (value > 0) {
+                                const label = ctx.chart.data.labels[ctx.dataIndex];
+                                return `${value}`;
+                            } else {
+                                return '';
+                            }
+                        }
+                    }
+                },
+                layout: {
+                    padding: {
+                        top: -10,
+                        bottom: 10
+                    }
+                },
+            };
+            if (this.chartInstance) {
+                this.chartInstance.data = data;
+                this.chartInstance.options = options;
+                this.chartInstance.update();
+            } else {
+                this.chartInstance = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: data,
+                    options: options,
+                    plugins: [ChartDataLabels] // datalabels 플러그인을 추가
+                });
+            }
+        }
+    };
+
+    // dentalData 객체 초기화 함수 추가
+    function resetDentalData() {
+        dentalData.maxLoss = 'none';
+        dentalData.minLoss = 'none';
+        dentalData.totalLosses = 'none';
+        dentalData.lossCount = 'none';
+        dentalData.gradeCounts = { A: 'none', B: 'none', C: 'none' };
+        dentalData.age = 'none';
+        dentalData.averageLoss = 'none';
+    }
+    
+    // 페이지 로드 시 요약 정보를 초기화합니다.
+    document.addEventListener('DOMContentLoaded', function() {
+        dentalData.displaySummary();
+
+    });
+</script>
+
+<!------------------------------- 결과 요약2 ------------------------------->
+<script>
+    var dentalData2 = {
+        maxLoss: 'none',
+        minLoss: 'none',
+        totalLosses: 'none',
+        lossCount: 'none',
+        gradeCounts: { A: 'none', B: 'none', C: 'none' },
+        age: 'none',
+        averageLoss: 'none',
+        updateMetrics2: function(item) {
+            let ratio = parseFloat(item.ratio);
+            if (this.maxLoss === 'none' || this.maxLoss < ratio) {
+                this.maxLoss = ratio;
+            }
+            if (this.minLoss === 'none' || this.minLoss > ratio) {
+                this.minLoss = ratio;
+            }
+            this.totalLosses = this.totalLosses === 'none' ? 0 : this.totalLosses;
+            this.totalLosses += ratio;
+            this.lossCount = this.lossCount === 'none' ? 0 : this.lossCount;
+            this.lossCount++;
+
+            // Update grade counts
+            if (this.gradeCounts[item.grade] === 'none') {
+                this.gradeCounts[item.grade] = 0;
+            }
+            this.gradeCounts[item.grade]++;
+
+            this.finalizeData2();
+        },
+        setAge2: function(age) {
+            this.age = age;
+            this.displaySummary2();
+        },
+        finalizeData2: function() {
+            if (this.lossCount !== 'none') {
+                this.averageLoss = this.totalLosses / this.lossCount;
+                this.displaySummary2();
+            }
+        },
+        displaySummary2: function() {
+            const container2 = document.getElementById('summary-container2');
+            if (!container2) {
+                console.error("Summary container2 not found");
+                return;
+            }
+
+            container2.innerHTML = `
+                <div class="div-h">
+                    <div class="index-column">Patient Age</div>
+                    <div class="data-entry">${this.age}</div>
+                </div>
+                <div class="div-h">
+                    <div class="index-column">Max Loss</div>
+                    <div class="data-entry">${this.maxLoss !== 'none' ? Math.round(this.maxLoss) + "%" : this.maxLoss}</div>
+                </div>
+                <div class="div-h">
+                    <div class="index-column">Avg Loss</div>
+                    <div class="data-entry">${this.averageLoss !== 'none' ? Math.round(this.averageLoss) + "%" : this.averageLoss}</div>
+                </div>
+                <div class="div-h">
+                    <div class="index-column">Total Teeth</div>
+                    <div class="data-entry">${this.lossCount !== 'none' ? this.lossCount : this.lossCount}</div>
+                </div>
+                <div class="div-h">
+                    <div class="index-column">GradeA Num</div>
+                    <div class="data-entry">${this.gradeCounts.A !== 'none' ? this.gradeCounts.A : this.gradeCounts.A}</div>
+                </div>
+                <div class="div-h">
+                    <div class="index-column">GradeB Num</div>
+                    <div class="data-entry">${this.gradeCounts.B !== 'none' ? this.gradeCounts.B : this.gradeCounts.B}</div>
+                </div>
+                <div class="div-h">
+                    <div class="index-column">GradeC Num</div>
+                    <div class="data-entry">${this.gradeCounts.C !== 'none' ? this.gradeCounts.C : this.gradeCounts.C}</div>
+                </div>
+                `;
+            this.drawPieChart2();
+        },
+        drawPieChart2: function() {
+            const ctx = document.getElementById('gradeChart2').getContext('2d');
+            const data = {
+                labels: ['A', 'B', 'C'],
+                datasets: [{
+                    label: 'Grade Counts',
+                    data: [
+                        this.gradeCounts.A !== 'none' ? this.gradeCounts.A : 0,
+                        this.gradeCounts.B !== 'none' ? this.gradeCounts.B : 0,
+                        this.gradeCounts.C !== 'none' ? this.gradeCounts.C : 0
+                    ],
+                    backgroundColor: ['rgb(67, 235, 229)', ' rgb(132, 92, 243)', 'rgb(217, 63, 231)'],
+                    hoverOffset: 4,
+                    borderWidth: 0 // 파이 차트 섹션 테두리 선 제거
+                }]
+            };
+            const options = {
+                responsive: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            usePointStyle: true,
+                            pointStyle: 'rect',
+                            color: '#dcdcdc',
+                            font: {
+                                size: 14,
+                                family: 'Arial',
+                                style: 'normal',
+                            },
+                            padding: 16 // 라벨 사이 간격
+                        }
+                    },
+                    // 차트 위에 결과 표시
+                    datalabels: {
+                        color: 'black',
+                        font: {
+                            size: 18,
+                        },
+                        formatter: (value, ctx) => {
+                            // 0이 아닌 데이터만 표시
+                            if (value > 0) {
+                                const label = ctx.chart.data.labels[ctx.dataIndex];
+                                return `${value}`;
+                            } else {
+                                return '';
+                            }
+                        }
+                    }
+                },
+                layout: {
+                    padding: {
+                        top: -10,
+                        bottom: 10
+                    }
+                },
+            };
+            if (this.chartInstance) {
+                this.chartInstance.data = data;
+                this.chartInstance.options = options;
+                this.chartInstance.update();
+            } else {
+                this.chartInstance = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: data,
+                    options: options,
+                    plugins: [ChartDataLabels] // datalabels 플러그인을 추가
+                });
+            }
+        }
+    };
+
+    // dentalData 객체 초기화 함수 추가
+    function resetDentalData2() {
+        dentalData2.maxLoss = 'none';
+        dentalData2.minLoss = 'none';
+        dentalData2.totalLosses = 'none';
+        dentalData2.lossCount = 'none';
+        dentalData2.gradeCounts = { A: 'none', B: 'none', C: 'none' };
+        dentalData2.age = 'none';
+        dentalData2.averageLoss = 'none';
+    }
+    
+    // 페이지 로드 시 요약 정보를 초기화합니다.
+    document.addEventListener('DOMContentLoaded', function() {
+        dentalData2.displaySummary2();
+
+    });
+</script>
+
+
+<script>
+    // 여러 개의 파일 선택에 대한 초기화 기능 추가
     window.onload = function() {
         var fileInputs = document.querySelectorAll('input[type="file"]');
         fileInputs.forEach(function(fileInput) {
@@ -94,23 +681,36 @@
                 if (this.files.length > 0) {
                     var fileName = this.files[0].name;
                     fileNameField.value = fileName; // 파일명을 입력 필드에 표시
+
+                    // 미리보기 업데이트
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        var previewContainer = document.getElementById('ts-preview-container' + fileInput.id.slice(-1));
+                        previewContainer.innerHTML = ''; // 기존 미리보기 제거
+                        var img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.style.width = '100%';
+                        img.style.height = 'auto';
+                        previewContainer.appendChild(img);
+                    };
+                    reader.readAsDataURL(fileInput.files[0]);
                 }
             });
-        });
 
+            // 파일 선택 버튼 클릭 시 초기화 기능 추가
+            fileInput.addEventListener('click', function() {
+                var fileNameField = document.getElementById('filename' + this.id.slice(-1));
+
+                // 파일 인풋 초기화
+                fileInput.value = '';
+                fileNameField.value = '';
+
+                // 미리보기 초기화
+                var previewContainer = document.getElementById('ts-preview-container' + this.id.slice(-1));
+                previewContainer.innerHTML = '';
+            });
+        });
         // ------------------------------ 달력 표시 ------------------------------
-        flatpickr("#datePicker0", {
-            dateFormat: "Y-m-d",
-            disableMobile: true,
-        });
-        flatpickr("#datePicker1", {
-            dateFormat: "Y-m-d",
-            disableMobile: true,
-        });
-        flatpickr("#datePicker2", {
-            dateFormat: "Y-m-d",
-            disableMobile: true,
-        });
     };
 
     // ------------------------------ 이미지 미리보기 ------------------------------
@@ -143,7 +743,1115 @@
     setupPreview('imgfile1', 'ts-preview-container1');
     setupPreview('imgfile2', 'ts-preview-container2');
 
+    // <!------------------------------ 5년 후 날짜 계산 ------------------------------>
+    function addYearsToDate(dateString, years) {
+    var date = new Date(dateString);
+    date.setFullYear(date.getFullYear() + years);
+    const day = ("0" + date.getDate()).slice(-2);
+    const month = ("0" + (date.getMonth() + 1)).slice(-2);
+    const year = date.getFullYear();
+    return `${year}-${month}-${day}`;
+}
 
+    // <!------------------------------ 팝업 차트 함수 ------------------------------>
+    function showPopupChart(ratio_0, grade_0, ratio_1, grade_1, ratio_PRES, grade_PRES, id_1, date0, date1) {
+         // 5년 후 날짜 계산
+        const date5YearsAfter = addYearsToDate(date0, 5);
+
+        // 기존 팝업창 제거
+        const existingPopup = document.querySelector('.popup');
+        if (existingPopup) {
+            existingPopup.parentElement.removeChild(existingPopup);
+        }
+
+        // 팝업창 생성
+        const popup = document.createElement('div');
+        popup.classList.add('popup');
+
+        const teethId1 = document.createElement('div'); 
+        teethId1.innerText = `Tooth number: ${id_1}`
+        teethId1.classList.add('tooth_num1')
+        popup.appendChild(teethId1)
+
+        // 닫기 버튼 추가
+        const closeButton = document.createElement('button');
+        closeButton.innerText = 'Close';
+        closeButton.classList.add('popup-close');
+        closeButton.addEventListener('click', function() {
+            const parentElement = popup.parentElement;
+            if (parentElement) {
+                parentElement.removeChild(popup);
+            }
+        });
+        popup.appendChild(closeButton);
+
+        // 캔버스 추가
+        const canvas = document.createElement('canvas');
+        canvas.style.width = '100%';
+        canvas.style.height = '100%';
+        popup.appendChild(canvas);
+
+        // 팝업을 기존의 특정 div 요소 내부에 추가
+        const targetDiv = document.getElementById('result-draw-layer'); 
+        targetDiv.appendChild(popup);
+
+        // 등급에 따른 색상 설정
+        let pointColor0, pointColor1, pointColor2;
+
+        if (grade_0 === 'A') {
+            pointColor0 = 'rgb(67, 235, 229)';
+        } else if (grade_0 === 'B') {
+            pointColor0 = 'rgb(132, 92, 243)';
+        } else if (grade_0 === 'C') {
+            pointColor0 = 'rgb(217, 63, 231)';
+        } else {
+            pointColor0 = 'rgba(75, 192, 192, 1)';  // 기본 색상
+        }
+
+        if (grade_1 === 'A') {
+            pointColor1 = 'rgb(67, 235, 229)';
+        } else if (grade_1 === 'B') {
+            pointColor1 = 'rgb(132, 92, 243)';
+        } else if (grade_1 === 'C') {
+            pointColor1 = 'rgb(217, 63, 231)';
+        } else {
+            pointColor1 = 'rgba(75, 192, 192, 1)';  // 기본 색상
+        }
+
+        if (grade_PRES === 'A') {
+            pointColor2 = 'rgb(67, 235, 229)';
+        } else if (grade_PRES === 'B') {
+            pointColor2 = 'rgb(132, 92, 243)';
+        } else if (grade_PRES === 'C') {
+            pointColor2 = 'rgb(217, 63, 231)';
+        } else {
+            pointColor2 = 'rgba(75, 192, 192, 1)';  // 기본 색상
+        }
+
+        // 차트 데이터 생성
+        const ctx = canvas.getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [`${date0}\nOldest image`, `${date1}\nPrevious Image`, `${date5YearsAfter}\nEstimated value`],
+                datasets: [{
+                    label: `Grade: ${grade_1}`,  // 차트 레이블에 Grade 추가
+                    data: [ratio_0, ratio_1, ratio_0 + ratio_PRES], // 데이터 예시
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 2,
+                    fill: false,
+                    pointBackgroundColor: [pointColor0, pointColor1, pointColor2],  // 첫 번째 포인트 색상 설정
+                    pointBorderColor: 'black',
+                    pointBorderWidth: 1,
+                    pointStyle: 'circle',
+                    pointRadius: 5
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: false  // 범례 비활성화
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `Ratio: ${context.raw}%\nGrade: ${grade_1}`;
+                            }
+                        }
+                    },
+                    datalabels: {
+                        display: true,
+                        align: 'top',
+                        color: 'black',
+                        font: {
+                            // weight: 'bold',
+                            size: 14  // 데이터 라벨 텍스트 크기
+                        },
+                        formatter: function(value, context) {
+                            const pointIndex = context.dataIndex;
+                            if (pointIndex === 0) {
+                                return `Ratio: ${value}%\nGrade: ${grade_0}`;
+                            } else if (pointIndex === 1) {
+                                return `Ratio: ${value}%\nGrade: ${grade_1}`;
+                            } else if (pointIndex === 2) {
+                                return `Estimated value\n5 years after\nthe oldest image:\n\nRatio: ${value}%\nGrade: ${grade_PRES}`;
+                            } else {
+                                return `Ratio: ${value}%\nGrade: F`;
+                            }
+                        }
+                    }
+                },
+                layout: {
+                    padding: {
+                        top: 110,
+                        right: 80,
+                        bottom: 10,
+                        left: 80
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        mmax: Math.max(ratio_0, ratio_1, ratio_0 + ratio_PRES) + 10,  // 최대값 설정
+                        display: false  // 세로축 레이블 제거
+                    },
+                    x: {
+                        ticks: {
+                            color: 'black',
+                            font: {
+                                weight: 'bold',
+                                size: 16  // x축 라벨 텍스트 크기
+                            },
+                            callback: function(value) {
+                                const label = this.getLabelForValue(value);
+                                return label.split('\n');
+                            }
+                        }
+                    }
+                },
+                
+                responsive: false,
+                maintainAspectRatio: false // 캔버스 크기가 부모 요소에 맞게 조정되도록 설정
+            },
+            plugins: [ChartDataLabels] // datalabels 플러그인을 추가
+        });
+    }
+
+
+    // <!------------------------------ 팝업 차트 함수 ------------------------------>
+    function showPopupChart2(ratio2_0, grade2_0, ratio2_1, grade2_1, ratio2_2, grade2_2, ratio_PRES2, grade_PRES2, id_2, date0, date1, date2) {
+        // 5년 후 날짜 계산
+        const date5YearsAfter = addYearsToDate(date0, 5);
+
+        // 기존 팝업창 제거
+        const existingPopup2 = document.querySelector('.popup2');
+        if (existingPopup2) {
+            existingPopup2.parentElement.removeChild(existingPopup2);
+        }
+
+        // 팝업창 생성
+        const popup2 = document.createElement('div');
+        popup2.classList.add('popup2');
+
+        // 닫기 버튼 추가
+        const closeButton2 = document.createElement('button');
+        closeButton2.innerText = 'Close';
+        closeButton2.classList.add('popup2-close');
+        closeButton2.addEventListener('click', function() {
+            const parentElement2 = popup2.parentElement;
+            if (parentElement2) {
+                parentElement2.removeChild(popup2);
+            }
+        });
+        popup2.appendChild(closeButton2);
+
+        // 캔버스 추가
+        const canvas2 = document.createElement('canvas');
+        canvas2.style.width = '100%';
+        canvas2.style.height = '100%';
+        popup2.appendChild(canvas2);
+
+        // 팝업을 기존의 특정 div 요소 내부에 추가
+        const targetDiv2 = document.getElementById('result-draw-layer2'); 
+        targetDiv2.appendChild(popup2);
+
+        // 등급에 따른 색상 설정
+        let pointColor2_0;
+        let pointColor2_1;
+        let pointColor2_2;
+        let pointColor2_3;
+
+        if (grade2_0 === 'A') {
+            pointColor2_0 = 'rgb(67, 235, 229)';
+        } else if (grade2_0 === 'B') {
+            pointColor2_0 = 'rgb(132, 92, 243)';
+        } else if (grade2_0 === 'C') {
+            pointColor2_0 = 'rgb(217, 63, 231)';
+        } else {
+            pointColor2_0 = 'rgba(75, 192, 192, 1)';  // 기본 색상
+        }
+
+        if (grade2_1 === 'A') {
+            pointColor2_1 = 'rgb(67, 235, 229)';
+        } else if (grade2_1 === 'B') {
+            pointColor2_1 = 'rgb(132, 92, 243)';
+        } else if (grade2_1 === 'C') {
+            pointColor2_1 = 'rgb(217, 63, 231)';
+        } else {
+            pointColor2_1 = 'rgba(75, 192, 192, 1)';  // 기본 색상
+        }
+
+        if (grade2_2 === 'A') {
+            pointColor2_2 = 'rgb(67, 235, 229)';
+        } else if (grade2_2 === 'B') {
+            pointColor2_2 = 'rgb(132, 92, 243)';
+        } else if (grade2_2 === 'C') {
+            pointColor2_2 = 'rgb(217, 63, 231)';
+        } else {
+            pointColor2_2 = 'rgba(75, 192, 192, 1)';  // 기본 색상
+        }
+
+        if (grade_PRES2 === 'A') {
+            pointColor2_3 = 'rgb(67, 235, 229)';
+        } else if (grade_PRES2 === 'B') {
+            pointColor2_3 = 'rgb(132, 92, 243)';
+        } else if (grade_PRES2 === 'C') {
+            pointColor2_3 = 'rgb(217, 63, 231)';
+        } else {
+            pointColor2_3 = 'rgba(75, 192, 192, 1)';  // 기본 색상
+        }
+
+        // 차트 데이터 생성
+        const ctx2 = canvas2.getContext('2d');
+        new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: [`${date0}\nOldest image`, `${date1}\nPrevious Image`, `${date2}\nNewest Images`, `${date5YearsAfter}\nEstimated value`],
+                datasets: [{
+                    label: `Grade: ${grade2_1}`,  // 차트 레이블에 Grade 추가
+                    data: [ratio2_0, ratio2_1, ratio2_2, ratio2_0 + ratio_PRES2], // 데이터 예시
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 2,
+                    fill: false,
+                    pointBackgroundColor: [pointColor2_0, pointColor2_1, pointColor2_2, pointColor2_3],  // 첫 번째 포인트 색상 설정
+                    pointBorderColor: 'black',
+                    pointBorderWidth: 1,
+                    pointStyle: 'circle',
+                    pointRadius: 5
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: false  // 범례 비활성화
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `Ratio: ${context.raw}%\nGrade: ${grade2_1}`;
+                            }
+                        }
+                    },
+                    datalabels: {
+                        display: true,
+                        align: 'top',
+                        color: 'black',
+                        font: {
+                            // weight: 'bold'
+                            size: 14  // 데이터 라벨 텍스트 크기
+                        },
+                        formatter: function(value, context) {
+                            const pointIndex = context.dataIndex;
+                            if (pointIndex === 0) {
+                                return `Ratio: ${value}%\nGrade: ${grade2_0}`;
+                            } else if (pointIndex === 1) {
+                                return `Ratio: ${value}%\nGrade: ${grade2_1}`;
+                            } else if (pointIndex === 2) {
+                                return `Ratio: ${value}%\nGrade: ${grade2_2}`;
+                            } else if (pointIndex === 3) {
+                                return `Estimated value\n5 years after\nthe oldest image:\n\nRatio: ${value}%\nGrade: ${grade_PRES2}`;
+                            } else {
+                                return `Ratio: ${value}%\nGrade: F`;
+                            }
+                        }
+                    }
+                },
+                layout: {
+                    padding: {
+                        top: 110,
+                        right: 80,
+                        bottom: 10,
+                        left: 80
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        mmax: Math.max(ratio2_0, ratio2_1, ratio2_2, ratio2_0 + ratio_PRES2) + 10,  // 최대값 설정
+                        display: false  // 세로축 레이블 제거
+                    },
+                    x: {
+                        ticks: {
+                            color: 'black',
+                            font: {
+                                weight: 'bold',
+                                size: 16  // x축 라벨 텍스트 크기
+                            },
+                            callback: function(value) {
+                                const label = this.getLabelForValue(value);
+                                return label.split('\n');
+                            }
+                        }
+                    }
+                },
+                
+                responsive: false,
+                maintainAspectRatio: false // 캔버스 크기가 부모 요소에 맞게 조정되도록 설정
+            },
+            plugins: [ChartDataLabels] // datalabels 플러그인을 추가
+        });
+    }
+
+
+    // -----------------------------------서버에서 가져온 위치 좌표를 점으로 표시-----------------------------------
+    function addLocationPoint(x, y, m, typ) {
+        const container = document.getElementById('result-draw-layer');
+        const point = document.createElement('div');
+        point.style.position = 'absolute';
+        // point.style.top = `${y-2.5}px`;
+        // point.style.left = `${x-2}px`; 
+
+        point.style.top = `${m[1] - 2.5}px`; // 중간점의 y 좌표를 사용
+        point.style.left = `${m[0] - 2}px`; // 중간점의 x 좌표를 사용
+
+        point.style.width = '5px';
+        point.style.height = '5px';
+        point.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
+        point.style.borderRadius = '50%'; // 원형 점
+        point.style.zIndex = '10'; // 캔버스 위에 보이도록
+        
+        // 데이터 속성 추가
+        if (typ === 'up') {
+            point.setAttribute('data-cej-type', 'up');
+            // point.style.top = `${y+15}px`;
+        } else if (typ === 'low') {
+            point.setAttribute('data-cej-type', 'low');
+            // point.style.top = `${y-15}px`;
+        }
+        
+        container.appendChild(point);
+    }
+
+    // -----------------------------------서버에서 가져온 위치 좌표를 점으로 표시2-----------------------------------
+    function addLocationPoint2(x2, y2, m2, typ2) {
+        const container2 = document.getElementById('result-draw-layer2');
+        const point2 = document.createElement('div');
+        point2.style.position = 'absolute';
+        // point.style.top = `${y2-2.5}px`;
+        // point.style.left = `${x2-2}px`; 
+
+        point2.style.top = `${m2[1] - 2.5}px`; // 중간점의 y 좌표를 사용
+        point2.style.left = `${m2[0] - 2}px`; // 중간점의 x 좌표를 사용
+
+        point2.style.width = '5px';
+        point2.style.height = '5px';
+        point2.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
+        point2.style.borderRadius = '50%'; // 원형 점
+        point2.style.zIndex = '10'; // 캔버스 위에 보이도록
+        
+        // 데이터 속성 추가
+        if (typ2 === 'up') {
+            point2.setAttribute('data-cej-type2', 'up');
+            // point.style.top = `${y2+15}px`;
+        } else if (typ2 === 'low') {
+            point2.setAttribute('data-cej-type2', 'low');
+            // point.style.top = `${y2-15}px`;
+        }
+        
+        container2.appendChild(point2);
+    }
+    // -----------------------------------서버에서 받은 등급과 비율을 각각의 infoBox안에 표시-----------------------------------
+    function addGradeRatio(x, y, grade, ratio, cejType, grade_0, ratio_0, grade_1, ratio_1, id_1) {
+        const container = document.getElementById('result-draw-layer');
+        const infoBox = document.createElement('div');
+        infoBox.classList.add('info-box');
+        
+        let boxY;
+
+        if (cejType === 'up') {
+            boxY = -1; // 상단 박스 y 좌표
+        } else {
+            boxY = container.offsetHeight - 20; // 하단 박스 y 좌표
+        }
+
+        infoBox.style.left = `${x}px`;
+        infoBox.style.top = `${boxY}px`;
+
+        // ratio 값이 음수인 경우 0으로 설정
+        if (ratio < 0) {
+            ratio = 0;
+        }
+
+        // 치아 id 정보
+        infoBox.setAttribute('data-id_1', id_1);
+
+        // 추정 정보
+        infoBox.setAttribute('data-grade', grade);
+        infoBox.setAttribute('data-ratio', ratio);
+
+        // 이미지 0 정보
+        infoBox.setAttribute('data-grade_0', grade_0);
+        infoBox.setAttribute('data-ratio_0', ratio_0);
+
+        //이미지 1 정보
+        infoBox.setAttribute('data-grade_1', grade_1);
+        infoBox.setAttribute('data-ratio_1', ratio_1);
+
+        container.appendChild(infoBox);
+        // 숨겨진 박스(복사할 내용을 담은 박스)
+        infoBox.innerHTML = `<div class="div-v" style="color: black;">
+                                <strong style="font-size: 18px;">${grade}</strong>
+
+                            </div>`;
+                                // <div class="div-h" style="align-items: end;">
+                                //     <strong style="font-size: 15px;">${ratio}</strong>
+                                //     <strong style="font-size: 12px;">%</strong>
+                                // </div>
+    }
+
+
+    // -----------------------------------서버에서 받은 등급과 비율을 각각의 infoBox안에 표시-----------------------------------
+    function addGradeRatio2(x2, y2, grade2, ratio2, cejType2, grade2_0, ratio2_0, grade2_1, ratio2_1, grade2_2, ratio2_2, id_2) {
+        const container2 = document.getElementById('result-draw-layer2');
+        const infoBox2 = document.createElement('div');
+        infoBox2.classList.add('info-box4');
+        
+        let boxY2;
+
+        if (cejType2 === 'up') {
+            boxY2 = -1; // 상단 박스 y 좌표
+        } else {
+            boxY2 = container2.offsetHeight - 20; // 하단 박스 y 좌표
+        }
+
+        infoBox2.style.left = `${x2}px`;
+        infoBox2.style.top = `${boxY2}px`;
+
+        // ratio 값이 음수인 경우 0으로 설정
+        if (ratio2 < 0) {
+            ratio2 = 0;
+        }
+
+        infoBox2.setAttribute('data-id_2', id_2);
+
+        // 등급과 비율 정보를 데이터 속성으로 추가
+        infoBox2.setAttribute('data-grade2', grade2);
+        infoBox2.setAttribute('data-ratio2', ratio2);
+
+        // 이미지 0 정보
+        infoBox2.setAttribute('data-grade2_0', grade2_0);
+        infoBox2.setAttribute('data-ratio2_0', ratio2_0);
+
+        //이미지 1 정보
+        infoBox2.setAttribute('data-grade2_1', grade2_1);
+        infoBox2.setAttribute('data-ratio2_1', ratio2_1);
+
+        //이미지 2 정보
+        infoBox2.setAttribute('data-grade2_2', grade2_2);
+        infoBox2.setAttribute('data-ratio2_2', ratio2_2);
+
+        container2.appendChild(infoBox2);
+        infoBox2.innerHTML = `<div class="div-v" style="color: black;">
+                                <strong style="font-size: 18px;">${grade2}</strong>
+
+                            </div>`;
+                            
+                            // <div class="div-h" style="align-items: end;">
+                            //         <strong style="font-size: 15px;">${ratio2}</strong>
+                            //         <strong style="font-size: 12px;">%</strong>
+                            //     </div>
+    }
+
+    // -----------------------------------result-draw-layer 에 그려진 infoBox에 인덱스를 부여함 좌->우-----------------------------------
+    function orderInfoBoxes() {
+        const infoBoxes = document.querySelectorAll('.info-box');
+        const topInfoBoxes = Array.from(infoBoxes).filter(box => {
+            // 상단에 위치한 infoBox만
+            return box.offsetTop < 0;
+        });
+        const bottomInfoBoxes = Array.from(infoBoxes).filter(box => {
+            // 상단에 위치한 infoBox만
+            return box.offsetTop > 0;
+        });
+
+        // x 좌표를 기준으로 정렬
+        topInfoBoxes.sort((a, b) => a.offsetLeft - b.offsetLeft);
+        bottomInfoBoxes.sort((a, b) => a.offsetLeft - b.offsetLeft);
+    }
+
+    // -----------------------------------result-draw-layer2 에 그려진 infoBox4에 인덱스를 부여함 좌->우-----------------------------------
+    function orderInfoBoxes2() {
+        const infoBoxes2 = document.querySelectorAll('.info-box4');
+        const topInfoBoxes2 = Array.from(infoBoxes2).filter(box => {
+            // 상단에 위치한 infoBox만
+            return box.offsetTop < 0;
+        });
+        const bottomInfoBoxes2 = Array.from(infoBoxes2).filter(box => {
+            // 상단에 위치한 infoBox만
+            return box.offsetTop > 0;
+        });
+
+        // x 좌표를 기준으로 정렬
+        topInfoBoxes2.sort((a, b) => a.offsetLeft - b.offsetLeft);
+        bottomInfoBoxes2.sort((a, b) => a.offsetLeft - b.offsetLeft);
+    }
+    // -----------------------------------비율에 따른 색상 스타일 적용-----------------------------------
+    function DetermineColorBasedOnRatio(box, grade, ratio, maxRatio) {
+        let startColor, endColor;
+        let divide = 0;
+        
+        if (grade === 'A') {
+            startColor = { r: 243, g: 255, b: 255 };
+            endColor = { r: 14, g: 219, b: 212 };
+            divide = 40
+        } else if (grade === 'B') {
+            startColor = { r: 220, g: 207, b: 255 };
+            endColor = { r: 78, g: 23, b: 229 };
+            divide = 40
+        } else if (grade === 'C') {
+            startColor = { r: 251, g: 207, b: 255 };
+            endColor = { r: 193, g: 10, b: 209 };
+            divide = 40
+        } else {
+            // 기본값이나 예외 처리
+            box.style.backgroundColor = 'rgb(0, 0, 0)'; // 흰색
+            return;
+        }
+
+        // 비율에 따른 색상 계산
+        let ratioColor = {
+            r: calculateColor(startColor.r, endColor.r, ratio, divide),
+            g: calculateColor(startColor.g, endColor.g, ratio, divide),
+            b: calculateColor(startColor.b, endColor.b, ratio, divide)
+        };
+
+        box.style.backgroundColor = `rgb(${ratioColor.r}, ${ratioColor.g}, ${ratioColor.b})`;
+        // 박스 높이 최소 50, 최대 230px
+        box.style.height = `${Math.max(45, Math.min((ratio * 2) + 40, 230))}px`;
+
+        // 최대 비율을 가진 박스에 특별한 스타일 적용
+        if (ratio === maxRatio) {
+            box.classList.add('max-ratio-box');
+        } else {
+            box.classList.remove('max-ratio-box');
+        }
+    }
+
+    function calculateColor(start, end, ratio, divide) {
+        // 비율에 따른 색상 값 계산 (선형 보간) 각 등급이 20% 차이니 20으로 나눔
+        return Math.round(start + (end - start) * (ratio / divide));
+    }
+
+    // -----------------------------------비율에 따른 색상 스타일 적용-----------------------------------
+    function DetermineColorBasedOnRatio2(box, grade2, ratio2, maxRatio2) {
+        let startColor2, endColor2;
+        let divide2 = 0;
+        
+        if (grade2 === 'A') {
+            startColor2 = { r: 243, g: 255, b: 255 };
+            endColor2 = { r: 14, g: 219, b: 212 };
+            divide2 = 40
+        } else if (grade2 === 'B') {
+            startColor2 = { r: 220, g: 207, b: 255 };
+            endColor2 = { r: 78, g: 23, b: 229 };
+            divide2 = 40
+        } else if (grade2 === 'C') {
+            startColor2 = { r: 251, g: 207, b: 255 };
+            endColor2 = { r: 193, g: 10, b: 209 };
+            divide2 = 40
+        } else {
+            // 기본값이나 예외 처리
+            box.style.backgroundColor = 'rgb(0, 0, 0)'; // 흰색
+            return;
+        }
+
+        // 비율에 따른 색상 계산
+        let ratioColor2 = {
+            r: calculateColor2(startColor2.r, endColor2.r, ratio2, divide2),
+            g: calculateColor2(startColor2.g, endColor2.g, ratio2, divide2),
+            b: calculateColor2(startColor2.b, endColor2.b, ratio2, divide2)
+        };
+
+        box.style.backgroundColor = `rgb(${ratioColor2.r}, ${ratioColor2.g}, ${ratioColor2.b})`;
+        // 박스 높이 최소 50, 최대 230px
+        box.style.height = `${Math.max(45, Math.min((ratio2 * 2) + 40, 230))}px`;
+
+            // 최대 비율을 가진 박스에 특별한 스타일 적용
+            if (ratio2 === maxRatio2) {
+                box.classList.add('max-ratio-box');
+            } else {
+                box.classList.remove('max-ratio-box');
+            }
+    }
+
+    function calculateColor2(start2, end2, ratio2, divide2) {
+        // 비율에 따른 색상 값 계산 (선형 보간) 각 등급이 20% 차이니 20으로 나눔
+        return Math.round(start2 + (end2 - start2) * (ratio2 / divide2));
+    }
+
+    // -------------------- infoBox의 내용만 순서대로 info-box2에 복사하고 top-infobox-container에 넣음 --------------------
+    let maxRatio = 0;  // 전역 변수로 최대 비율 저장
+    function cloneAndArrangeBoxes(date0, date1) {
+        const topInfoBoxContainer = document.querySelector('div[id="top-infobox-container1"]');
+        const bottomInfoBoxContainer = document.querySelector('div[id="bottom-infobox-container1"]');
+        
+        // backupCanvas()
+
+        const infoBoxes = document.querySelectorAll('.info-box');
+
+        // 상단 infoBox의 배열을 만들고 x 좌표에 따라 정렬
+        const topInfoBoxes = Array.from(infoBoxes).filter(box => box.offsetTop < 0);
+        topInfoBoxes.sort((a, b) => a.offsetLeft - b.offsetLeft);
+        
+        const bottomInfoBoxes = Array.from(infoBoxes).filter(box => box.offsetTop > 0);
+        bottomInfoBoxes.sort((a, b) => a.offsetLeft - b.offsetLeft);
+
+        maxRatio = 0; // 최대 비율 초기화
+        // 모든 박스를 검사하여 최대 비율 찾기
+        infoBoxes.forEach(box => {
+            const ratio = parseFloat(box.getAttribute('data-ratio'));
+            if (ratio > maxRatio) {
+                maxRatio = ratio;
+            }
+        });
+ 
+        topInfoBoxes.forEach((box, index) => {
+            // 데이터 속성에서 등급과 비율 정보 읽기
+            const id_1 = box.getAttribute('data-id_1');
+
+            const grade = box.getAttribute('data-grade');
+            const ratio = parseFloat(box.getAttribute('data-ratio'));
+
+            const grade_0 = box.getAttribute('data-grade_0');
+            const ratio_0 = parseFloat(box.getAttribute('data-ratio_0'));
+
+            const grade_1 = box.getAttribute('data-grade_1');
+            const ratio_1 = parseFloat(box.getAttribute('data-ratio_1'));
+
+            const topNewDiv = document.createElement('div');
+            topNewDiv.innerHTML = box.innerHTML;
+            topNewDiv.className = 'info-box2';
+
+            topNewDiv.setAttribute('data-id_1', id_1);
+            
+            topNewDiv.setAttribute('data-ratio_0', ratio_0);  
+            topNewDiv.setAttribute('data-grade_0', grade_0); 
+
+            topNewDiv.setAttribute('data-ratio_1', ratio_1);  
+            topNewDiv.setAttribute('data-grade_1', grade_1);
+            
+            topNewDiv.setAttribute('data-ratio_PRES', ratio);  
+            topNewDiv.setAttribute('data-grade_PRES', grade);  
+
+            topInfoBoxContainer.appendChild(topNewDiv);
+
+            DetermineColorBasedOnRatio(topNewDiv, grade, ratio, maxRatio);
+            
+            // 클릭 이벤트 리스너 추가
+            topNewDiv.addEventListener('click', function() {
+                clearAllClicked();
+                toggleClicked(this);
+                const id_1 = this.getAttribute('data-id_1');
+
+                const ratio_0 = parseFloat(this.getAttribute('data-ratio_0'));
+                const grade_0 = this.getAttribute('data-grade_0'); 
+
+                const ratio_1 = parseFloat(this.getAttribute('data-ratio_1'));
+                const grade_1 = this.getAttribute('data-grade_1'); 
+
+                const ratio_PRES = parseFloat(this.getAttribute('data-ratio_PRES'));
+                const grade_PRES = this.getAttribute('data-grade_PRES'); 
+                
+                showPopupChart(ratio_0, grade_0, ratio_1, grade_1, ratio_PRES, grade_PRES, id_1, date0, date1);
+            });
+        });
+
+        bottomInfoBoxes.forEach((box, index) => {
+            // 데이터 속성에서 등급과 비율 정보 읽기
+            const id_1 = box.getAttribute('data-id_1');
+            
+            const grade = box.getAttribute('data-grade');
+            const ratio = parseFloat(box.getAttribute('data-ratio'));
+
+            const grade_0 = box.getAttribute('data-grade_0');
+            const ratio_0 = parseFloat(box.getAttribute('data-ratio_0'));
+
+            const grade_1 = box.getAttribute('data-grade_1');
+            const ratio_1 = parseFloat(box.getAttribute('data-ratio_1'));
+            
+            const bottomNewDiv = document.createElement('div');
+            bottomNewDiv.innerHTML = box.innerHTML;
+            bottomNewDiv.className = 'info-box3';
+
+            bottomNewDiv.setAttribute('data-id_1', id_1);
+
+            bottomNewDiv.setAttribute('data-ratio_0', ratio_0); 
+            bottomNewDiv.setAttribute('data-grade_0', grade_0);  
+
+            bottomNewDiv.setAttribute('data-ratio_1', ratio_1);  
+            bottomNewDiv.setAttribute('data-grade_1', grade_1);  
+
+            bottomNewDiv.setAttribute('data-ratio_PRES', ratio);
+            bottomNewDiv.setAttribute('data-grade_PRES', grade); 
+
+            bottomInfoBoxContainer.appendChild(bottomNewDiv);
+
+            DetermineColorBasedOnRatio(bottomNewDiv, grade, ratio, maxRatio);
+
+            // 클릭 이벤트 리스너 추가
+            bottomNewDiv.addEventListener('click', function() {
+                clearAllClicked();
+                toggleClicked(this);
+                const id_1 = this.getAttribute('data-id_1');
+
+                const ratio_0 = parseFloat(this.getAttribute('data-ratio_0'));
+                const grade_0 = this.getAttribute('data-grade_0'); 
+
+                const ratio_1 = parseFloat(this.getAttribute('data-ratio_1'));
+                const grade_1 = this.getAttribute('data-grade_1'); 
+
+                const ratio_PRES = parseFloat(this.getAttribute('data-ratio_PRES'));
+                const grade_PRES = this.getAttribute('data-grade_PRES'); 
+                
+                showPopupChart(ratio_0, grade_0, ratio_1, grade_1, ratio_PRES, grade_PRES, id_1, date0, date1);
+            });
+        });
+    }
+
+    // 모든 박스에서 'clicked' 클래스를 제거하는 함수
+    function clearAllClicked() {
+        document.querySelectorAll('.info-box2, .info-box3').forEach(function(box) {
+            box.classList.remove('clicked');
+        });
+    }
+
+    // 요소에 'clicked' 클래스를 추가하거나 제거하는 함수
+    function toggleClicked(element) {
+        element.classList.toggle('clicked');
+    }
+
+    // -------------------- infoBox의 내용만 순서대로 info-box2에 복사하고 top-infobox-container에 넣음 --------------------
+    let maxRatio2 = 0;  // 전역 변수로 최대 비율 저장
+    function cloneAndArrangeBoxes2(date0, date1, date2) {
+        const topInfoBoxContainer2 = document.querySelector('div[id="top-infobox-container2"]');
+        const bottomInfoBoxContainer2 = document.querySelector('div[id="bottom-infobox-container2"]');
+
+        const infoBoxes2 = document.querySelectorAll('.info-box4');
+
+        // 상단 infoBox의 배열을 만들고 x 좌표에 따라 정렬
+        const topInfoBoxes2 = Array.from(infoBoxes2).filter(box => box.offsetTop < 0);
+        topInfoBoxes2.sort((a, b) => a.offsetLeft - b.offsetLeft);
+        
+        const bottomInfoBoxes2 = Array.from(infoBoxes2).filter(box => box.offsetTop > 0);
+        bottomInfoBoxes2.sort((a, b) => a.offsetLeft - b.offsetLeft);
+
+        maxRatio2 = 0; // 최대 비율 초기화
+        // 모든 박스를 검사하여 최대 비율 찾기
+        infoBoxes2.forEach(box => {
+            const ratio2 = parseFloat(box.getAttribute('data-ratio2'));
+            if (ratio2 > maxRatio2) {
+                maxRatio2 = ratio2;
+            }
+        });
+
+        topInfoBoxes2.forEach((box, index2) => {
+            // 데이터 속성에서 등급과 비율 정보 읽기
+            const id_2 = box.getAttribute('data-id_2');
+
+            const grade2 = box.getAttribute('data-grade2');
+            const ratio2 = parseFloat(box.getAttribute('data-ratio2'));
+
+            const grade2_0 = box.getAttribute('data-grade2_0');
+            const ratio2_0 = parseFloat(box.getAttribute('data-ratio2_0'));
+
+            const grade2_1 = box.getAttribute('data-grade2_1');
+            const ratio2_1 = parseFloat(box.getAttribute('data-ratio2_1'));
+
+            const grade2_2 = box.getAttribute('data-grade2_2');
+            const ratio2_2 = parseFloat(box.getAttribute('data-ratio2_2'));
+
+            const topNewDiv2 = document.createElement('div');
+            topNewDiv2.innerHTML = box.innerHTML;
+            topNewDiv2.className = 'info-box5';
+
+            topNewDiv2.setAttribute('data-id_2', id_2);
+
+            topNewDiv2.setAttribute('data-ratio2_0', ratio2_0);  
+            topNewDiv2.setAttribute('data-grade2_0', grade2_0); 
+
+            topNewDiv2.setAttribute('data-ratio2_1', ratio2_1);  
+            topNewDiv2.setAttribute('data-grade2_1', grade2_1);
+
+            topNewDiv2.setAttribute('data-ratio2_2', ratio2_2);  
+            topNewDiv2.setAttribute('data-grade2_2', grade2_2);
+            
+            topNewDiv2.setAttribute('data-ratio2_PRES', ratio2);  
+            topNewDiv2.setAttribute('data-grade2_PRES', grade2);  
+
+            topInfoBoxContainer2.appendChild(topNewDiv2);
+
+            DetermineColorBasedOnRatio2(topNewDiv2, grade2, ratio2, maxRatio2);
+
+            // 클릭 이벤트 리스너 추가
+            topNewDiv2.addEventListener('click', function() {
+                clearAllClicked2();
+                toggleClicked2(this);
+                const id_2 = this.getAttribute('data-id_2');
+
+                const ratio2_0 = parseFloat(this.getAttribute('data-ratio2_0'));
+                const grade2_0 = this.getAttribute('data-grade2_0'); 
+
+                const ratio2_1 = parseFloat(this.getAttribute('data-ratio2_1'));
+                const grade2_1 = this.getAttribute('data-grade2_1');
+
+                const ratio2_2 = parseFloat(this.getAttribute('data-ratio2_2'));
+                const grade2_2 = this.getAttribute('data-grade2_2'); 
+
+                const ratio_PRES2 = parseFloat(this.getAttribute('data-ratio2_PRES'));
+                const grade_PRES2 = this.getAttribute('data-grade2_PRES'); 
+                
+                showPopupChart2(ratio2_0, grade2_0, ratio2_1, grade2_1, ratio2_2, grade2_2, ratio_PRES2, grade_PRES2, id_2, date0, date1, date2);
+            });
+        });
+
+        bottomInfoBoxes2.forEach((box, index2) => {
+            // 데이터 속성에서 등급과 비율 정보 읽기
+
+            const id_2 = box.getAttribute('data-id_2');
+
+            const grade2 = box.getAttribute('data-grade2');
+            const ratio2 = parseFloat(box.getAttribute('data-ratio2'));
+
+            const grade2_0 = box.getAttribute('data-grade2_0');
+            const ratio2_0 = parseFloat(box.getAttribute('data-ratio2_0'));
+
+            const grade2_1 = box.getAttribute('data-grade2_1');
+            const ratio2_1 = parseFloat(box.getAttribute('data-ratio2_1'));
+
+            const grade2_2 = box.getAttribute('data-grade2_2');
+            const ratio2_2 = parseFloat(box.getAttribute('data-ratio2_2'));
+            
+            const bottomNewDiv2 = document.createElement('div');
+            bottomNewDiv2.innerHTML = box.innerHTML;
+            bottomNewDiv2.className = 'info-box6';
+
+            bottomNewDiv2.setAttribute('data-ratio2_0', ratio2_0);  
+            bottomNewDiv2.setAttribute('data-grade2_0', grade2_0); 
+
+            bottomNewDiv2.setAttribute('data-ratio2_1', ratio2_1);  
+            bottomNewDiv2.setAttribute('data-grade2_1', grade2_1);
+
+            bottomNewDiv2.setAttribute('data-ratio2_2', ratio2_2);  
+            bottomNewDiv2.setAttribute('data-grade2_2', grade2_2);
+            
+            bottomNewDiv2.setAttribute('data-ratio2_PRES', ratio2);  
+            bottomNewDiv2.setAttribute('data-grade2_PRES', grade2);  
+
+            bottomInfoBoxContainer2.appendChild(bottomNewDiv2);
+
+            DetermineColorBasedOnRatio2(bottomNewDiv2, grade2, ratio2, maxRatio2);
+
+            // 새로 생성된 박스들에 클릭 이벤트 추가
+            bottomNewDiv2.addEventListener('click', function() {
+                clearAllClicked2();
+                toggleClicked2(this);
+                const id_2 = this.getAttribute('data-id_2');
+
+                const ratio2_0 = parseFloat(this.getAttribute('data-ratio2_0'));
+                const grade2_0 = this.getAttribute('data-grade2_0'); 
+
+                const ratio2_1 = parseFloat(this.getAttribute('data-ratio2_1'));
+                const grade2_1 = this.getAttribute('data-grade2_1');
+
+                const ratio2_2 = parseFloat(this.getAttribute('data-ratio2_2'));
+                const grade2_2 = this.getAttribute('data-grade2_2'); 
+
+                const ratio_PRES2 = parseFloat(this.getAttribute('data-ratio2_PRES'));
+                const grade_PRES2 = this.getAttribute('data-grade2_PRES'); 
+                
+                showPopupChart2(ratio2_0, grade2_0, ratio2_1, grade2_1, ratio2_2, grade2_2, ratio_PRES2, grade_PRES2, id_2, date0, date1, date2);
+            });
+        });
+    }
+
+    // 모든 박스에서 'clicked' 클래스를 제거하는 함수
+    function clearAllClicked2() {
+        document.querySelectorAll('.info-box5, .info-box6').forEach(function(box) {
+            box.classList.remove('clicked');
+        });
+    }
+    // 요소에 'clicked' 클래스를 추가하거나 제거하는 함수
+        function toggleClicked2(element) {
+        element.classList.toggle('clicked');
+    }
+
+
+    // --------------------------------포인트와 박스2, 3를 선으로 매칭함. 여기선 x좌표만을 기준으로 가장 가까운 포인트와 박스를 매칭해 이어줌 --------------------------------
+    function drawLineFromPointToBox() {
+        const canvas = document.getElementById('canvas-layer');
+        const ctx = canvas.getContext('2d');
+
+        // backupCanvas(); // 이중선을 그리기 전에 캔버스를 백업
+
+        const topPoints = Array.from(document.querySelectorAll('div[data-cej-type="up"]')).sort((a, b) => parseFloat(a.style.left) - parseFloat(b.style.left));
+        const bottomPoints = Array.from(document.querySelectorAll('div[data-cej-type="low"]')).sort((a, b) => parseFloat(a.style.left) - parseFloat(b.style.left));
+
+        const topInfoBoxes = Array.from(document.querySelectorAll('.info-box2')).sort((a, b) => {
+            const rectA = a.getBoundingClientRect();
+            const rectB = b.getBoundingClientRect();
+            return rectA.left - rectB.left;
+        });
+
+        const bottomInfoBoxes = Array.from(document.querySelectorAll('.info-box3')).sort((a, b) => {
+            const rectA = a.getBoundingClientRect();
+            const rectB = b.getBoundingClientRect();
+            return rectA.left - rectB.left;
+        });
+
+        function drawDoubleLine(fromX, fromY, toX, toY, outerColor, innerColor, outerWidth, innerWidth) {
+            // 외부 선 그리기 (검은색)
+            ctx.beginPath();
+            ctx.moveTo(fromX, fromY);
+            ctx.lineTo(toX, toY);
+            ctx.strokeStyle = outerColor;
+            ctx.lineWidth = outerWidth;
+            ctx.stroke();
+
+            // 내부 선 그리기 (흰색)
+            ctx.beginPath();
+            ctx.moveTo(fromX, fromY);
+            ctx.lineTo(toX, toY);
+            ctx.strokeStyle = innerColor;
+            ctx.lineWidth = innerWidth;
+            ctx.stroke();
+        }
+
+        topPoints.forEach((point, index) => {
+            const pointX = parseFloat(point.style.left) + 2.5;
+            const pointY = parseFloat(point.style.top) + 2.5;
+
+            if (topInfoBoxes[index]) {
+                const box = topInfoBoxes[index];
+                const rect = box.getBoundingClientRect();
+                const canvasRect = canvas.getBoundingClientRect();
+                const boxCenterX = rect.left + rect.width / 2 - canvasRect.left;
+                // 아랫변 중간점으로 Y 좌표 수정
+                const boxCenterY = rect.top + rect.height - canvasRect.top;
+
+                // 이중선 그리기 (검은색 외곽선 + 흰색 내부선)
+                drawDoubleLine(pointX, pointY, boxCenterX, boxCenterY, 'black', 'white', 4, 2);
+            }
+        });
+
+        bottomPoints.forEach((point, index) => {
+            const pointX = parseFloat(point.style.left) + 2.5;
+            const pointY = parseFloat(point.style.top) + 2.5;
+
+            if (bottomInfoBoxes[index]) {
+                const box = bottomInfoBoxes[index];
+                const rect = box.getBoundingClientRect();
+                const canvasRect = canvas.getBoundingClientRect();
+                const boxCenterX = rect.left + rect.width / 2 - canvasRect.left;
+
+                // 윗변 중간점으로 Y 좌표 수정
+                const boxCenterY = rect.top - canvasRect.top;
+
+                // 이중선 그리기 (검은색 외곽선 + 흰색 내부선)
+                drawDoubleLine(pointX, pointY, boxCenterX, boxCenterY, 'black', 'white', 4, 2);
+            }
+        });
+    }
+
+    // --------------------------------포인트와 박스2, 3를 선으로 매칭함. 여기선 x좌표만을 기준으로 가장 가까운 포인트와 박스를 매칭해 이어줌 --------------------------------
+    function drawLineFromPointToBox2() {
+        const canvas2 = document.getElementById('canvas-layer2');
+        const ctx2 = canvas2.getContext('2d');
+
+        const topPoints2 = Array.from(document.querySelectorAll('div[data-cej-type2="up"]')).sort((a, b) => parseFloat(a.style.left) - parseFloat(b.style.left));
+        const bottomPoints2 = Array.from(document.querySelectorAll('div[data-cej-type2="low"]')).sort((a, b) => parseFloat(a.style.left) - parseFloat(b.style.left));
+
+        const topInfoBoxes2 = Array.from(document.querySelectorAll('.info-box5')).sort((a, b) => {
+            const rectA2 = a.getBoundingClientRect();
+            const rectB2 = b.getBoundingClientRect();
+            return rectA2.left - rectB2.left;
+        });
+
+        const bottomInfoBoxes2 = Array.from(document.querySelectorAll('.info-box6')).sort((a, b) => {
+            const rectA2 = a.getBoundingClientRect();
+            const rectB2 = b.getBoundingClientRect();
+            return rectA2.left - rectB2.left;
+        });
+
+        function drawDoubleLine2(fromX2, fromY2, toX2, toY2, outerColor2, innerColor2, outerWidth2, innerWidth2) {
+            // 외부 선 그리기 (검은색)
+            ctx2.beginPath();
+            ctx2.moveTo(fromX2, fromY2);
+            ctx2.lineTo(toX2, toY2);
+            ctx2.strokeStyle = outerColor2;
+            ctx2.lineWidth = outerWidth2;
+            ctx2.stroke();
+
+            // 내부 선 그리기 (흰색)
+            ctx2.beginPath();
+            ctx2.moveTo(fromX2, fromY2);
+            ctx2.lineTo(toX2, toY2);
+            ctx2.strokeStyle = innerColor2;
+            ctx2.lineWidth = innerWidth2;
+            ctx2.stroke();
+        }
+
+        topPoints2.forEach((point2, index2) => {
+            const pointX2 = parseFloat(point2.style.left) + 2.5;
+            const pointY2 = parseFloat(point2.style.top) + 2.5;
+
+            if (topInfoBoxes2[index2]) {
+                const box = topInfoBoxes2[index2];
+                const rect2 = box.getBoundingClientRect();
+                const canvasRect2 = canvas2.getBoundingClientRect();
+                const boxCenterX2 = rect2.left + rect2.width / 2 - canvasRect2.left;
+                // 아랫변 중간점으로 Y 좌표 수정
+                const boxCenterY2 = rect2.top + rect2.height - canvasRect2.top;
+
+                // 이중선 그리기 (검은색 외곽선 + 흰색 내부선)
+                drawDoubleLine2(pointX2, pointY2, boxCenterX2, boxCenterY2, 'black', 'white', 4, 2);
+            }
+        });
+
+        bottomPoints2.forEach((point2, index2) => {
+            const pointX2 = parseFloat(point2.style.left) + 2.5;
+            const pointY2 = parseFloat(point2.style.top) + 2.5;
+
+            if (bottomInfoBoxes2[index2]) {
+                const box = bottomInfoBoxes2[index2];
+                const rect2 = box.getBoundingClientRect();
+                const canvasRect2 = canvas2.getBoundingClientRect();
+                const boxCenterX2 = rect2.left + rect2.width / 2 - canvasRect2.left;
+
+                // 윗변 중간점으로 Y 좌표 수정
+                const boxCenterY2 = rect2.top - canvasRect2.top;
+
+                // 이중선 그리기 (검은색 외곽선 + 흰색 내부선)
+                drawDoubleLine2(pointX2, pointY2, boxCenterX2, boxCenterY2, 'black', 'white', 4, 2);
+            }
+        });
+    }
+
+    // ------------------------------ 로딩 애니매이션 생성 ------------------------------
+    function createLoader() {
+        const container = document.getElementById('loader-box');
+        if (!container) {
+            console.error('Container element not found');
+            return;
+        }
+        const loader = document.createElement('div');
+        loader.classList.add('loader');
+
+        const text = document.createElement('div');
+        text.classList.add('text');
+        text.textContent = "Loading...";
+        loader.appendChild(text);
+
+        // Load inner circles with unique animations
+        for (let i = 1; i <= 3; i++) {
+            const loadInner = document.createElement('div');
+            loadInner.classList.add('load-inner', `load-${i === 1 ? 'one' : i === 2 ? 'two' : 'three'}`);
+            loader.appendChild(loadInner);
+        }
+
+        container.appendChild(loader);
+    }
+
+    // ------------------------------ 업로드 버튼 클릭 시 동작 ------------------------------
     function uploadMultipleImages() {
         var ageInput0 = document.getElementById('ageInput0').value;
         var ageInput1 = document.getElementById('ageInput1').value;
@@ -167,8 +1875,55 @@
             alert ("please enter a valid image and age.");
             return;
         }
+        
+        resetDentalData(); // dentalData 객체 초기화
+        dentalData.setAge(parseInt(ageInput1)); // 나이 데이터를 dentalData 객체에 설정
+
+        resetDentalData2(); // dentalData 객체 초기화
+        dentalData2.setAge2(parseInt(ageInput2)); // 나이 데이터를 dentalData 객체에 설정
 
         var formData = new FormData();
+        var uploadButton = document.querySelector("button[onclick='uploadMultipleImages()']"); // 업로드 버튼 선택
+        uploadButton.disabled = true; // 업로드 시작 시 버튼 비활성화
+
+        var canvas = document.getElementById('canvas-layer');
+        var ctx = canvas.getContext('2d');
+        var canvas2 = document.getElementById('canvas-layer2');
+        var ctx2 = canvas2.getContext('2d');
+
+        var topInfoBoxContainer = document.getElementById('top-infobox-container1');
+        var bottomInfoBoxContainer = document.getElementById('bottom-infobox-container1');
+        var resultDrawLayer = document.getElementById('result-draw-layer');
+        var loaderBox = document.getElementById('loader-box');
+  
+        var topInfoBoxContainer2 = document.getElementById('top-infobox-container2');
+        var bottomInfoBoxContainer2 = document.getElementById('bottom-infobox-container2');
+        var resultDrawLayer2 = document.getElementById('result-draw-layer2');
+        var loaderBox2 = document.getElementById('loader-box');
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        topInfoBoxContainer.innerHTML = '';
+        bottomInfoBoxContainer.innerHTML = '';
+
+        ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+        topInfoBoxContainer2.innerHTML = '';
+        bottomInfoBoxContainer2.innerHTML = '';
+
+        // resultDrawLayer 내의 canvas를 제외한 모든 요소를 제거합니다.
+        Array.from(resultDrawLayer.childNodes).forEach(child => {
+            if (child.id !== 'canvas-layer') {
+                resultDrawLayer.removeChild(child);
+            }
+        });
+
+        Array.from(resultDrawLayer2.childNodes).forEach(child => {
+            if (child.id !== 'canvas-layer2') {
+                resultDrawLayer2.removeChild(child);
+            }
+        });
+        
+        // 로딩 애니매이션 호출
+        createLoader();
 
         formData.append('img0', imgInput0.files[0]);
         formData.append('img1', imgInput1.files[0]);
@@ -191,16 +1946,159 @@
         })
         .then(response => response.json())
         .then(data => {
-            if (data.ymd_dff_1_and_0) {
-                document.getElementById('ymd_dff_1_and_0').textContent = data.ymd_dff_1_and_0;
+
+            if (data.elapsed_date_1) {
+                document.getElementById('elapsed_date_1').textContent = data.elapsed_date_1;
             }
-            if (data.ymd_dff_2_and_0) {
-                document.getElementById('ymd_dff_2_and_0').textContent = data.ymd_dff_2_and_0;
+            if (data.elapsed_date_2) {
+                document.getElementById('elapsed_date_2').textContent = data.elapsed_date_2;
             }
+
+            // 이미지 1 ----------------------------------------------------------
+            var img = new Image();
+            img.src = 'data:image/jpeg;base64,' + data.graded_data1[0].encoded_image_copy;
+
+            save_img = 'data:image/jpeg;base64,' + data.graded_data1[0].encoded_image;
+
+            img.onload = function() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+     
+                // 치아 정보(등급과 스코어) 표시 로직
+                data.graded_data1.forEach(item => {
+                    let textX, textY, textM, typ;
+                    if (item.cej_type === 'up') {
+                        textX = item.start_coordinate[0];
+                        textY = item.start_coordinate[1];
+                        let endX = item.end_coordinate[0];
+                        let endY = item.end_coordinate[1];
+                        textM = [(textX + endX) / 2, (textY + endY) / 2]; // 중간점 계산
+                        typ = "up"
+                    } else {
+                        textX = item.end_coordinate[0];
+                        textY = item.end_coordinate[1];
+
+                        let startX = item.start_coordinate[0];
+                        let startY = item.start_coordinate[1];
+                        textM = [(textX + startX) / 2, (textY + startY) / 2]; // 중간점 계산
+                        typ = "low"
+                    }
+ 
+                    addLocationPoint(textX, textY, textM, typ);
+                    addGradeRatio(textX, textY, item.grade, item.ratio, item.cej_type, item.grade_0, item.ratio_0, item.grade_1, item.ratio_1, item.id);
+                    
+                    dentalData.updateMetrics(item); // 요약 데이터 업데이트
+                });
+
+                dentalData.finalizeData(); // ratio 편균 계산
+                dentalData.displaySummary(); // 요약 데이터 표시
+
+                orderInfoBoxes();
+                cloneAndArrangeBoxes(datePicker0, datePicker1);
+                drawLineFromPointToBox();
+                console.log('maxRatio:', maxRatio); // maxRatio 값 콘솔에 출력
+
+            };
+            
+            // 이미지 2 ----------------------------------------------------------
+            var img2 = new Image();
+            img2.src = 'data:image/jpeg;base64,' + data.graded_data2[0].encoded_image_copy;
+
+            save_img2 = 'data:image/jpeg;base64,' + data.graded_data2[0].encoded_image;
+
+            img2.onload = function() {
+                ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+                ctx2.drawImage(img2, 0, 0, canvas2.width, canvas2.height);
+     
+                // 치아 정보(등급과 스코어) 표시 로직
+                data.graded_data2.forEach(item => {
+                    let textX2, textY2, textM2, typ2;
+                    if (item.cej_type === 'up') {
+                        textX2 = item.start_coordinate[0];
+                        textY2 = item.start_coordinate[1];
+                        let endX2 = item.end_coordinate[0];
+                        let endY2 = item.end_coordinate[1];
+                        textM2 = [(textX2 + endX2) / 2, (textY2 + endY2) / 2]; // 중간점 계산
+                        typ2 = "up"
+                    } else {
+                        textX2 = item.end_coordinate[0];
+                        textY2 = item.end_coordinate[1];
+
+                        let startX2 = item.start_coordinate[0];
+                        let startY2 = item.start_coordinate[1];
+                        textM2 = [(textX2 + startX2) / 2, (textY2 + startY2) / 2]; // 중간점 계산
+                        typ2 = "low"
+                    }
+ 
+                    addLocationPoint2(textX2, textY2, textM2, typ2);
+                    addGradeRatio2(textX2, textY2, item.grade, item.ratio, item.cej_type, item.grade_0, item.ratio_0, item.grade_1, item.ratio_1, item.grade_2, item.ratio_2, item.id);
+
+                    dentalData2.updateMetrics2(item); // 요약 데이터 업데이트
+                });
+
+                dentalData2.finalizeData2(); // ratio 편균 계산
+                dentalData2.displaySummary2(); // 요약 데이터 표시
+
+                orderInfoBoxes2();
+                cloneAndArrangeBoxes2(datePicker0, datePicker1, datePicker2);
+                drawLineFromPointToBox2();
+                console.log('maxRatio2:', maxRatio2); // maxRatio 값 콘솔에 출력
+
+                // 결과를 보여주는 버튼과 결과 컨테이너를 표시합니다.
+                document.getElementById('results_checkbox_1').style.display = 'block';
+                document.getElementById('results_checkbox_2').style.display = 'block';
+
+                // 기본 설정: 두 번째 결과만 표시
+                document.getElementById('results_checkbox_1').checked = false;
+                document.getElementById('results_checkbox_2').checked = true;
+
+                document.getElementById('ts-results-summary1').style.display = 'none';
+                document.getElementById('ts-results-summary2').style.display = 'block';
+                document.getElementById('visualization-container1').style.display = 'none';
+                document.getElementById('visualization-container2').style.display = 'block';
+            };
+
+            uploadButton.disabled = false; // 서버 응답 후 버튼 다시 활성화
+            loaderBox.innerHTML = '';
+            loaderBox2.innerHTML = '';
         })
-        .catch(error => console.error('Error:', error));
+
+        .catch(error => {
+            loaderBox.innerHTML = '';
+            loaderBox2.innerHTML = '';
+            console.error('Error:', error);
+            alert('이미지를 처리하는 중 오류가 발생했습니다.');
+            // location.reload(); // 현재 페이지 새로고침
+
+        });
     }
-    
-    
+
+    function toggleResults() {
+        var resultsContainer = document.getElementById('ts-results-summary1');
+        var visualizationContainer = document.getElementById('visualization-container1');
+        var showResultsCheckbox = document.getElementById('results_checkbox_1');
+
+        if (showResultsCheckbox.checked) {
+            resultsContainer.style.display = 'block';
+            visualizationContainer.style.display = 'block';
+        } else {
+            resultsContainer.style.display = 'none';
+            visualizationContainer.style.display = 'none';
+        }
+    }
+
+    function toggleResults2() {
+        var resultsContainer2 = document.getElementById('ts-results-summary2');
+        var visualizationContainer2 = document.getElementById('visualization-container2');
+        var showResultsCheckbox2 = document.getElementById('results_checkbox_2');
+
+        if (showResultsCheckbox2.checked) {
+            resultsContainer2.style.display = 'block';
+            visualizationContainer2.style.display = 'block';
+        } else {
+            resultsContainer2.style.display = 'none';
+            visualizationContainer2.style.display = 'none';
+        }
+    }
 </script>
 {% endblock %}

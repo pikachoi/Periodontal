@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Result Detail</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            if ("{{ result.consent_status }}" === "agree" || "{{ result.consent_status }}" === "disagree") {
+                $("#consent-buttons").hide();
+                $("#retry-button").show();
+            }
+
+            $("#agree-button").click(function() {
+                updateConsentStatus("agree");
+            });
+
+            $("#disagree-button").click(function() {
+                updateConsentStatus("disagree");
+            });
+
+            $("#retry-button").click(function() {
+                if (confirm("다시 하시겠습니까?")) {
+                    window.location.href = "{% url 'reset_consent_status' result.id %}";
+                }
+            });
+        });
+
+        function updateConsentStatus(status) {
+            $.ajax({
+                url: "{% url 'update_consent_status' result.id %}",
+                type: "POST",
+                data: JSON.stringify({ consent_status: status }),
+                contentType: "application/json",
+                headers: { "X-CSRFToken": "{{ csrf_token }}" },
+                success: function(response) {
+                    if (response.status === "success") {
+                        $("#consent-buttons").hide();
+                        $("#retry-button").show();
+                    } else {
+                        alert("Failed to update status.");
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Result Detail</h1>
+    <h3>{{ result.title }}</h3>
+    {% load custom_filters %}
+    <div>
+        <img src="data:image/png;base64,{{ result.visualization_image|b64encode }}" alt="Visualization Image" />
+    </div>
+    <table border="1">
+        <tr>
+            <th>Patient Age</th>
+            <td>{{ result.patient_age }}</td>
+        </tr>
+        <tr>
+            <th>Max Loss</th>
+            <td>{{ result.max_loss }}%</td>
+        </tr>
+        <tr>
+            <th>Avg Loss</th>
+            <td>{{ result.avg_loss }}%</td>
+        </tr>
+        <tr>
+            <th>Total Teeth</th>
+            <td>{{ result.total_teeth }}</td>
+        </tr>
+        <tr>
+            <th>Grade A Count</th>
+            <td>{{ result.grade_a_count }}</td>
+        </tr>
+        <tr>
+            <th>Grade B Count</th>
+            <td>{{ result.grade_b_count }}</td>
+        </tr>
+        <tr>
+            <th>Grade C Count</th>
+            <td>{{ result.grade_c_count }}</td>
+        </tr>
+        <tr>
+            <th>Saved At</th>
+            <td>{{ result.saved_at }}</td>
+        </tr>
+    </table>
+    <div id="consent-buttons">
+        <button id="agree-button">동의</button>
+        <button id="disagree-button">비동의</button>
+    </div>
+    <button id="retry-button" style="display: none;">다시하기</button>
+    <a href="{% url 'result_list' %}">Back to List</a>
+</body>
+</html>

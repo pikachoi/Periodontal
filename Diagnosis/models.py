@@ -47,3 +47,21 @@ class Crop(models.Model) :
     is_nodule       = models.BooleanField(default = False)  # AI이 결절을 찾지 못하면 False # 정상데이터와 결절데이터 구분
     classifi_result = models.JSONField(default = classifi_result_default_dict)
 
+
+
+# models.py
+
+from django.db import models
+
+class DiagnosisResult(models.Model):
+    patient_age = models.IntegerField(null=True, blank=True)
+    max_loss = models.FloatField(null=True, blank=True)
+    avg_loss = models.FloatField(null=True, blank=True)
+    total_teeth = models.IntegerField(null=True, blank=True)
+    grade_a_count = models.IntegerField(null=True, blank=True)
+    grade_b_count = models.IntegerField(null=True, blank=True)
+    grade_c_count = models.IntegerField(null=True, blank=True)
+    visualization_image = models.BinaryField()
+    title = models.CharField(max_length=255, null=True, blank=True)
+    saved_at = models.DateTimeField(auto_now_add=True)
+    consent_status = models.CharField(max_length=10, null=True, blank=True)  # 'agree' or 'disagree'

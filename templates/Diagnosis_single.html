@@ -1,25 +1,11 @@
 {% extends 'Diagnosis_base.html' %}
 {% load static %}
-
 {% block content %}
-
 <div class="back-container">
-    <!-- <div class="back-container-left">
-        <div class="cover-box" style="width: 210px; height: 1390px;">
-        <div class="cover-title1">
-            <div class="cover-title2"></div>
-            <div class="cover-title3">OUPUT FORM</div>
-            <div class="cover-title3" style="width: 65px;">X-RAY</div>
-            <div class="cover-title2"></div>
-        </div>
-        asdasdasdasd
-        </div>
-    </div> -->
-
 <!-- 중앙 메인 폼 ====================================================================================================================== -->
     <div class="div-v">
         <!------------------------- 확대축소 팁 ------------------------->
-        <div class="standard">
+        <!-- <div class="standard">
             <div class="div-v tips" style="align-items: start;">
                 <div class="div-h">
                     <div class="tips-title">Page Zoom</div>
@@ -33,7 +19,7 @@
                     <div class="tips2">Ctrl + Wheel doun</div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <div class="cover-box">
             <div class="cover-title1">
@@ -60,10 +46,10 @@
             <!-- 인풋박스 -->
             <div class="div-h main-top-container">
                 <div id="preview-container"> Preview</div>
-                <form class="div-v" style="color: #ddffff; justify-content: end; height: 174.07px; border-right: solid 1px rgb(45, 72, 88);" enctype="multipart/form-data">
+                <form class="div-v" style="color: #ddffff; justify-content: end; height: 100%; border-right: solid 1px rgb(45, 72, 88);" enctype="multipart/form-data">
                     <!-- Age in Years -->
                     {% csrf_token %}
-                    <div class="div-h base-input base-column" style="width: 186px; border: none; border-top: solid 1px rgb(45, 72, 88);">
+                    <div class="div-h base-input base-column" style="width: 240px; border: none; border-top: solid 1px rgb(45, 72, 88);">
                         Input Form
                     </div>
                     <div class="input-box">
@@ -75,157 +61,145 @@
                         <div class="age-label">Age</div> 
                         <input class="new-input" value="" placeholder="Click here" type="number" id="ageInput" min="1" step="1" required>
                     </div>
-                    <div class="input-box" style="padding: 3px; width: 200px;">
+                    <div class="input-box" style="padding: 3px; width: 99%;">
                         <button class="upload-btn" type="button" onclick="uploadImage()">Upload</button>
                     </div>
                 </form>
-                <!-- 등급 박스 변화 설명 -->  
-                <div class="div-v" style="width: 189px; justify-content: end; height: 174.07px; border-right: solid 1px rgb(45, 72, 88);">    
-                    <div class="css-line" style="width: 100%; height: 24px;"></div>
-                    <div class="bar-chart1">
-                        <div class="bar-chart2" style="height: 42px;">1<br>%</div>
-                        <div class="bar-chart2" style="height: 47px;">3<br>%</div>
-                        <div class="bar-chart2" style="height: 52px;">5<br>%</div>
-                        <div class="bar-chart2" style="height: 57px;">7<br>%</div>
-                        <div class="bar-chart2" style="height: 62px;">9<br>%</div>
-                        <div style=" font-size: 12px; padding-right: 4px; border-top: solid 0px; color: #c1c1c1; position: absolute; left: -1px; top: -20px;">Height</div>
-                    </div>
-                    <div class="div-h" style="height: 32px; color: #c1c1c1; font-size: 14px; font-size: 12px;">Ratio</div>
-                </div>  
-                <!-- 등급 색 설명 -->
-                <div class="div-v" style="justify-content: end; height: 174.07px;">
-                    <div class="input-box">
-                        <div class="div-h base-input base-column" style="width: 48px;">Grade</div>
-                        <div class="div-h base-input base-column" style="width: 46px;">Color</div>
-                        <div class="div-h base-input base-column" style="width: 89px;">Shade Darkens</div>
-                        <div class="div-h base-input base-column" style="width: 48px; border-right: none;">Legend</div>
-                    </div>
-                    <div class="input-box">
-                        <div class="div-h base-input" style="width: 48px;">A</div>
-                        <div class="div-h base-input" style="width: 46px;">
-                            <div style="width: 10px; height: 10px; background: rgb(67, 235, 229);"></div>
-                        </div>
-                        <div class="div-h base-input" style="width: 89px;">
-                            <div class="gradient-A"></div>
-                        </div>
-                        <div class="div-h base-input" style="width: 48px; border: none;">
-                            <div class="div-h grade-lagende">?</div>
-                        </div>
-                    </div>
-                    <div class="input-box">
-                        <div class="div-h base-input" style="width: 48px;">B</div>
-                        <div class="div-h base-input" style="width: 46px;">
-                            <div style="width: 10px; height: 10px; background: rgb(132, 92, 243);"></div>
 
-                        </div>
-                        <div class="div-h base-input" style="width: 89px;">
-                            <div class="gradient-B"></div>
-                        </div>
-                        <div class="div-h base-input" style="width: 48px; border: none;">
-                            <div class="div-h grade-lagende">?</div>
-                        </div>
-                    </div>
-                    <div class="input-box">
-                        <div class="div-h base-input" style="width: 48px;">C</div>
-                        <div class="div-h base-input" style="width: 46px;">
-                            <div style="width: 10px; height: 10px; background: rgb(217, 63, 231);"></div>
-                        </div>
-                        <div class="div-h base-input" style="width: 89px;">
-                            <div class="gradient-C"></div>
-                        </div>
-                        <div class="div-h base-input" style="width: 48px; border: none;">
-                            <div class="div-h grade-lagende">?</div>
-                        </div>
-                    </div>
-                </div>
             </div>
-
+            <!--------------------------------- 메인 폼 --------------------------------->
             <div class="main-container">
                 <div id="top-infobox-container"></div> <!-- canvas 컨테이너에서 복사한 결과 표시 레이어 -->
-                <div class="result-draw-layer2" id="mask-image-container"></div>
+                <div class="mask-draw-layer" id="mask-image-container"></div>
                     <div id="result-draw-layer"><!-- 서버에서 받은 좌표로 css요소를 그리는 레이어 -->
                         <canvas id="canvas-layer" width="1024px" height="512px"></canvas> <!-- 이미지만 들어가는 레이어 -->
                     </div>
                     <div id="loader-box"></div>
                 <div id="bottom-infobox-container"></div>
+                   
+                <!-- 등급 박스 변화 설명 -->  
+                <!-- <div id="sg-description1">
+                    <div class="control-column" style="border-top: none;">Description</div>
+                    <div class="div-h" style="margin-top: 15px">Bone loss↑ = Box height↑</div>
+                    <div class="div-h" style="width: 100%;">
+                        <div class="bar-chart1" style="margin: 15px 0px">
+                            <div class="bar-chart2" style="height: 42px;">1<br>%</div>
+                            <div class="bar-chart2" style="height: 47px;">3<br>%</div>
+                            <div class="bar-chart2" style="height: 52px;">5<br>%</div>
+                            <div class="bar-chart2" style="height: 57px;">7<br>%</div>
+                            <div class="bar-chart2" style="height: 62px;">9<br>%</div>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-------------- 온/오프 버튼 -------------->
+                <div id="sg-results-control">
+                    <div class="control-column" style="border-top: none;">Toggle Annotations</div>
+                    <div class="div-h" style="width: 100%;">
+                        <div class="on-off-btn" id="toggle-mask">Mask</div>
+                        <div class="on-off-btn" id="toggle-mask">PBL</div>
+                        <div class="on-off-btn" id="toggle-mask">CEJ</div>
+                    </div>
+                    <div class="div-h" style="width: 100%;">
+                        <div class="on-off-btn" id="toggle-mask">Axis</div>
+                        <div class="on-off-btn" id="toggle-mask">Teeth</div>
+                        <div class="on-off-btn" id="toggle-mask">All</div>
+                    </div>
+                </div>
+                <!-------------- 결과 요약 ------------->
+                <div id="sg-results-summary">
+                    <!---- 통계 ---->
+                    <div class="control-column" style="border-top: none;">Statistical Results</div>
+                    <div class="summary-form" id="summary-container"></div>
+                    <!------- 등급 파이차트 ------>
+                    <div class="control-column">Grade Distribution</div>
+                    <canvas style="width: 165px; height: 130px;" id="gradeChart"></canvas>
+                    <!---- 최대소실 크롭 ---->
+                    <div class="cropped-image-form" id="cropped-image-container">
+                        <div class="control-column">Max Bone Loss Tooth</div>
+                        <img id="cropped-image" src="" alt="Cropped Image" style="margin-top: 5px; max-width: 100%; height: auto; display: none;">
+                    </div>
+                    <!-- Save 버튼 추가 -->
+                     <div class="save-btn-cover">
+                        <button id="save-button">Tagging</button>
+                    </div>
+                </div>
             </div>
             <!---------------- matin 하단 ---------------->
             <div class="div-h" style="width: 100%; height: 200px; border-top: solid 1px rgb(45, 72, 88); color: #c1c1c1;">
-               
-                    <table style="width: 700px; height: 10px;">
-                        <tr>
-                            <th onclick="showOptions('smoking')">Smoking</th>
-                            <th onclick="showOptions('diabetes')">Diabetes</th>
-                        </tr>
-                        <tr>
-                            <td id="value-smoking">Click to select</td>
-                            <td id="value-diabetes">Click to select</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <div class="div-h">
-                                    <select style="margin-left: 90px; margin-right: 130px; display: block; border: none; background: none; width: 120px; color: #dcdcdc;" id="select-smoking" onchange="updateValue('smoking', this.value)">
-                                        <option value="Non-smoker">Non-smoker</option>
-                                        <option value="Smoker＜10 cigarettes/day">Smoker＜10 cigarettes/day</option>
-                                        <option value="Smoker≥10 cigarettes/day">Smoker≥10 cigarettes/day</option>
-                                    </select>
-                                    <select style="margin-left: 0px; display: block; border: none; background: none; width: 290px; color: #dcdcdc;" id="select-diabetes" onchange="updateValue('diabetes', this.value)">
-                                        <option value="Normoglycemic / no diagnosis of diabetes">Normoglycemic / no diagnosis of diabetes</option>
-                                        <option value="HbAlc＜7.0% in patients with diabetes">HbAlc＜7.0% in patients with diabetes</option>
-                                        <option value="HbAlc≥7.0% in patients with diabetes">HbAlc≥7.0% in patients with diabetes</option>
-                                    </selct>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-
+                <table style="width: 700px; height: 10px;">
+                    <tr>
+                        <th onclick="showOptions('smoking')">Smoking</th>
+                        <th onclick="showOptions('diabetes')">Diabetes</th>
+                    </tr>
+                    <tr>
+                        <td id="value-smoking">Click to select</td>
+                        <td id="value-diabetes">Click to select</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="div-h">
+                                <select style="margin-left: 90px; margin-right: 130px; display: block; border: none; background: none; width: 120px; color: #dcdcdc;" id="select-smoking" onchange="updateValue('smoking', this.value)">
+                                    <option value="Non-smoker">Non-smoker</option>
+                                    <option value="Smoker＜10 cigarettes/day">Smoker＜10 cigarettes/day</option>
+                                    <option value="Smoker≥10 cigarettes/day">Smoker≥10 cigarettes/day</option>
+                                </select>
+                                <select style="margin-left: 0px; display: block; border: none; background: none; width: 290px; color: #dcdcdc;" id="select-diabetes" onchange="updateValue('diabetes', this.value)">
+                                    <option value="Normoglycemic / no diagnosis of diabetes">Normoglycemic / no diagnosis of diabetes</option>
+                                    <option value="HbAlc＜7.0% in patients with diabetes">HbAlc＜7.0% in patients with diabetes</option>
+                                    <option value="HbAlc≥7.0% in patients with diabetes">HbAlc≥7.0% in patients with diabetes</option>
+                                </selct>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
             </div>
-        </div>
-    </div>
-<!-- 우측 서브 폼 ======================================================================================================================= -->
-    <div class="back-container-right">
-        <div class="cover-box" style="width: 200px; height: 1097px; justify-content: end;">
-            <div class="cover-title1">
-                <div class="cover-title2"></div>
-                <div class="cover-title3" style="width: 60%;">SUB FORM</div>
-                <div class="cover-title3" style="width: 30%;">X-RAY</div>
-                <div class="cover-title2"></div>
-            </div>
-            <!----------------------------- 온/오프 버튼 ----------------------------->
-            <div class="div-v" style="width: 100%; border-top: solid 1px rgb(45, 72, 88);">
-                <div class="menu-btn">menu_1</div>
-                <div class="menu-btn">menu_2</div>
-                <div class="menu-btn">menu_3</div>
-                <div class="menu-btn">menu_4</div>
-                <div class="menu-btn" style="margin-bottom: 5px;">menu_5</div>
-            </div>
-            <!----------------------------- 온/오프 버튼 ----------------------------->
-            <div class="div-v" style="width: 100%; height: 90px; border-top: solid 1px rgb(45, 72, 88);">
-                <div class="div-h" style="width: 97%;">
-                    <div class="on-off-btn" id="toggle-mask">Mask</div>
-                    <div class="on-off-btn" id="toggle-mask">PBL</div>
-                    <div class="on-off-btn" id="toggle-mask">CEJ</div>
-                </div>
-                <div class="div-h" style="width: 97%;">
-                    <div class="on-off-btn" id="toggle-mask">Axis</div>
-                    <div class="on-off-btn" id="toggle-mask">Teeth</div>
-                    <div class="on-off-btn" id="toggle-mask">All</div>
-                </div>
-            </div>
-            <!----------------------------- 골소실이 가장 심한 크롭 이미지 ----------------------------->
-            <div class="cropped-image-form" id="cropped-image-container">
-                <img id="cropped-image" src="" alt="Cropped Image" style="max-width: 100%; height: auto; display: none;">
-            </div>
-            <!----------------------------- 결과 요약 ----------------------------->
-            <div class="summary-form" id="summary-container"></div>
-            <!----------------------------- 등급 비율 파이차트 ----------------------------->
-            <div class="div-h" style="position: relative; width: 100%; height: 260px;">
-                <canvas class="pieChart" id="gradeChart"></canvas>
-            </div>
-
         </div>
     </div>
 </div>
+
+<script>
+    var save_img
+    document.getElementById('save-button').addEventListener('click', function() {
+        const data = {
+            patient_age: dentalData.age || null,
+            max_loss: dentalData.maxLoss !== 'none' ? dentalData.maxLoss : null,
+            avg_loss: dentalData.averageLoss !== 'none' ? dentalData.averageLoss : null,
+            total_teeth: dentalData.lossCount !== 'none' ? dentalData.lossCount : null,
+            grade_a_count: dentalData.gradeCounts.A !== 'none' ? dentalData.gradeCounts.A : null,
+            grade_b_count: dentalData.gradeCounts.B !== 'none' ? dentalData.gradeCounts.B : null,
+            grade_c_count: dentalData.gradeCounts.C !== 'none' ? dentalData.gradeCounts.C : null,
+            visualization_image: save_img,  // 수정된 함수 사용
+            title: 'Single'
+        };
+
+        fetch("{% url 'save_diagnosis_result' %}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                alert(`Data saved successfully at ${data.saved_at}`);
+            } else {
+                alert("Failed to save data.");
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("An error occurred while saving data.");
+        });
+    });
+
+</script>
+
+
+
+
 
 <script>
     function showOptions(column) {
@@ -245,14 +219,40 @@
 
 <!---------------------------------선택한 인풋 파일명 표시--------------------------------->
 <script>
-    // 선택한 인풋 파일명 표시
+    // 선택한 인풋 파일명 표시 및 기존 파일 정보 저장
     window.onload = function() {
         var fileInput = document.getElementById('imgfile');
         var fileNameField = document.querySelector('.new-input');
 
         fileInput.addEventListener('change', function() {
-            var fileName = this.files[0].name;
-            fileNameField.value = fileName; // 파일명을 입력 필드에 표시
+            if (this.files && this.files[0]) {
+                var fileName = this.files[0].name;
+                fileNameField.value = fileName; // 파일명을 입력 필드에 표시
+
+                // 미리보기 업데이트
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var previewContainer = document.getElementById('preview-container');
+                    previewContainer.innerHTML = ''; // 기존 미리보기 제거
+                    var img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.width = '100%';
+                    img.style.height = 'auto';
+                    previewContainer.appendChild(img);
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        });
+
+        // 파일 선택 버튼 클릭 시 초기화 기능 추가
+        fileInput.addEventListener('click', function() {
+            // 파일 인풋 초기화
+            fileInput.value = '';
+            fileNameField.value = '';
+
+            // 미리보기 초기화
+            var previewContainer = document.getElementById('preview-container');
+            previewContainer.innerHTML = '';
         });
     };
 </script>
@@ -309,15 +309,11 @@
                     <div class="data-entry">${this.age}</div>
                 </div>
                 <div class="div-h">
-                    <div class="index-column">Maximum Loss</div>
+                    <div class="index-column">Max Loss</div>
                     <div class="data-entry">${this.maxLoss !== 'none' ? this.maxLoss.toFixed(2) + "%" : this.maxLoss}</div>
                 </div>
                 <div class="div-h">
-                    <div class="index-column">Minimum Loss</div>
-                    <div class="data-entry">${this.minLoss !== 'none' ? this.minLoss.toFixed(2) + "%" : this.minLoss}</div>
-                </div>
-                <div class="div-h">
-                    <div class="index-column">Average Loss</div>
+                    <div class="index-column">Avg Loss</div>
                     <div class="data-entry">${this.averageLoss !== 'none' ? this.averageLoss.toFixed(2) + "%" : this.averageLoss}</div>
                 </div>
                 <div class="div-h">
@@ -325,15 +321,15 @@
                     <div class="data-entry">${this.lossCount !== 'none' ? this.lossCount : this.lossCount}</div>
                 </div>
                 <div class="div-h">
-                    <div class="index-column">Grade A Coun</div>
+                    <div class="index-column">GradeA Num</div>
                     <div class="data-entry">${this.gradeCounts.A !== 'none' ? this.gradeCounts.A : this.gradeCounts.A}</div>
                 </div>
                 <div class="div-h">
-                    <div class="index-column">Grade B Coun</div>
+                    <div class="index-column">GradeB Num</div>
                     <div class="data-entry">${this.gradeCounts.B !== 'none' ? this.gradeCounts.B : this.gradeCounts.B}</div>
                 </div>
                 <div class="div-h">
-                    <div class="index-column">Grade C Coun</div>
+                    <div class="index-column">GradeC Num</div>
                     <div class="data-entry">${this.gradeCounts.C !== 'none' ? this.gradeCounts.C : this.gradeCounts.C}</div>
                 </div>
                 `;
@@ -359,26 +355,24 @@
                 responsive: false,
                 plugins: {
                     legend: {
-                        position: 'top',
+                        position: 'left',
                         labels: {
                             usePointStyle: true,
                             pointStyle: 'rect',
-                            color: 'white',
+                            color: '#dcdcdc',
                             font: {
-                                size: 16,
+                                size: 14,
                                 family: 'Arial',
                                 style: 'normal',
-                                weight: 'bold',
                             },
-                            padding: 22 // 라벨 사이 간격
+                            padding: 10 // 라벨 사이 간격
                         }
                     },
                     // 차트 위에 결과 표시
                     datalabels: {
                         color: 'black',
                         font: {
-                            size: 16,
-                            weight: 'bold'
+                            size: 12,
                         },
                         formatter: (value, ctx) => {
                             // 0이 아닌 데이터만 표시
@@ -390,7 +384,15 @@
                             }
                         }
                     }
-                }
+                },
+                // layout: {
+                //     padding: {
+                //         top: 12,
+                //         bottom: 17,
+                //         left: 17,
+                //         right: 17
+                //     }
+                // },
             };
             if (this.chartInstance) {
                 this.chartInstance.data = data;
@@ -398,7 +400,7 @@
                 this.chartInstance.update();
             } else {
                 this.chartInstance = new Chart(ctx, {
-                    type: 'pie',
+                    type: 'doughnut',
                     data: data,
                     options: options,
                     plugins: [ChartDataLabels] // datalabels 플러그인을 추가
@@ -407,11 +409,135 @@
         }
 
     };
+
+    // dentalData 객체 초기화 함수 추가
+    function resetDentalData() {
+        dentalData.maxLoss = 'none';
+        dentalData.minLoss = 'none';
+        dentalData.totalLosses = 'none';
+        dentalData.lossCount = 'none';
+        dentalData.gradeCounts = { A: 'none', B: 'none', C: 'none' };
+        dentalData.age = 'none';
+        dentalData.averageLoss = 'none';
+    }
+    
     // 페이지 로드 시 요약 정보를 초기화합니다.
     document.addEventListener('DOMContentLoaded', function() {
         dentalData.displaySummary();
+
     });
 </script>
+
+<!------------------------------ 팝업 차트 함수 ------------------------------>
+<script>
+    function showPopupChart(ratio, grade) {
+        // 팝업창 생성
+        const popup = document.createElement('div');
+        popup.style.width = '500px';
+        popup.style.height = '500px';
+        popup.style.position = 'fixed';
+        popup.style.top = '50%';
+        popup.style.left = '50%';
+        popup.style.transform = 'translate(-50%, -50%)';
+        popup.style.backgroundColor = 'white';
+        popup.style.border = '2px solid black';
+        popup.style.zIndex = '1000';
+        popup.style.display = 'flex';
+        popup.style.flexDirection = 'column';
+        popup.style.alignItems = 'center';
+        popup.style.justifyContent = 'center';
+
+        // 닫기 버튼 추가
+        const closeButton = document.createElement('button');
+        closeButton.innerText = 'Close';
+        closeButton.style.position = 'absolute';
+        closeButton.style.top = '10px';
+        closeButton.style.right = '10px';
+        closeButton.addEventListener('click', function() {
+            document.body.removeChild(popup);
+        });
+        popup.appendChild(closeButton);
+
+        // 캔버스 추가
+        const canvas = document.createElement('canvas');
+        canvas.width = 450;
+        canvas.height = 450;
+        popup.appendChild(canvas);
+        document.body.appendChild(popup);
+
+        // 등급에 따른 색상 설정
+        let pointColor;
+        if (grade === 'A') {
+            pointColor = 'rgb(67, 235, 229)';
+        } else if (grade === 'B') {
+            pointColor = 'rgb(132, 92, 243)';
+        } else if (grade === 'C') {
+            pointColor = 'rgb(217, 63, 231)';
+        } else {
+            pointColor = 'rgba(75, 192, 192, 1)';  // 기본 색상
+        }
+
+        // 차트 데이터 생성
+        const ctx = canvas.getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Point 1', 'Point 2', 'Point 3'],
+                datasets: [{
+                    label: `Grade: ${grade}`,  // 차트 레이블에 Grade 추가
+                    data: [ratio, 50, 70], // 데이터 예시
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 2,
+                    fill: false,
+                    pointBackgroundColor: [pointColor, 'rgba(75, 192, 192, 1)', 'rgba(75, 192, 192, 1)'],  // 첫 번째 포인트 색상 설정
+                    pointBorderColor: 'black',
+                    pointBorderWidth: 1,
+                    pointStyle: 'circle',
+                    pointRadius: 5
+                }]
+            },
+            options: {
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `Ratio: ${context.raw}%\nGrade: ${grade}`;
+                            }
+                        }
+                    },
+                    datalabels: {
+                        display: true,
+                        align: 'top',
+                        color: 'black',
+                        font: {
+                            weight: 'bold'
+                        },
+                        formatter: function(value, context) {
+                            const pointIndex = context.dataIndex;
+                            if (pointIndex === 0) {
+                                return `Ratio: ${value}%\nGrade: ${grade}`;
+                            } else {
+                                return `Ratio: ${value}%\nGrade: F`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        display: false  // 세로축 레이블 제거
+                    }
+                },
+                responsive: false
+            },
+            plugins: [ChartDataLabels] // datalabels 플러그인을 추가
+        });
+    }
+</script>
+
+
+
 
 <!-----------------------------------서버에서 가져온 위치 좌표를 점으로 표시----------------------------------->
 <script>
@@ -464,6 +590,9 @@
         infoBox.setAttribute('data-grade', grade);
         infoBox.setAttribute('data-ratio', ratio);
 
+        console.log(`Added infoBox with ratio: ${ratio}`); // 로그 추가
+        console.log(`Added infoBox with grade: ${grade}`); // 로그 추가
+
         container.appendChild(infoBox);
         infoBox.innerHTML = `<div class="div-v"">
                                 <strong style="font-size: 18px;">${grade}</strong>
@@ -491,54 +620,71 @@
         bottomInfoBoxes.sort((a, b) => a.offsetLeft - b.offsetLeft);
     }
 
-    // -----------------------------------비율에 따른 색상 스타일 적용-----------------------------------
-    function DetermineColorBasedOnRatio(box, grade, ratio, maxRatio) {
-        let startColor, endColor;
-        let divide = 0;
-        
-        if (grade === 'A') {
-            startColor = { r: 243, g: 255, b: 255 };
-            endColor = { r: 14, g: 219, b: 212 };
-            divide = 40
-        } else if (grade === 'B') {
-            startColor = { r: 220, g: 207, b: 255 };
-            endColor = { r: 78, g: 23, b: 229 };
-            divide = 40
-        } else if (grade === 'C') {
-            startColor = { r: 251, g: 207, b: 255 };
-            endColor = { r: 193, g: 10, b: 209 };
-            divide = 40
-        } else {
-            // 기본값이나 예외 처리
-            box.style.backgroundColor = 'rgb(0, 0, 0)'; // 흰색
-            return;
-        }
-
-        // 비율에 따른 색상 계산
-        let ratioColor = {
-            r: calculateColor(startColor.r, endColor.r, ratio, divide),
-            g: calculateColor(startColor.g, endColor.g, ratio, divide),
-            b: calculateColor(startColor.b, endColor.b, ratio, divide)
-        };
-
-        box.style.backgroundColor = `rgb(${ratioColor.r}, ${ratioColor.g}, ${ratioColor.b})`;
-        box.style.height = `${(ratio * 2) + 35}px`;
-
-            // 최대 비율을 가진 박스에 특별한 스타일 적용
-            if (ratio === maxRatio) {
-                box.classList.add('max-ratio-box');
-            } else {
-                box.classList.remove('max-ratio-box');
-            }
-    }
 
     function calculateColor(start, end, ratio, divide) {
         // 비율에 따른 색상 값 계산 (선형 보간) 각 등급이 20% 차이니 20으로 나눔
         return Math.round(start + (end - start) * (ratio / divide));
     }
 
+    // -----------------------------------비율에 따른 색상 스타일 적용-----------------------------------
+    function DetermineColorBasedOnRatio(box, grade, ratio, maxRatio) {
+        // // 비율에 따른 색상 계산
+        // let startColor, endColor;
+        // let divide = 0;
+        
+        // if (grade === 'A') {
+        //     startColor = { r: 243, g: 255, b: 255 };
+        //     endColor = { r: 14, g: 219, b: 212 };
+        //     divide = 40
+        // } else if (grade === 'B') {
+        //     startColor = { r: 220, g: 207, b: 255 };
+        //     endColor = { r: 78, g: 23, b: 229 };
+        //     divide = 40
+        // } else if (grade === 'C') {
+        //     startColor = { r: 251, g: 207, b: 255 };
+        //     endColor = { r: 193, g: 10, b: 209 };
+        //     divide = 40
+        // } else {
+        //     // 기본값이나 예외 처리
+        //     box.style.backgroundColor = 'rgb(0, 0, 0)'; // 흰색
+        //     return;
+        // }
+
+        // let ratioColor = {
+        //     r: calculateColor(startColor.r, endColor.r, ratio, divide),
+        //     g: calculateColor(startColor.g, endColor.g, ratio, divide),
+        //     b: calculateColor(startColor.b, endColor.b, ratio, divide)
+        // };
+
+        // box.style.backgroundColor = `rgb(${ratioColor.r}, ${ratioColor.g}, ${ratioColor.b})`;
+        
+        // 최대 비율을 가진 박스에 특별한 스타일 적용
+        if (ratio === maxRatio) {
+            box.classList.add('max-ratio-box');
+        } else {
+            box.classList.remove('max-ratio-box');
+        }
+
+        if (grade === 'A') {
+            box.style.backgroundColor = 'rgb(67, 235, 229)';
+        } else if (grade === 'B') {
+            box.style.backgroundColor = 'rgb(132, 92, 243)'; 
+        } else if (grade === 'C') {
+            box.style.backgroundColor = 'rgb(217, 63, 231)'; 
+        } else {
+            box.style.backgroundColor = 'rgb(255, 255, 255)'; 
+            return;
+        }
+
+        box.style.height = `${(ratio * 2) + 40}px`;
+    }
+
+
+
+
+
     // -------------------- infoBox의 내용만 순서대로 info-box2에 복사하고 top-infobox-container에 넣음 --------------------
-let maxRatio = 0;  // 전역 변수로 최대 비율 저장
+    let maxRatio = 0;  // 전역 변수로 최대 비율 저장
     function cloneAndArrangeBoxes() {
         const topInfoBoxContainer = document.querySelector('div[id="top-infobox-container"]');
         const bottomInfoBoxContainer = document.querySelector('div[id="bottom-infobox-container"]');
@@ -569,6 +715,11 @@ let maxRatio = 0;  // 전역 변수로 최대 비율 저장
             const topNewDiv = document.createElement('div');
             topNewDiv.innerHTML = box.innerHTML;
             topNewDiv.className = 'info-box2';
+
+            topNewDiv.setAttribute('data-ratio', ratio);  // 추가
+            topNewDiv.setAttribute('data-grade', grade);  // 추가
+            console.log('Creating top info-box2 with ratio:', ratio, grade);  // 생성 시 로그 추가
+            
             topInfoBoxContainer.appendChild(topNewDiv);
 
             DetermineColorBasedOnRatio(topNewDiv, grade, ratio, maxRatio);
@@ -582,9 +733,24 @@ let maxRatio = 0;  // 전역 변수로 최대 비율 저장
             const bottomNewDiv = document.createElement('div');
             bottomNewDiv.innerHTML = box.innerHTML;
             bottomNewDiv.className = 'info-box3';
+
+            bottomNewDiv.setAttribute('data-ratio', ratio);  // 추가
+            bottomNewDiv.setAttribute('data-grade', grade);  // 추가
+            console.log('Creating bottom info-box3 with ratio:', ratio, grade);  // 생성 시 로그 추가
             bottomInfoBoxContainer.appendChild(bottomNewDiv);
 
             DetermineColorBasedOnRatio(bottomNewDiv, grade, ratio, maxRatio);
+        });
+
+        // 새로 생성된 박스들에 클릭 이벤트 추가
+        document.querySelectorAll('.info-box2, .info-box3').forEach(function(box) {
+            console.log('Adding event listener to new box:', box);  // 디버깅을 위해 로그 추가
+            box.addEventListener('click', function() {
+                const ratio = parseFloat(this.getAttribute('data-ratio'));
+                const grade = this.getAttribute('data-grade'); // grade 값 가져오기
+                console.log('New box clicked with ratio:', ratio, grade);  // 클릭 시 로그 추가
+                showPopupChart(ratio, grade);
+            });
         });
     }
 
@@ -739,6 +905,9 @@ let maxRatio = 0;  // 전역 변수로 최대 비율 저장
             alert("Please enter a valid image and age.");
             return; // 함수 실행 중지
         }
+
+        resetDentalData(); // dentalData 객체 초기화
+
         dentalData.setAge(parseInt(ageInput)); // 나이 데이터를 dentalData 객체에 설정
 
         var form_data = new FormData();
@@ -784,7 +953,9 @@ let maxRatio = 0;  // 전역 변수로 최대 비율 저장
 
             // 서버로부터 받은 이미지(Base64 문자열)를 이미지 객체로 로드
             var img = new Image();
-            img.src = 'data:image/jpeg;base64,' + data.graded_data[0].encoded_image;
+            img.src = 'data:image/jpeg;base64,' + data.graded_data[0].encoded_image_copy;
+
+            save_img = 'data:image/jpeg;base64,' + data.graded_data[0].encoded_image;
 
             img.onload = function() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -811,18 +982,11 @@ let maxRatio = 0;  // 전역 변수로 최대 비율 저장
                         textM = [(textX + startX) / 2, (textY + startY) / 2]; // 중간점 계산
                         typ = "low"
                     }
-                    // // 각 치아 좌표 근처에 텍스트 그리기
-                    // ctx.font = "16px Arial";
-                    // ctx.fillStyle = "yellow";
-                    // ctx.fillText(`${item.grade}, ${item.ratio}`, textX, textY);
-                    
-                    // // 치아 좌표 시각화
-                    // ctx.fillStyle = "red"; 
-                    // ctx.beginPath(); 
-                    // ctx.arc(textX, textY, 5, 0, 2 * Math.PI);
-                    // ctx.fill();
+
                     addLocationPoint(textX, textY, textM, typ);
                     addGradeRatio(textX, textY, item.grade, item.ratio, item.cej_type);
+
+                    console.log(`Added grade ratio: grade=${item.grade}, ratio=${item.ratio}`);  // 디버깅을 위해 로그 추가
 
                     dentalData.updateMetrics(item); // 요약 데이터 업데이트
                 });
@@ -834,6 +998,10 @@ let maxRatio = 0;  // 전역 변수로 최대 비율 저장
                 cloneAndArrangeBoxes();
                 drawLineFromPointToBox();
                 console.log('maxRatio:', maxRatio); // maxRatio 값 콘솔에 출력
+                
+                document.getElementById('sg-results-summary').style.display = 'block';
+                document.getElementById('sg-results-control').style.display = 'block';
+                document.getElementById('sg-description1').style.display = 'block';
 
             };
             

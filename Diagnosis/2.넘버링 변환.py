@@ -39,27 +39,17 @@ def distance(x0, y0, x1, y1):
     return distance
 
 
-def lineDetection(img, class_list):
+def lineDetection(img):
     try:
         # df_dentex라는 데이터프레임을 id, segmentation, center_point 열로 생성
         df_dentex = pd.DataFrame(columns=['id', 'segmentation', 'center_point'])
         df_line = pd.DataFrame(index=range(0), columns=['id', '시작 좌표', '종료 좌표', 'pbl 교점', 'cej 교점', 'cej 유형', '비율', '길이'])
+        class_list = ['molar', 'bridge', 'canine', 'implant', 'incisor', 'premolar']
 
         size_x = 1024
         size_y = 512
 
         img = cv2.imread(img)
-        img_array = np.frombuffer(img, np.uint8)
-        img = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
-        img_height, img_width, _ = img.shape
-        center_x, center_y = img_width // 2, img_height // 2
-        cutting_ratio = 0.75
-        left = int(center_x - cutting_ratio / 2 * img_width)
-        right = int(center_x + cutting_ratio / 2 * img_width)
-        top = int(center_y - cutting_ratio / 2 * img_height)
-        bottom = int(center_y + cutting_ratio / 2 * img_height)
-        img = img[top:bottom, left:right]
-        
         # 이미지를 사이즈에 맞게 리사이즈하고 BGR에서 RGB로 변환
         detect_img = cv2.resize(img, (size_x, size_y))
         detect_img = cv2.cvtColor(detect_img, cv2.COLOR_BGR2RGB, detect_img)
@@ -172,7 +162,7 @@ def lineDetection(img, class_list):
             df_line.loc[index_to_update, 'id'] = row['id']
             
 
-        df_line.to_csv('df_line.csv', index=False) 
+        # df_line.to_csv('df_line.csv', index=False) 
 
 
         # 이미지에 중심점과 ID를 시각화
@@ -193,12 +183,11 @@ def lineDetection(img, class_list):
         print(f"Error: {e}")
 
 if __name__ == "__main__":
-    class_list = ["치아_1", "치아_2", "치아_3", "치아_4", "치아_5", "치아_6", "치아_7", "치아_8"]  # 예시
 
     # 결과 예시
     # class_list ?
-    img = "media/test_img.jpg"
-    lineDetection(img, class_list)
+    img = "media/455_1.jpg"
+    lineDetection(img)
 
 
 

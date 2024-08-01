@@ -1,45 +1,66 @@
 header {
   position: relative;
   height: 65px;
-  margin-bottom: 10px;
-  background-color: rgb(45, 72, 88);
-}
-
-.header-bottom-line {
-  position: absolute;
-  bottom: 0px;
   width: 100%;
-  height: 1px;
-  background-color: rgb(10, 15, 17);
+  margin-bottom: 30px;
+  background-color: rgb(45, 72, 88);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.logo-p {
-  white-space: nowrap; 
-  color: rgb(160, 212, 235);
-  text-shadow: 0px 0px 10px rgba(87, 166, 206, 0.8),
-  0 0 1em rgba(87, 166, 206, 0.7),
-  0 0 0.2em rgba(87, 166, 206, 0.5);
-  margin: 0px; 
-  margin-right: 40px; 
-  margin-bottom: 5px; 
-  font-size: 24px;
-}
-
-.sub-line {
-  height: 48px; 
+.header-cover1 {
+  display: flex;
+  justify-content: start; 
+  align-items: center;
+  width: 990px; 
+  height: 45px; 
+  border-left: 1px solid rgb(182, 238, 255, 0.8);
   border-right: 1px solid rgb(182, 238, 255, 0.8);
-  box-shadow: 0px 0px 10px rgba(87, 166, 206, 0.8),
-  0 0 1em rgba(87, 166, 206, 0.7),
-  0 0 0.2em rgba(87, 166, 206, 0.5);
-  margin-right: 30px;
-  margin-bottom: 3px;
+  padding: 0px 20px;
+}
+
+.logo-img {
+  width: 80px;
+  margin-left: 0px;
+}
+
+.header-p {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  white-space: nowrap; 
+  color: #dcdcdc;
+  font-size: 25px;
+  margin: 0px 00px 5px 7px;
+}
+
+.header-cover2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start; 
+  height: 100%;
+  margin-left: 40px;
+}
+
+.samd-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+  height: 100%; 
+  white-space: nowrap; 
+  color: #b3b3b3; 
+  font-size: 14px;
 }
 
 .url-btn {
-    /* width: 120px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     height: 23px;
-    /* border-top: solid 3px rgb(10, 15, 17); */
-    /* border-left: solid 3px rgb(10, 15, 17); */
     border-right: solid 0px;
     display: flex;
     justify-content: center;
@@ -47,10 +68,7 @@ header {
     font-size: 12px;
     padding-bottom: 1px;
     color: rgb(183, 233, 255);
-    transform: skewX(-40deg); /* 왼쪽으로 20도 기울기 */
-    margin-left: 17px;
-    margin-right: 25px;
-    margin-bottom: 5px;
+    margin-right: 35px;
   }
 
   .url-btn:hover {
@@ -59,58 +77,14 @@ header {
     0 0 1em rgba(87, 166, 206, 0.7), 
     0 0 0.2em rgba(87, 166, 206, 0.5);
   }
-  
+
   .url-text {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* width: 110px; */
-    height: 22px;
-    transform: skewX(40deg); /* 텍스트를 다시 직선으로 */
-    white-space: nowrap;
-  }
-
-  .loader2 {
-    height: 2px;
-    width: 300px;
-    background: rgb(9, 6, 11); 
-    position: relative;
-    overflow: hidden;
-  }
-
-  .loader2 .black_overlay {
-    background: linear-gradient(
-      87deg,
-      rgb(0, 0, 0) 0%,
-      rgba(0, 0, 0, 0.14) 30%,
-      rgba(0, 0, 0, 0.14) 70%,
-      rgb(0, 0, 0) 100%
-    );
-    position: absolute;
-    inset: 0px;
+    text-align: center;
+    margin: 0px;
   }
   
-  .loader2 .light {
-    width: 70px;
-    height: 100%;
-    position: absolute;
-    left: -20%;
-    top: 0px;
-    background: linear-gradient(
-      87deg,
-      rgba(0, 0, 0, 0) 0%,
-      #9cffff 40%,
-      #9cffff 60%,
-      rgba(0, 0, 0, 0) 100%
-    );
-    animation: light 2s infinite ease-in-out;
-  }
-  
-  @keyframes light {
-    from {
-      left: -30%;
-    }
-    to {
-      left: 100%;
-    }
-  }
+
+ 

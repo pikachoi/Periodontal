@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Consent Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Consent Chart</h1>
+    <div style="width: 500px;">
+        <canvas id="consentChart" width="400" height="400"></canvas>
+    </div>
+    <h1>QCR(Quantitative Concordance Rate) : {{ agree_percentage }}%</h1>
+    <p>Total Results: {{ total_results }}</p>
+    <p>Agree: {{ agree_count }}</p>
+    <!-- <p>Disagree: {{ disagree_count }} ({{ disagree_percentage }}%)</p> -->
+
+    <script>
+        var ctx = document.getElementById('consentChart').getContext('2d');
+        var consentChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Agree', 'Disagree'],
+                datasets: [{
+                    data: [{{ agree_count }}, {{ disagree_count }}],
+                    backgroundColor: ['#36a2eb', '#ff6384'],
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                var label = tooltipItem.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                label += Math.round(tooltipItem.raw * 100 / {{ total_results }}) + '%';
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
