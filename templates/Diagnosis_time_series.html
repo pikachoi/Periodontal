@@ -7,88 +7,112 @@
 
 <div class="div-v">
     <div class="ts-main-form">
-        <div class="cover-title1">
+        <div class="cover-title1" style="left: -1px; width: 1025px;">
             <div class="cover-title2"></div>
-            <div class="cover-title3">MAIN FORM</div>
-            <div class="cover-title3" style="width: 5%;">X-RAY</div>
+            <div class="cover-title3">INPUT FORM</div>
+            <div class="cover-title3" style="width: 65px;">X-RAY</div>
             <div class="cover-title2"></div>
         </div>
         <!------------------------------------------ 제출 폼 ------------------------------------------>
         <form class="ts-input-form-cover1" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="ts-input-form-cover2">
-                <!-- 기준 이미지 -->
-                <div class="ts-input-form">
-                    <p>Oldest image</p>
-                    <div class="input-box" style="margin-bottom: 7px; border: solid 1px rgb(63, 84, 96);">
-                        <input type="file" id="imgfile0" accept="image/*" required>
-                        <label  style="width: 65px; height: 30px" for="imgfile0">File</label> 
-                        <input class="new-input" id="filename0" style="width: 100%;" value="" placeholder="Upload image file" required>
-                    </div>
-                    <div class="input-box" style="margin-bottom: 7px; border: solid 1px rgb(63, 84, 96);">
-                        <div class="ts-age-btn">Age</div> 
-                        <input class="new-input" id="ageInput0" style="width: 100%;" value="" placeholder="Enter patient age" type="number" min="1" step="1" required>
-                    </div>
-                    <div class="input-box" style="border: solid 1px rgb(63, 84, 96);">
-                        <label  style="width: 65px; height: 30px" for="datePicker0">Date</label> 
-                        <input type="text" id="datePicker0" class="datepicker-input" placeholder="Enter date taken" >
-                    </div>
-                    <div id="ts-preview-container0"> Preview</div>
-                </div>
                 <!-- 첫번째 이미지 -->
-                <div class="ts-input-form">
-                    <p>Previous Image</p>
-                    <div class="input-box" style="margin-bottom: 7px; border: solid 1px rgb(63, 84, 96);">
-                        <input type="file" id="imgfile1" accept="image/*" required>
-                        <label  style="width: 65px; height: 30px" for="imgfile1">File</label> 
-                        <input class="new-input" id="filename1" style="width: 100%;" value="" placeholder="Upload image file" required>
+                <div class="ts-input-form3">
+                    <div class="ts-input-form4">
+                        <div class="ts-input-title">1. Oldest image</div>
+                        <div class="ts-input-form5">
+                            <div class="ts-input-box" style="border: none;">
+                                <input style="display: none;" type="file" id="imgfile0" accept="image/*" required >
+                                <div class="input-label">Img</div>
+                                <label for="imgfile0">
+                                    <img style="width: 15px;" src="{% static 'img/plus.svg'%}">
+                                </label> 
+                                <input class="new-input" id="filename0" value="" placeholder="" required>
+                            </div>
+                            <div class="ts-input-box">
+                                <div class="input-label">Data</div>
+                                <input type="text" id="datePicker0" class="datepicker-input" placeholder="" >
+                            </div>
+                            <div class="ts-input-box">
+                                <div class="input-label">Age</div>
+                                <input id="ageInput0" value="" placeholder="" type="number" min="1" step="1" required>
+                            </div>
+                        </div>
+                        <div id="ts-preview-container0"></div>
                     </div>
-                    <div class="input-box" style="margin-bottom: 7px; border: solid 1px rgb(63, 84, 96);">
-                        <div class="ts-age-btn">Age</div> 
-                        <input class="new-input" id="ageInput1" style="width: 100%;" value="" placeholder="Enter patient age" type="number" min="1" step="1" required>
-                    </div>
-                    <div class="input-box" style="border: solid 1px rgb(63, 84, 96);">
-                        <label  style="width: 65px; height: 30px" for="datePicker1">Date</label> 
-                        <input type="text" id="datePicker1" class="datepicker-input" placeholder="Enter date taken" >
-                    </div>
-                    <div id="ts-preview-container1"> Preview</div>
                 </div>
                 <!-- 두번째 이미지 -->
-                <div class="ts-input-form" style="border: 0px;">
-                    <p>Newest Images</p>
-                    <div class="input-box" style="margin-bottom: 7px; border: solid 1px rgb(63, 84, 96);">
-                        <input type="file" id="imgfile2" accept="image/*" required>
-                        <label  style="width: 65px; height: 30px" for="imgfile2">File</label> 
-                        <input class="new-input" id="filename2" style="width: 100%;" value="" placeholder="Upload image file" required>
+                <div class="ts-input-form3">
+                    <div class="ts-input-form4">
+                        <div class="ts-input-title">2. Previous Image</div>
+                        <div class="ts-input-form5">
+                            <div class="ts-input-box" style="border: none;">
+                                <input style="display: none;" type="file" id="imgfile1" accept="image/*" required >
+                                <div class="input-label">Img</div>
+                                <label for="imgfile1">
+                                    <img style="width: 15px;" src="{% static 'img/plus.svg'%}">                                </label> 
+                                <input class="new-input" id="filename1" value="" placeholder="" required>
+                            </div>
+                            <div class="ts-input-box">
+                                <div class="input-label">Data</div>
+                                <input type="text" id="datePicker1" class="datepicker-input" placeholder="" >
+                            </div>
+                            <div class="ts-input-box">
+                                <div class="input-label">Age</div>
+                                <input id="ageInput1" value="" placeholder="" type="number" min="1" step="1" required>
+                            </div>
+                        </div>
+                        <div id="ts-preview-container1"></div>
                     </div>
-                    <div class="input-box" style="margin-bottom: 7px; border: solid 1px rgb(63, 84, 96);">
-                        <div class="ts-age-btn">Age</div> 
-                        <input class="new-input" id="ageInput2" style="width: 100%;" value="" placeholder="Enter patient age" type="number" min="1" step="1" required>
+                </div>
+                <!-- 세번째 이미지 -->
+                <div class="ts-input-form3">
+                    <div class="ts-input-form4">
+                        <div class="ts-input-title">3. Newest Images</div>
+                        <div class="ts-input-form5">
+                            <div class="ts-input-box" style="border: none;">
+                                <input style="display: none;" type="file" id="imgfile2" accept="image/*" required >
+                                <div class="input-label">Img</div>
+                                <label for="imgfile2">
+                                    <img style="width: 15px;" src="{% static 'img/plus.svg'%}">                                </label> 
+                                <input class="new-input" id="filename2" value="" placeholder="" required>
+                            </div>
+                            <div class="ts-input-box">
+                                <div class="input-label">Data</div>
+                                <input type="text" id="datePicker2" class="datepicker-input" placeholder="" >
+                            </div>
+                            <div class="ts-input-box">
+                                <div class="input-label">Age</div>
+                                <input id="ageInput2" value="" placeholder="" type="number" min="1" step="1" required>
+                            </div>
+                        </div>
+                        <div id="ts-preview-container2"></div>
                     </div>
-                    <div class="input-box" style="border: solid 1px rgb(63, 84, 96);">
-                        <label  style="width: 65px; height: 30px" for="datePicker2">Date</label> 
-                        <input type="text" id="datePicker2" class="datepicker-input" placeholder="Enter date taken">
+                </div>
+                <!-- 환자 생년월일 및 업로드 -->
+                <div style="width: 100%;">
+                    <div class="ts-input-form3" style="border: none;">
+                        <div class="ts-input-form4" style="align-items: center;">
+                            <div class="ts-input-title" style="">4. Patient's Date of Birth</div>
+                            <button class="upload-btn" style="height: 32px;" type="button" onclick="uploadMultipleImages()">Upload</button>  
+                            <div id="loader-box" style="margin-top: 50px;"></div>
+                        </div>
                     </div>
-                    <div id="ts-preview-container2"> Preview</div>
                 </div>
             </div>
-            <!-- 결과 이미지 선택, 업로드 버튼 -->
-            <div class="div-h" style="gap: 100px;">
-                <div class="div-h">
-                    <label for="results_checkbox_1">Show Previous Image Results</label>
-                    <input id="results_checkbox_1" type="checkbox" onchange="toggleResults()">
-                </div>
-                <button class="upload-btn" style="width: 200px; height: 40px;" type="button" onclick="uploadMultipleImages()">Upload</button>                
-                <div class="div-h">
-                    <label for="results_checkbox_2">Show Newest Images Results</label>
-                    <input id="results_checkbox_2" type="checkbox" onchange="toggleResults2()">
-                </div>
-            </div>
-
         </form>
-        <!-------------------------------------------------------------------------------------------->
-        <div style="color: #949494; margin: 15px 25px; font-size: 20px;">
-            The grade within the color box is an estimated grade 5 years after the oldest image.
+        <!-- 결과 이미지 선택 -->
+        <div id="check-box">
+            <!-- <div style="flex-grow: 1; font-size: 20px;">The grade within the color box is an estimated <br>grade 5 years after the oldest image.</div> -->
+            <div class="div-h" style="font-size: 18px;">
+                <label for="results_checkbox_1">Previous Image</label>
+                <input id="results_checkbox_1" type="checkbox" onchange="toggleResults()">
+            </div>
+            <div class="div-h" style="font-size: 18px;">
+                <label for="results_checkbox_2">Newest Images</label>
+                <input id="results_checkbox_2" type="checkbox" onchange="toggleResults2()">
+            </div>
         </div>
         
         <div class="ts-main-container" id="visualization-container1">
@@ -96,12 +120,8 @@
             <div id="result-draw-layer">
                 <canvas id="canvas-layer" width="1024px" height="512px"></canvas>
             </div>
-            <div id="loader-box"></div>
-            <!-- <div id="ts-results-control1">
-            </div> -->
-            <div id="ts-results-summary1">
-                <div class="summary-title">Previous Image</div>
-                <!----------------------------- 날짜 차이 문구 ----------------------------->
+            <div id="ts-results-control1">
+                <!------- 날짜차이 문구 ------>
                 <div class="df_day_text">
                     <div>Date difference from</div>
                     <div style="position: relative; margin-top: 3px;">image 0 :
@@ -109,27 +129,27 @@
                         &emsp;&emsp;&emsp;day
                     </div>
                 </div>
-                <!----------------------------- 결과 요약 ----------------------------->
-                <div class="summary-form" id="summary-container"></div>
-                <!----------------------------- 등급 비율 파이차트 ----------------------------->
-                <canvas style="width: 100%; border-bottom: solid 1px rgb(111, 141, 158);" id="gradeChart"></canvas>
-                <!-- Save 버튼 추가 -->
-                <button id="save-button" style="margin-top: 20px;">Tagging</button>
+            </div>
+            <div id="ts-results-summary1">
+                <!------- 등급 파이차트 ------>
+                <div class="control-column">Grade Distribution</div>
+                <div class="div-v" style="width: 120px;  height: auto;">
+                    <canvas style="width: 140px; margin-bottom: 10px;" id="gradeChart"></canvas>
+                </div>
             </div>
             <div id="bottom-infobox-container1"></div>
+            <div id="statistics1"></div>
+            <div id="tagging-btn1">Tagging</div>
         </div>
+
         
         <div class="ts-main-container" id="visualization-container2">
             <div id="top-infobox-container2"></div>
             <div id="result-draw-layer2">
                 <canvas id="canvas-layer2" width="1024px" height="512px"></canvas>
             </div>
-            <div id="loader-box"></div>
-            <!-- <div id="ts-results-control2">
-            </div> -->
-            <div id="ts-results-summary2">
-                <div class="summary-title">Previous Image</div>
-                <!----------------------------- 날짜 차이 문구2 ----------------------------->
+            <div id="ts-results-control2">
+                <!------- 날짜차이 문구 ------>
                 <div class="df_day_text">
                     <div>Date difference from</div>
                     <div style="position: relative; margin-top: 3px;">image 0 :
@@ -137,133 +157,22 @@
                         &emsp;&emsp;&emsp;day
                     </div>
                 </div>
-                <!----------------------------- 결과 요약2 ----------------------------->
-                <div class="summary-form" id="summary-container2"></div>
-                <!----------------------------- 등급 비율 파이차트2 ----------------------------->
-                <canvas style="width: 100%; border-bottom: solid 1px rgb(111, 141, 158);" id="gradeChart2"></canvas>
-                <!-- Save 버튼 추가 -->
-                <button id="save-button2" style="margin-top: 20px;">Tagging</button>
+            </div>
+            <div id="ts-results-summary2">
+                <!------- 등급 파이차트 ------>
+                <div class="control-column">Grade Distribution</div>
+                <div class="div-v" style="width: 120px;  height: auto;">
+                    <canvas style="width: 140px; margin-bottom: 10px;" id="gradeChart2"></canvas>
+                </div>
             </div>
             <div id="bottom-infobox-container2"></div>
+            <div id="statistics2"></div>
+            <div id="tagging-btn2">Tagging</div>
         </div>
 
 
     </div>
 </div>
-
-<script>
-    var save_img
-    document.getElementById('save-button').addEventListener('click', function() {
-        const data = {
-            patient_age: dentalData.age || null,
-            max_loss: dentalData.maxLoss !== 'none' ? dentalData.maxLoss : null,
-            avg_loss: dentalData.averageLoss !== 'none' ? dentalData.averageLoss : null,
-            total_teeth: dentalData.lossCount !== 'none' ? dentalData.lossCount : null,
-            grade_a_count: dentalData.gradeCounts.A !== 'none' ? dentalData.gradeCounts.A : null,
-            grade_b_count: dentalData.gradeCounts.B !== 'none' ? dentalData.gradeCounts.B : null,
-            grade_c_count: dentalData.gradeCounts.C !== 'none' ? dentalData.gradeCounts.C : null,
-            visualization_image: save_img,  // 수정된 함수 사용
-            title: 'Time series'
-        };
-
-        fetch("{% url 'save_diagnosis_result' %}", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRFToken": "{{ csrf_token }}"
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === "success") {
-                alert(`Data saved successfully at ${data.saved_at}`);
-            } else {
-                alert("Failed to save data.");
-            }
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            alert("An error occurred while saving data.");
-        });
-    });
-
-    // // 기존 캔버스를 백업하는 변수
-    // let canvasBackup;
-
-    // // drawLineFromPointToBox 함수 호출 전의 캔버스를 백업하는 함수
-    // function backupCanvas() {
-    //     const canvas = document.getElementById('canvas-layer');
-    //     canvasBackup = document.createElement('canvas');
-    //     canvasBackup.width = canvas.width;
-    //     canvasBackup.height = canvas.height;
-    //     const ctxBackup = canvasBackup.getContext('2d');
-    //     ctxBackup.drawImage(canvas, 0, 0);
-    // }
-
-    // // 이중선이 그려지기 전의 백업된 캔버스를 기반으로 이미지를 가져오는 함수
-    // function getCanvasImageBase64WithoutLines() {
-    //     return canvasBackup.toDataURL('image/png');
-    // }
-
-</script>
-
-<script>
-    var save_img2
-    document.getElementById('save-button2').addEventListener('click', function() {
-        const data = {
-            patient_age: dentalData2.age || null,
-            max_loss: dentalData2.maxLoss !== 'none' ? dentalData2.maxLoss : null,
-            avg_loss: dentalData2.averageLoss !== 'none' ? dentalData2.averageLoss : null,
-            total_teeth: dentalData2.lossCount !== 'none' ? dentalData2.lossCount : null,
-            grade_a_count: dentalData2.gradeCounts.A !== 'none' ? dentalData2.gradeCounts.A : null,
-            grade_b_count: dentalData2.gradeCounts.B !== 'none' ? dentalData2.gradeCounts.B : null,
-            grade_c_count: dentalData2.gradeCounts.C !== 'none' ? dentalData2.gradeCounts.C : null,
-            visualization_image: save_img2,  // 수정된 함수 사용
-            title: 'Time series2'
-        };
-
-        fetch("{% url 'save_diagnosis_result' %}", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRFToken": "{{ csrf_token }}"
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === "success") {
-                alert(`Data saved successfully at ${data.saved_at}`);
-            } else {
-                alert("Failed to save data.");
-            }
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            alert("An error occurred while saving data.");
-        });
-    });
-
-    // // 기존 캔버스를 백업하는 변수
-    // let canvasBackup;
-
-    // // drawLineFromPointToBox 함수 호출 전의 캔버스를 백업하는 함수
-    // function backupCanvas() {
-    //     const canvas = document.getElementById('canvas-layer');
-    //     canvasBackup = document.createElement('canvas');
-    //     canvasBackup.width = canvas.width;
-    //     canvasBackup.height = canvas.height;
-    //     const ctxBackup = canvasBackup.getContext('2d');
-    //     ctxBackup.drawImage(canvas, 0, 0);
-    // }
-
-    // // 이중선이 그려지기 전의 백업된 캔버스를 기반으로 이미지를 가져오는 함수
-    // function getCanvasImageBase64WithoutLines() {
-    //     return canvasBackup.toDataURL('image/png');
-    // }
-
-</script>
 
 
 <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
@@ -330,6 +239,170 @@
 </script>
 
 
+
+<script>
+    var save_img1
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('tagging-btn1').addEventListener('click', function() {
+            // 요소들이 존재하는지 확인하고 값을 읽음
+            const smokingElement1 = document.getElementById('select-smoking1');
+            const diabetesElement1 = document.getElementById('select-diabetes1');
+
+            // 요소들이 존재하지 않을 경우의 오류 처리
+            if (!smokingElement1 || !diabetesElement1) {
+                alert('옵션을 선택할 수 없습니다. 페이지를 다시 로드해주세요.');
+                return;
+            }
+
+            // 선택된 옵션 값을 그대로 가져옴
+            const smokingValue1 = smokingElement1.value;
+            const diabetesValue1 = diabetesElement1.value;
+
+            const data = {
+                patient_age: dentalData.age || null,
+                max_loss: dentalData.maxLoss !== 'none' ? dentalData.maxLoss : null,
+                avg_loss: dentalData.averageLoss !== 'none' ? dentalData.averageLoss : null,
+                total_teeth: dentalData.lossCount !== 'none' ? dentalData.lossCount : null,
+                grade_a_count: dentalData.gradeCounts.A !== 'none' ? dentalData.gradeCounts.A : null,
+                grade_b_count: dentalData.gradeCounts.B !== 'none' ? dentalData.gradeCounts.B : null,
+                grade_c_count: dentalData.gradeCounts.C !== 'none' ? dentalData.gradeCounts.C : null,
+                smoking: smokingValue1,  // 선택된 흡연 옵션을 그대로 저장
+                diabetes: diabetesValue1,  // 선택된 당뇨 옵션을 그대로 저장
+                visualization_image: save_img1,  // 수정된 함수 사용
+                title: 'Time series'
+            };
+
+            fetch("{% url 'save_diagnosis_result' %}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": "{{ csrf_token }}"
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "success") {
+                    alert(`Data saved successfully at ${data.saved_at}`);
+                } else {
+                    alert("Failed to save data.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("An error occurred while saving data.");
+            });
+        });
+        // // 기존 캔버스를 백업하는 변수
+        // let canvasBackup;
+
+        // // drawLineFromPointToBox 함수 호출 전의 캔버스를 백업하는 함수
+        // function backupCanvas() {
+        //     const canvas = document.getElementById('canvas-layer');
+        //     canvasBackup = document.createElement('canvas');
+        //     canvasBackup.width = canvas.width;
+        //     canvasBackup.height = canvas.height;
+        //     const ctxBackup = canvasBackup.getContext('2d');
+        //     ctxBackup.drawImage(canvas, 0, 0);
+        // }
+
+        // // 이중선이 그려지기 전의 백업된 캔버스를 기반으로 이미지를 가져오는 함수
+        // function getCanvasImageBase64WithoutLines() {
+        //     return canvasBackup.toDataURL('image/png');
+        // }
+    });
+
+
+</script>
+
+<script>
+    var save_img2
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('tagging-btn2').addEventListener('click', function() {
+            // 요소들이 존재하는지 확인하고 값을 읽음
+            const smokingElement2 = document.getElementById('select-smoking2');
+            const diabetesElement2 = document.getElementById('select-diabetes2');
+
+            // 요소들이 존재하지 않을 경우의 오류 처리
+            if (!smokingElement2 || !diabetesElement2) {
+                alert('옵션을 선택할 수 없습니다. 페이지를 다시 로드해주세요.');
+                return;
+            }
+
+            // 선택된 옵션 값을 그대로 가져옴
+            const smokingValue2 = smokingElement2.value;
+            const diabetesValue2 = diabetesElement2.value;
+
+
+            const data = {
+                patient_age: dentalData.age || null,
+                max_loss: dentalData.maxLoss !== 'none' ? dentalData.maxLoss : null,
+                avg_loss: dentalData.averageLoss !== 'none' ? dentalData.averageLoss : null,
+                total_teeth: dentalData.lossCount !== 'none' ? dentalData.lossCount : null,
+                grade_a_count: dentalData.gradeCounts.A !== 'none' ? dentalData.gradeCounts.A : null,
+                grade_b_count: dentalData.gradeCounts.B !== 'none' ? dentalData.gradeCounts.B : null,
+                grade_c_count: dentalData.gradeCounts.C !== 'none' ? dentalData.gradeCounts.C : null,
+                smoking: smokingValue2,  // 선택된 흡연 옵션을 그대로 저장
+                diabetes: diabetesValue2,  // 선택된 당뇨 옵션을 그대로 저장
+                visualization_image: save_img2,  // 수정된 함수 사용
+                title: 'Time series2'
+            };
+
+            fetch("{% url 'save_diagnosis_result' %}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": "{{ csrf_token }}"
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "success") {
+                    alert(`Data saved successfully at ${data.saved_at}`);
+                } else {
+                    alert("Failed to save data.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("An error occurred while saving data.");
+            });
+        });
+
+        // // 기존 캔버스를 백업하는 변수
+        // let canvasBackup;
+
+        // // drawLineFromPointToBox 함수 호출 전의 캔버스를 백업하는 함수
+        // function backupCanvas() {
+        //     const canvas = document.getElementById('canvas-layer');
+        //     canvasBackup = document.createElement('canvas');
+        //     canvasBackup.width = canvas.width;
+        //     canvasBackup.height = canvas.height;
+        //     const ctxBackup = canvasBackup.getContext('2d');
+        //     ctxBackup.drawImage(canvas, 0, 0);
+        // }
+
+        // // 이중선이 그려지기 전의 백업된 캔버스를 기반으로 이미지를 가져오는 함수
+        // function getCanvasImageBase64WithoutLines() {
+        //     return canvasBackup.toDataURL('image/png');
+        // }
+    });
+</script>
+
+<!------------------------------- 위험인자 옵션 선택 ------------------------------->
+<script>
+    function updateValue1(column, value) {
+      document.getElementById(`value-${column}`).innerText = value;
+      document.getElementById(`select-${column}`).value = value; // 선택된 값을 업데이트
+    }
+
+    function updateValue2(column, value) {
+      document.getElementById(`value-${column}`).innerText = value;
+      document.getElementById(`select-${column}`).value = value; // 선택된 값을 업데이트
+    }
+</script>
+
 <!------------------------------- 결과 요약 ------------------------------->
 <script>
     var dentalData = {
@@ -372,41 +445,51 @@
             }
         },
         displaySummary: function() {
-            const container = document.getElementById('summary-container');
+            const container = document.getElementById('statistics1');
             if (!container) {
                 console.error("Summary container not found");
                 return;
             }
 
             container.innerHTML = `
-                <div class="div-h">
-                    <div class="index-column">Patient Age</div>
-                    <div class="data-entry">${this.age}</div>
-                </div>
-                <div class="div-h">
-                    <div class="index-column">Max Loss</div>
-                    <div class="data-entry">${this.maxLoss !== 'none' ? Math.round(this.maxLoss) + "%" : this.maxLoss}</div>
-                </div>
-                <div class="div-h">
-                    <div class="index-column">Avg Loss</div>
-                    <div class="data-entry">${this.averageLoss !== 'none' ? Math.round(this.averageLoss) + "%" : this.averageLoss}</div>
-                </div>
-                <div class="div-h">
-                    <div class="index-column">Total Teeth</div>
-                    <div class="data-entry">${this.lossCount !== 'none' ? this.lossCount : this.lossCount}</div>
-                </div>
-                <div class="div-h">
-                    <div class="index-column">GradeA Num</div>
-                    <div class="data-entry">${this.gradeCounts.A !== 'none' ? this.gradeCounts.A : this.gradeCounts.A}</div>
-                </div>
-                <div class="div-h">
-                    <div class="index-column">GradeB Num</div>
-                    <div class="data-entry">${this.gradeCounts.B !== 'none' ? this.gradeCounts.B : this.gradeCounts.B}</div>
-                </div>
-                <div class="div-h">
-                    <div class="index-column">GradeC Num</div>
-                    <div class="data-entry">${this.gradeCounts.C !== 'none' ? this.gradeCounts.C : this.gradeCounts.C}</div>
-                </div>
+                <table style="width: 1024px; text-align: center;">
+                    <tr>
+                        <th style="width: 70px;">Patient<br>Age</th>
+                        <th style="width: 70px;">Max<br>Loss</th>
+                        <th style="width: 70px;">Avg<br>Loss</th>
+                        <th style="width: 70px;">Total<br>Teeth</th>
+                        <th style="width: 70px;">Grade A<br>Num</th>
+                        <th style="width: 70px;">Grade B<br>Num</th>
+                        <th style="width: 70px;">Grade C<br>Num</th>
+                        <th style="width: 200px;">Smoking<br>State</th>
+                        <th style="width: 200px;">Diabetes<br>State</th>
+                    </tr>
+                    <tr style="font-size: 16px; height: 45px;">
+                        <td>${this.age}</td>
+                        <td>${this.maxLoss !== 'none' ? this.maxLoss.toFixed(2) + "%" : this.maxLoss}</td>
+                        <td>${this.averageLoss !== 'none' ? this.averageLoss.toFixed(2) + "%" : this.averageLoss}</td>
+                        <td>${this.lossCount !== 'none' ? this.lossCount : this.lossCount}</td>
+                        <td>${this.gradeCounts.A !== 'none' ? this.gradeCounts.A : this.gradeCounts.A}</td>
+                        <td>${this.gradeCounts.B !== 'none' ? this.gradeCounts.B : this.gradeCounts.B}</td>
+                        <td>${this.gradeCounts.C !== 'none' ? this.gradeCounts.C : this.gradeCounts.C}</td>
+                        <td>
+                            <select class="risk-factors" id="select-smoking1" onchange="updateValue1('smoking', this.value)">
+                                <option value="None">none</option>
+                                <option value="Non-smoker">Non-smoker</option>
+                                <option value="Smoker＜10 cigarettes/day">Smoker＜10 cigarettes/day</option>
+                                <option value="Smoker≥10 cigarettes/day">Smoker≥10 cigarettes/day</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="risk-factors" id="select-diabetes1" onchange="updateValue1('diabetes', this.value)">
+                                <option value="None">none</option>
+                                <option value="Normoglycemic / <br>no diagnosis of diabetes">Normoglycemic / no diagnosis of diabetes</option>
+                                <option value="HbAlc＜7.0% in patients with diabetes">HbAlc＜7.0% in patients with diabetes</option>
+                                <option value="HbAlc≥7.0% in patients with diabetes">HbAlc≥7.0% in patients with diabetes</option>
+                            </selct>
+                        </td>
+                    </tr>
+                </table>
                 `;
             this.drawPieChart();
         },
@@ -436,18 +519,18 @@
                             pointStyle: 'rect',
                             color: '#dcdcdc',
                             font: {
-                                size: 14,
+                                size: 12,
                                 family: 'Arial',
                                 style: 'normal',
                             },
-                            padding: 16 // 라벨 사이 간격
+                            padding: 9// 라벨 사이 간격
                         }
                     },
                     // 차트 위에 결과 표시
                     datalabels: {
                         color: 'black',
                         font: {
-                            size: 18,
+                            size: 12,
                         },
                         formatter: (value, ctx) => {
                             // 0이 아닌 데이터만 표시
@@ -462,8 +545,9 @@
                 },
                 layout: {
                     padding: {
-                        top: -10,
-                        bottom: 10
+                        bottom: 10,
+                        left: 2,
+                        right: 2,
                     }
                 },
             };
@@ -542,41 +626,51 @@
             }
         },
         displaySummary2: function() {
-            const container2 = document.getElementById('summary-container2');
+            const container2 = document.getElementById('statistics2');
             if (!container2) {
                 console.error("Summary container2 not found");
                 return;
             }
 
             container2.innerHTML = `
-                <div class="div-h">
-                    <div class="index-column">Patient Age</div>
-                    <div class="data-entry">${this.age}</div>
-                </div>
-                <div class="div-h">
-                    <div class="index-column">Max Loss</div>
-                    <div class="data-entry">${this.maxLoss !== 'none' ? Math.round(this.maxLoss) + "%" : this.maxLoss}</div>
-                </div>
-                <div class="div-h">
-                    <div class="index-column">Avg Loss</div>
-                    <div class="data-entry">${this.averageLoss !== 'none' ? Math.round(this.averageLoss) + "%" : this.averageLoss}</div>
-                </div>
-                <div class="div-h">
-                    <div class="index-column">Total Teeth</div>
-                    <div class="data-entry">${this.lossCount !== 'none' ? this.lossCount : this.lossCount}</div>
-                </div>
-                <div class="div-h">
-                    <div class="index-column">GradeA Num</div>
-                    <div class="data-entry">${this.gradeCounts.A !== 'none' ? this.gradeCounts.A : this.gradeCounts.A}</div>
-                </div>
-                <div class="div-h">
-                    <div class="index-column">GradeB Num</div>
-                    <div class="data-entry">${this.gradeCounts.B !== 'none' ? this.gradeCounts.B : this.gradeCounts.B}</div>
-                </div>
-                <div class="div-h">
-                    <div class="index-column">GradeC Num</div>
-                    <div class="data-entry">${this.gradeCounts.C !== 'none' ? this.gradeCounts.C : this.gradeCounts.C}</div>
-                </div>
+                <table style="width: 1024px; text-align: center;">
+                    <tr>
+                        <th style="width: 70px;">Patient<br>Age</th>
+                        <th style="width: 70px;">Max<br>Loss</th>
+                        <th style="width: 70px;">Avg<br>Loss</th>
+                        <th style="width: 70px;">Total<br>Teeth</th>
+                        <th style="width: 70px;">Grade A<br>Num</th>
+                        <th style="width: 70px;">Grade B<br>Num</th>
+                        <th style="width: 70px;">Grade C<br>Num</th>
+                        <th style="width: 200px;">Smoking<br>State</th>
+                        <th style="width: 200px;">Diabetes<br>State</th>
+                    </tr>
+                    <tr style="font-size: 16px; height: 45px;">
+                        <td>${this.age}</td>
+                        <td>${this.maxLoss !== 'none' ? this.maxLoss.toFixed(2) + "%" : this.maxLoss}</td>
+                        <td>${this.averageLoss !== 'none' ? this.averageLoss.toFixed(2) + "%" : this.averageLoss}</td>
+                        <td>${this.lossCount !== 'none' ? this.lossCount : this.lossCount}</td>
+                        <td>${this.gradeCounts.A !== 'none' ? this.gradeCounts.A : this.gradeCounts.A}</td>
+                        <td>${this.gradeCounts.B !== 'none' ? this.gradeCounts.B : this.gradeCounts.B}</td>
+                        <td>${this.gradeCounts.C !== 'none' ? this.gradeCounts.C : this.gradeCounts.C}</td>
+                        <td>
+                            <select class="risk-factors" id="select-smoking2" onchange="updateValue2('smoking', this.value)">
+                                <option value="None">none</option>
+                                <option value="Non-smoker">Non-smoker</option>
+                                <option value="Smoker＜10 cigarettes/day">Smoker＜10 cigarettes/day</option>
+                                <option value="Smoker≥10 cigarettes/day">Smoker≥10 cigarettes/day</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="risk-factors" id="select-diabetes2" onchange="updateValue2('diabetes', this.value)">
+                                <option value="None">none</option>
+                                <option value="Normoglycemic / <br>no diagnosis of diabetes">Normoglycemic / no diagnosis of diabetes</option>
+                                <option value="HbAlc＜7.0% in patients with diabetes">HbAlc＜7.0% in patients with diabetes</option>
+                                <option value="HbAlc≥7.0% in patients with diabetes">HbAlc≥7.0% in patients with diabetes</option>
+                            </selct>
+                        </td>
+                    </tr>
+                </table>
                 `;
             this.drawPieChart2();
         },
@@ -606,18 +700,18 @@
                             pointStyle: 'rect',
                             color: '#dcdcdc',
                             font: {
-                                size: 14,
+                                size: 12,
                                 family: 'Arial',
                                 style: 'normal',
                             },
-                            padding: 16 // 라벨 사이 간격
+                            padding: 9 // 라벨 사이 간격
                         }
                     },
                     // 차트 위에 결과 표시
                     datalabels: {
                         color: 'black',
                         font: {
-                            size: 18,
+                            size: 12,
                         },
                         formatter: (value, ctx) => {
                             // 0이 아닌 데이터만 표시
@@ -632,8 +726,9 @@
                 },
                 layout: {
                     padding: {
-                        top: -10,
-                        bottom: 10
+                        bottom: 10,
+                        left: 2,
+                        right: 2,
                     }
                 },
             };
@@ -689,8 +784,8 @@
                         previewContainer.innerHTML = ''; // 기존 미리보기 제거
                         var img = document.createElement('img');
                         img.src = e.target.result;
-                        img.style.width = '100%';
-                        img.style.height = 'auto';
+                        img.style.width = 'auto';
+                        img.style.height = '120px';
                         previewContainer.appendChild(img);
                     };
                     reader.readAsDataURL(fileInput.files[0]);
@@ -710,7 +805,6 @@
                 previewContainer.innerHTML = '';
             });
         });
-        // ------------------------------ 달력 표시 ------------------------------
     };
 
     // ------------------------------ 이미지 미리보기 ------------------------------
@@ -745,19 +839,18 @@
 
     // <!------------------------------ 5년 후 날짜 계산 ------------------------------>
     function addYearsToDate(dateString, years) {
-    var date = new Date(dateString);
-    date.setFullYear(date.getFullYear() + years);
-    const day = ("0" + date.getDate()).slice(-2);
-    const month = ("0" + (date.getMonth() + 1)).slice(-2);
-    const year = date.getFullYear();
-    return `${year}-${month}-${day}`;
-}
+        var date = new Date(dateString);
+        date.setFullYear(date.getFullYear() + years);
+        const day = ("0" + date.getDate()).slice(-2);
+        const month = ("0" + (date.getMonth() + 1)).slice(-2);
+        const year = date.getFullYear();
+        return `${year}-${month}-${day}`;
+    }
 
     // <!------------------------------ 팝업 차트 함수 ------------------------------>
     function showPopupChart(ratio_0, grade_0, ratio_1, grade_1, ratio_PRES, grade_PRES, id_1, date0, date1) {
          // 5년 후 날짜 계산
         const date5YearsAfter = addYearsToDate(date0, 5);
-
         // 기존 팝업창 제거
         const existingPopup = document.querySelector('.popup');
         if (existingPopup) {
@@ -862,9 +955,11 @@
                     datalabels: {
                         display: true,
                         align: 'top',
-                        color: 'black',
+                        color: function(context) {
+                            const pointIndex = context.dataIndex;
+                            return pointIndex === 2 ? 'black' : 'black';  // 세 번째 레이블 색 :  나머지 컬러
+                        },
                         font: {
-                            // weight: 'bold',
                             size: 14  // 데이터 라벨 텍스트 크기
                         },
                         formatter: function(value, context) {
@@ -917,7 +1012,6 @@
         });
     }
 
-
     // <!------------------------------ 팝업 차트 함수 ------------------------------>
     function showPopupChart2(ratio2_0, grade2_0, ratio2_1, grade2_1, ratio2_2, grade2_2, ratio_PRES2, grade_PRES2, id_2, date0, date1, date2) {
         // 5년 후 날짜 계산
@@ -932,6 +1026,7 @@
         // 팝업창 생성
         const popup2 = document.createElement('div');
         popup2.classList.add('popup2');
+        popup2.style.width = '700px';
 
         // 닫기 버튼 추가
         const closeButton2 = document.createElement('button');
@@ -1190,15 +1285,10 @@
         container.appendChild(infoBox);
         // 숨겨진 박스(복사할 내용을 담은 박스)
         infoBox.innerHTML = `<div class="div-v" style="color: black;">
-                                <strong style="font-size: 18px;">${grade}</strong>
-
+                                <strong style="font-size: 20px;">${grade}</strong>
                             </div>`;
-                                // <div class="div-h" style="align-items: end;">
-                                //     <strong style="font-size: 15px;">${ratio}</strong>
-                                //     <strong style="font-size: 12px;">%</strong>
-                                // </div>
-    }
 
+    }
 
     // -----------------------------------서버에서 받은 등급과 비율을 각각의 infoBox안에 표시-----------------------------------
     function addGradeRatio2(x2, y2, grade2, ratio2, cejType2, grade2_0, ratio2_0, grade2_1, ratio2_1, grade2_2, ratio2_2, id_2) {
@@ -1242,14 +1332,8 @@
 
         container2.appendChild(infoBox2);
         infoBox2.innerHTML = `<div class="div-v" style="color: black;">
-                                <strong style="font-size: 18px;">${grade2}</strong>
-
+                                <strong style="font-size: 20px;">${grade2}</strong>
                             </div>`;
-                            
-                            // <div class="div-h" style="align-items: end;">
-                            //         <strong style="font-size: 15px;">${ratio2}</strong>
-                            //         <strong style="font-size: 12px;">%</strong>
-                            //     </div>
     }
 
     // -----------------------------------result-draw-layer 에 그려진 infoBox에 인덱스를 부여함 좌->우-----------------------------------
@@ -1286,99 +1370,65 @@
         bottomInfoBoxes2.sort((a, b) => a.offsetLeft - b.offsetLeft);
     }
     // -----------------------------------비율에 따른 색상 스타일 적용-----------------------------------
-    function DetermineColorBasedOnRatio(box, grade, ratio, maxRatio) {
-        let startColor, endColor;
-        let divide = 0;
-        
-        if (grade === 'A') {
-            startColor = { r: 243, g: 255, b: 255 };
-            endColor = { r: 14, g: 219, b: 212 };
-            divide = 40
-        } else if (grade === 'B') {
-            startColor = { r: 220, g: 207, b: 255 };
-            endColor = { r: 78, g: 23, b: 229 };
-            divide = 40
-        } else if (grade === 'C') {
-            startColor = { r: 251, g: 207, b: 255 };
-            endColor = { r: 193, g: 10, b: 209 };
-            divide = 40
-        } else {
-            // 기본값이나 예외 처리
-            box.style.backgroundColor = 'rgb(0, 0, 0)'; // 흰색
-            return;
-        }
-
-        // 비율에 따른 색상 계산
-        let ratioColor = {
-            r: calculateColor(startColor.r, endColor.r, ratio, divide),
-            g: calculateColor(startColor.g, endColor.g, ratio, divide),
-            b: calculateColor(startColor.b, endColor.b, ratio, divide)
-        };
-
-        box.style.backgroundColor = `rgb(${ratioColor.r}, ${ratioColor.g}, ${ratioColor.b})`;
-        // 박스 높이 최소 50, 최대 230px
-        box.style.height = `${Math.max(45, Math.min((ratio * 2) + 40, 230))}px`;
-
-        // 최대 비율을 가진 박스에 특별한 스타일 적용
+    function DetermineColorBasedOnRatio(box, grade, ratio, maxRatio, ratio_0) {
         if (ratio === maxRatio) {
             box.classList.add('max-ratio-box');
         } else {
             box.classList.remove('max-ratio-box');
         }
-    }
 
-    function calculateColor(start, end, ratio, divide) {
-        // 비율에 따른 색상 값 계산 (선형 보간) 각 등급이 20% 차이니 20으로 나눔
-        return Math.round(start + (end - start) * (ratio / divide));
-    }
-
-    // -----------------------------------비율에 따른 색상 스타일 적용-----------------------------------
-    function DetermineColorBasedOnRatio2(box, grade2, ratio2, maxRatio2) {
-        let startColor2, endColor2;
-        let divide2 = 0;
-        
-        if (grade2 === 'A') {
-            startColor2 = { r: 243, g: 255, b: 255 };
-            endColor2 = { r: 14, g: 219, b: 212 };
-            divide2 = 40
-        } else if (grade2 === 'B') {
-            startColor2 = { r: 220, g: 207, b: 255 };
-            endColor2 = { r: 78, g: 23, b: 229 };
-            divide2 = 40
-        } else if (grade2 === 'C') {
-            startColor2 = { r: 251, g: 207, b: 255 };
-            endColor2 = { r: 193, g: 10, b: 209 };
-            divide2 = 40
+        if (grade === 'A') {
+            box.style.backgroundColor = 'rgb(67, 235, 229)';
+            box.style.color = 'black';
+        } else if (grade === 'B') {
+            box.style.backgroundColor = 'rgb(132, 92, 243)';
+            box.style.color = 'black';
+        } else if (grade === 'C') {
+            box.style.backgroundColor = 'rgb(217, 63, 231)';
+            box.style.color = 'black';
         } else {
-            // 기본값이나 예외 처리
-            box.style.backgroundColor = 'rgb(0, 0, 0)'; // 흰색
+            box.style.borderColor = 'rgba(182, 238, 255, 0.9)';
+            box.style.color = '#dcdcdc';
             return;
         }
-
-        // 비율에 따른 색상 계산
-        let ratioColor2 = {
-            r: calculateColor2(startColor2.r, endColor2.r, ratio2, divide2),
-            g: calculateColor2(startColor2.g, endColor2.g, ratio2, divide2),
-            b: calculateColor2(startColor2.b, endColor2.b, ratio2, divide2)
-        };
-
-        box.style.backgroundColor = `rgb(${ratioColor2.r}, ${ratioColor2.g}, ${ratioColor2.b})`;
-        // 박스 높이 최소 50, 최대 230px
-        box.style.height = `${Math.max(45, Math.min((ratio2 * 2) + 40, 230))}px`;
-
-            // 최대 비율을 가진 박스에 특별한 스타일 적용
-            if (ratio2 === maxRatio2) {
-                box.classList.add('max-ratio-box');
-            } else {
-                box.classList.remove('max-ratio-box');
-            }
+        // 박스 높이 최소 40, 최대 200px
+        if (ratio < 1) {
+            box.style.height = `${Math.max(45, Math.min((ratio * 2) + 40, 200))}px`;
+        } else {
+            box.style.height = `${Math.max(45, Math.min((ratio + ratio_0 * 2) + 40, 200))}px`;
+        }
     }
+    
+    // -----------------------------------비율에 따른 색상 스타일 적용-----------------------------------
+    function DetermineColorBasedOnRatio2(box, grade2, ratio2, maxRatio2, ratio2_0) {
+        if (ratio2 === maxRatio2) {
+            box.classList.add('max-ratio-box');
+        } else {
+            box.classList.remove('max-ratio-box');
+        }
 
-    function calculateColor2(start2, end2, ratio2, divide2) {
-        // 비율에 따른 색상 값 계산 (선형 보간) 각 등급이 20% 차이니 20으로 나눔
-        return Math.round(start2 + (end2 - start2) * (ratio2 / divide2));
+        if (grade2 === 'A') {
+            box.style.backgroundColor = 'rgb(67, 235, 229)';
+            box.style.color = 'black';
+        } else if (grade2 === 'B') {
+            box.style.backgroundColor = 'rgb(132, 92, 243)';
+            box.style.color = 'black';
+        } else if (grade2 === 'C') {
+            box.style.backgroundColor = 'rgb(217, 63, 231)';
+            box.style.color = 'black';
+        } else {
+            box.style.borderColor = 'rgba(182, 238, 255, 0.9)';
+            box.style.color = '#dcdcdc';
+            return;
+        }
+        // 박스 높이 최소 40, 최대 200px
+        if (ratio2 < 1) {
+            box.style.height = `${Math.max(45, Math.min((ratio2 * 2) + 40, 200))}px`;
+        } else {
+            box.style.height = `${Math.max(45, Math.min((ratio2 + ratio2_0 * 2) + 40, 200))}px`;
+        }
     }
-
+    
     // -------------------- infoBox의 내용만 순서대로 info-box2에 복사하고 top-infobox-container에 넣음 --------------------
     let maxRatio = 0;  // 전역 변수로 최대 비율 저장
     function cloneAndArrangeBoxes(date0, date1) {
@@ -1435,7 +1485,7 @@
 
             topInfoBoxContainer.appendChild(topNewDiv);
 
-            DetermineColorBasedOnRatio(topNewDiv, grade, ratio, maxRatio);
+            DetermineColorBasedOnRatio(topNewDiv, grade, ratio, maxRatio, ratio_0);
             
             // 클릭 이벤트 리스너 추가
             topNewDiv.addEventListener('click', function() {
@@ -1486,7 +1536,7 @@
 
             bottomInfoBoxContainer.appendChild(bottomNewDiv);
 
-            DetermineColorBasedOnRatio(bottomNewDiv, grade, ratio, maxRatio);
+            DetermineColorBasedOnRatio(bottomNewDiv, grade, ratio, maxRatio, ratio_0);
 
             // 클릭 이벤트 리스너 추가
             bottomNewDiv.addEventListener('click', function() {
@@ -1580,7 +1630,7 @@
 
             topInfoBoxContainer2.appendChild(topNewDiv2);
 
-            DetermineColorBasedOnRatio2(topNewDiv2, grade2, ratio2, maxRatio2);
+            DetermineColorBasedOnRatio2(topNewDiv2, grade2, ratio2, maxRatio2, ratio2_0);
 
             // 클릭 이벤트 리스너 추가
             topNewDiv2.addEventListener('click', function() {
@@ -1639,7 +1689,7 @@
 
             bottomInfoBoxContainer2.appendChild(bottomNewDiv2);
 
-            DetermineColorBasedOnRatio2(bottomNewDiv2, grade2, ratio2, maxRatio2);
+            DetermineColorBasedOnRatio2(bottomNewDiv2, grade2, ratio2, maxRatio2, ratio2_0);
 
             // 새로 생성된 박스들에 클릭 이벤트 추가
             bottomNewDiv2.addEventListener('click', function() {
@@ -1879,35 +1929,72 @@
         resetDentalData(); // dentalData 객체 초기화
         dentalData.setAge(parseInt(ageInput1)); // 나이 데이터를 dentalData 객체에 설정
 
-        resetDentalData2(); // dentalData 객체 초기화
-        dentalData2.setAge2(parseInt(ageInput2)); // 나이 데이터를 dentalData 객체에 설정
+        resetDentalData2(); 
+        dentalData2.setAge2(parseInt(ageInput2));
 
         var formData = new FormData();
-        var uploadButton = document.querySelector("button[onclick='uploadMultipleImages()']"); // 업로드 버튼 선택
-        uploadButton.disabled = true; // 업로드 시작 시 버튼 비활성화
+
+        // 업로드 시작 시 버튼 비활성화
+        var uploadButton = document.querySelector("button[onclick='uploadMultipleImages()']");
+        uploadButton.disabled = true;
 
         var canvas = document.getElementById('canvas-layer');
-        var ctx = canvas.getContext('2d');
         var canvas2 = document.getElementById('canvas-layer2');
+
+        var ctx = canvas.getContext('2d');
         var ctx2 = canvas2.getContext('2d');
 
         var topInfoBoxContainer = document.getElementById('top-infobox-container1');
-        var bottomInfoBoxContainer = document.getElementById('bottom-infobox-container1');
-        var resultDrawLayer = document.getElementById('result-draw-layer');
-        var loaderBox = document.getElementById('loader-box');
-  
         var topInfoBoxContainer2 = document.getElementById('top-infobox-container2');
+
+        var bottomInfoBoxContainer = document.getElementById('bottom-infobox-container1');
         var bottomInfoBoxContainer2 = document.getElementById('bottom-infobox-container2');
+
+        var resultDrawLayer = document.getElementById('result-draw-layer');
         var resultDrawLayer2 = document.getElementById('result-draw-layer2');
-        var loaderBox2 = document.getElementById('loader-box');
 
+        var loaderBox = document.getElementById('loader-box');
+        // 체크박스
+        var checkbox_1 = document.getElementById('results_checkbox_1');
+        var checkbox_2 = document.getElementById('results_checkbox_2');
+        // 체크박스 텍스트
+        var checkBox1 = document.getElementById('check-box');
+        var checkBox2 = document.getElementById('check-box');
+        // 통계
+        // var statistics1 = document.getElementById('statistics1');
+        // var statistics2 = document.getElementById('statistics2');
+        // // 통계
+        // var taggingBtn1 = document.getElementById('tagging-btn1');
+        // var taggingBtn2 = document.getElementById('tagging-btn2');
+        // 우측 바
+        var summary1 = document.getElementById('ts-results-summary1');
+        var summary2 = document.getElementById('ts-results-summary2');
+        // 좌측 바
+        var control1 = document.getElementById('ts-results-control1');
+        var control2 = document.getElementById('ts-results-control2');
+        // 1, 2 전체 컨테이너
+        var visualization1 = document.getElementById('visualization-container1');
+        var visualization2 = document.getElementById('visualization-container2');
+
+        // 재 업로드 시 숨겨진 컨테이너의 정보 박스가 안보이는 문제로 추가
+        visualization1.style.display = 'block';
+        visualization2.style.display = 'block';
+        visualization1.style.opacity = '0';
+        visualization2.style.opacity = '0';
+        // 우측 바
+        summary2.style.display = 'none';
+        // 좌측 바
+        control2.style.display = 'none';
+        
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        topInfoBoxContainer.innerHTML = '';
-        bottomInfoBoxContainer.innerHTML = '';
-
         ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+
+        topInfoBoxContainer.innerHTML = '';
         topInfoBoxContainer2.innerHTML = '';
+
+        bottomInfoBoxContainer.innerHTML = '';
         bottomInfoBoxContainer2.innerHTML = '';
+
 
         // resultDrawLayer 내의 canvas를 제외한 모든 요소를 제거합니다.
         Array.from(resultDrawLayer.childNodes).forEach(child => {
@@ -1922,7 +2009,6 @@
             }
         });
         
-        // 로딩 애니매이션 호출
         createLoader();
 
         formData.append('img0', imgInput0.files[0]);
@@ -1944,6 +2030,7 @@
                 'X-CSRFToken': document.querySelector('input[name="csrfmiddlewaretoken"]').value
             }
         })
+
         .then(response => response.json())
         .then(data => {
 
@@ -1958,7 +2045,7 @@
             var img = new Image();
             img.src = 'data:image/jpeg;base64,' + data.graded_data1[0].encoded_image_copy;
 
-            save_img = 'data:image/jpeg;base64,' + data.graded_data1[0].encoded_image;
+            save_img1 = 'data:image/jpeg;base64,' + data.graded_data1[0].encoded_image;
 
             img.onload = function() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -1998,6 +2085,12 @@
                 drawLineFromPointToBox();
                 console.log('maxRatio:', maxRatio); // maxRatio 값 콘솔에 출력
 
+                // 초기 첫번째 결과 표시안함
+                checkbox_1.style.display = 'block';
+                checkbox_1.checked = false;
+                checkBox1.style.display = 'flex';
+                visualization1.style.display = 'none';
+                visualization1.style.opacity = '1';                
             };
             
             // 이미지 2 ----------------------------------------------------------
@@ -2044,59 +2137,56 @@
                 drawLineFromPointToBox2();
                 console.log('maxRatio2:', maxRatio2); // maxRatio 값 콘솔에 출력
 
-                // 결과를 보여주는 버튼과 결과 컨테이너를 표시합니다.
-                document.getElementById('results_checkbox_1').style.display = 'block';
-                document.getElementById('results_checkbox_2').style.display = 'block';
-
-                // 기본 설정: 두 번째 결과만 표시
-                document.getElementById('results_checkbox_1').checked = false;
-                document.getElementById('results_checkbox_2').checked = true;
-
-                document.getElementById('ts-results-summary1').style.display = 'none';
-                document.getElementById('ts-results-summary2').style.display = 'block';
-                document.getElementById('visualization-container1').style.display = 'none';
-                document.getElementById('visualization-container2').style.display = 'block';
+                // 초기 두번째 결과만 표시함
+                checkbox_2.style.display = 'block';
+                checkbox_2.checked = true;
+                visualization2.style.display = 'block';
+                visualization2.style.opacity = '1';
             };
-
             uploadButton.disabled = false; // 서버 응답 후 버튼 다시 활성화
             loaderBox.innerHTML = '';
-            loaderBox2.innerHTML = '';
+            
+            summary2.style.display = 'flex';
+            control2.style.display = 'flex';
         })
 
         .catch(error => {
             loaderBox.innerHTML = '';
-            loaderBox2.innerHTML = '';
             console.error('Error:', error);
             alert('이미지를 처리하는 중 오류가 발생했습니다.');
-            // location.reload(); // 현재 페이지 새로고침
-
+            location.reload(); // 현재 페이지 새로고침
         });
     }
 
     function toggleResults() {
-        var resultsContainer = document.getElementById('ts-results-summary1');
-        var visualizationContainer = document.getElementById('visualization-container1');
-        var showResultsCheckbox = document.getElementById('results_checkbox_1');
+        var visualizationContainer1 = document.getElementById('visualization-container1');
+        var visualizationContainer2 = document.getElementById('visualization-container2');
 
-        if (showResultsCheckbox.checked) {
-            resultsContainer.style.display = 'block';
-            visualizationContainer.style.display = 'block';
+        var showResultsCheckbox1 = document.getElementById('results_checkbox_1');
+        var showResultsCheckbox2 = document.getElementById('results_checkbox_2');
+
+        if (showResultsCheckbox1.checked) {
+            visualizationContainer1.style.display = 'block';
+            visualizationContainer2.style.display = 'none';
+            showResultsCheckbox2.checked = false;
         } else {
-            resultsContainer.style.display = 'none';
-            visualizationContainer.style.display = 'none';
+            visualizationContainer1.style.display = 'none';
         }
     }
 
     function toggleResults2() {
-        var resultsContainer2 = document.getElementById('ts-results-summary2');
+        var visualizationContainer1 = document.getElementById('visualization-container1');
         var visualizationContainer2 = document.getElementById('visualization-container2');
+
+        var showResultsCheckbox1 = document.getElementById('results_checkbox_1');
         var showResultsCheckbox2 = document.getElementById('results_checkbox_2');
 
         if (showResultsCheckbox2.checked) {
-            resultsContainer2.style.display = 'block';
             visualizationContainer2.style.display = 'block';
+            visualizationContainer1.style.display = 'none';
+            showResultsCheckbox1.checked = false;
+
         } else {
-            resultsContainer2.style.display = 'none';
             visualizationContainer2.style.display = 'none';
         }
     }

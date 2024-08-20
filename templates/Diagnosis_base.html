@@ -17,14 +17,14 @@
                 <div class="div-h" style="height: 100%;">
                     <a class="div-h" href="{% url 'diagnosis_single' %}">
                         <img class="logo-img" src="{% static 'img/ltlux.svg'%}">
-                        <div class="header-p">- P</div>
+                        <div class="header-p">P</div>
                     </a>
                 </div>
                 <div class="header-cover2">
-                    <div class="samd-text">
+                    <!-- <div class="samd-text">
                         ■&emsp;AI SaMD for Diagnostic Assistance interpretation of Periodontitis .
-                    </div>
-                    <div class="div-h" style="height: 100%; ">
+                    </div> -->
+                    <div class="div-h">
                         <div class="url-btn">
                             <a class="url-text" href="{% url 'diagnosis_single' %}">SINGLE</a>
                         </div>
@@ -46,8 +46,8 @@
         </header>
         {% block content %} 
         {% endblock %}
-        <div class="grading-table-cover">
-            <h2 style="color: #c1c1c1; margin-top: 30px;">Grade-based classification</h2>
+        <div class="grading-table-cover" style="margin-top: 100px;">
+            <h2 style="color: #c1c1c1; margin-top: 30px;">Framework for grading</h2>
             <table style="width: 1030px;">
                 <thead>
                     <tr>
@@ -117,7 +117,7 @@
             </table>
         </div>
         <div class="stage-table-cover">
-            <h2 style="color: #c1c1c1; margin-top: 0px;">Stage-based classification</h2>
+            <h2 style="color: #c1c1c1; margin-top: 0px;">Framework for staging</h2>
             <table style="width: 1030px;">
                 <thead>
                     <tr>

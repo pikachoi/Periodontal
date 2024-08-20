@@ -15,23 +15,16 @@ import time
 from .models import DiagnosisResult
 import json
 from django.views.decorators.csrf import csrf_exempt
-
 import torch
 
-
-import torch
 print("CUDA available: ", torch.cuda.is_available())
 if torch.cuda.is_available():
     print("GPU Name: ", torch.cuda.get_device_name(0))
 else:
     print("CUDA is not available")
 
-
-# Check if GPU is available
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(f"Using device: {device}")
-
-
 
 model_tooth = YOLO("media/AI_model/best_class.pt").to(device)
 model_pbl = YOLO("media/AI_model/best_pbl_240122.pt").to(device)
@@ -131,10 +124,9 @@ def numericalCalculation(df_line, df_pbl, df_cej_up, df_cej_low):
 
                 loss_distance = distance(int(intersection_pbl.x), int(intersection_pbl.y), int(kp.x), int(kp.y))
                 df_line.at[i, '길이'] = loss_distance
-                df_line.at[i, '비율'] = int(loss_distance / distance(start_kp[0], start_kp[1], int(kp.x), int(kp.y)) * 100)
+                # df_line.at[i, '비율'] = int(loss_distance / distance(start_kp[0], start_kp[1], int(kp.x), int(kp.y)) * 100)
 
-                # df_line.at[i, '비율'] = loss_distance / distance(start_kp[0], start_kp[1], int(kp.x), int(kp.y)) * 100 # 반올림 하지 않음
-                # df_line.at[i, '비율'] = round(df_line.at[i, '비율'], 2) # 소수점 두자리까지
+                df_line.at[i, '비율'] = round(loss_distance / distance(start_kp[0], start_kp[1], int(kp.x), int(kp.y)) * 100, 2) # 반올림 하지 않음
 
     return df_line
 
@@ -173,14 +165,18 @@ def grading(img, age, df_line):
         df_grade['score'] = df_grade['비율'].astype(float) / age
         df_grade['grade'] = df_grade['score'].apply(lambda x: 'A' if x <= 0.5 else ('B' if x <= 1 else 'C'))
 
-
     return df_grade
 
 
-def apply_mask_operations(results, df_cej_up, df_cej_low, df_pbl):
+def annotation_layer(results, df_cej_up, df_cej_low, df_pbl, df_line):
     # 완전 투명한 이미지 크기 설정
     img_height, img_width = 512, 1024
-    transparent_img = np.zeros((img_height, img_width, 4), dtype=np.uint8)
+    transparent_mask_img = np.zeros((img_height, img_width, 4), dtype=np.uint8)
+    transparent_pbl_img = np.zeros((img_height, img_width, 4), dtype=np.uint8)
+    transparent_cej_up_img = np.zeros((img_height, img_width, 4), dtype=np.uint8)
+    transparent_cej_low_img = np.zeros((img_height, img_width, 4), dtype=np.uint8)
+    transparent_teeth_img = np.zeros((img_height, img_width, 4), dtype=np.uint8)  
+    transparent_axis_img = np.zeros((img_height, img_width, 4), dtype=np.uint8)  
 
     # 각 영역의 마스크를 생성
     cej_up_mask = np.zeros((img_height, img_width), dtype=np.uint8)
@@ -193,9 +189,11 @@ def apply_mask_operations(results, df_cej_up, df_cej_low, df_pbl):
     cv2.fillPoly(cej_low_mask, [np.array(df_cej_low['좌표'].tolist(), dtype=np.int32)], 255)
     cv2.fillPoly(pbl_mask, [np.array(df_pbl['좌표'].tolist(), dtype=np.int32)], 255)
 
-    # 치아 마스크 생성
+    # 치아 마스크 생성 및 윤곽선 그리기
     for tooth in results[0].masks.xy:
-        cv2.fillPoly(tooth_mask, [np.array(tooth, dtype=np.int32)], 255)
+        tooth_points = np.array(tooth, dtype=np.int32)
+        cv2.fillPoly(tooth_mask, [tooth_points], 255)
+        cv2.polylines(transparent_teeth_img, [tooth_points], isClosed=True, color=(0, 255, 255, 255), thickness=1)  # 윤곽선 그리기
 
     # CEJ 마스크 합성
     cej_mask = cv2.bitwise_or(cej_up_mask, cej_low_mask)
@@ -206,10 +204,23 @@ def apply_mask_operations(results, df_cej_up, df_cej_low, df_pbl):
     # PBL without CEJ 치아 마스크의 겹치는 영역 계산
     intersection_mask = cv2.bitwise_and(pbl_without_cej, tooth_mask)
 
-    # 결과 시각화
-    transparent_img[intersection_mask == 255] = [0, 0, 255, 50]
+    # 결과 시각화 (원래의 마스크 이미지)
+    transparent_mask_img[intersection_mask == 255] = [0, 0, 255, 50]
 
-    return transparent_img
+    # PBL, CEJ 테두리 추출
+    contours_pbl, _ = cv2.findContours(pbl_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contours_cej_up, _ = cv2.findContours(cej_up_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contours_cej_low, _ = cv2.findContours(cej_low_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+    # 테두리를 새로운 투명 이미지에 그림
+    cv2.drawContours(transparent_pbl_img, contours_pbl, -1, (255, 50, 50, 255), 1)  # 테두리를 초록색으로 그림
+    cv2.drawContours(transparent_cej_up_img, contours_cej_up, -1, (255, 255, 0, 255), 1)  # 테두리를 파란색으로 그림
+    cv2.drawContours(transparent_cej_low_img, contours_cej_low, -1, (255, 255, 0, 255), 1)  # 테두리를 파란색으로 그림
+    
+    for i, row in df_line.iterrows():
+        cv2.line(transparent_axis_img, row["시작 좌표"], row["종료 좌표"], (0, 255, 0, 255), 2, lineType=cv2.LINE_AA)
+
+    return transparent_mask_img, transparent_pbl_img, transparent_cej_up_img, transparent_cej_low_img, transparent_teeth_img, transparent_axis_img
 
 
 # single, time_series 공통
@@ -241,29 +252,11 @@ def common_fungtion(img_file, mode):
         results_quardrant = 'none'
     elif mode == 'time_series':
         df_dentex = pd.DataFrame(columns=['id', 'segmentation', 'center_point'])
-        start_time1 = time.time()
         results_quardrant = model_quardrant.predict(img, conf=0.6)
-        end_time1 = time.time()
-        execution_time1 = end_time1 - start_time1
-        print(f"############################## model_quardrant.predict 실행시간: {execution_time1} 초")
 
-    start_time0 = time.time()
     results = model_tooth.predict(img, conf=0.6)
-    end_time0 = time.time()
-    execution_time0 = end_time0 - start_time0
-    print(f"############################## model_tooth.predict: {execution_time0} 초")
-
-    start_time01 = time.time()
     results_pbl = model_pbl.predict(img) 
-    end_time01 = time.time()
-    execution_time01 = end_time01 - start_time01
-    print(f"############################## model_pbl.predict: {execution_time01} 초")
-
-    start_time02 = time.time()
     results_cej = model_cej.predict(img)
-    end_time02 = time.time()
-    execution_time02 = end_time02 - start_time02
-    print(f"############################## model_cej.predict: {execution_time02} 초")
 
     df_pbl['좌표'] = optimizationSeg(list(map(lambda x: [int(x[0]), int(x[1])], list(results_pbl[0].masks.xy[0]))))
     if len(results_cej[0].boxes.cls.tolist()) == 2:
@@ -279,7 +272,6 @@ def common_fungtion(img_file, mode):
         else:
             df_cej_up['좌표'] = optimizationSeg(list(map(lambda x: [int(x[0]), int(x[1])], list(results_cej[0].masks.xy[0]))))
 
-
     return df_line, df_pbl, df_cej_up, df_cej_low, img, results, results_quardrant, df_dentex
 
 
@@ -292,16 +284,6 @@ def diagnosis_single(request):
             age = int(request.POST.get('age'))
             df_line, df_pbl, df_cej_up, df_cej_low, img, results, results_quardrant, df_dentex = common_fungtion(img_file, mode)
             img_copy = copy.deepcopy(img)
-
-            mask_image = apply_mask_operations(results, df_cej_up, df_cej_low, df_pbl)
-            encoded_mask_image = png_encode_image_to_base64(mask_image)
-
-            additional_data = {
-                'df_cej_up': df_cej_up.to_json(orient="records"),
-                'df_cej_low': df_cej_low.to_json(orient="records"),
-                'df_pbl': df_pbl.to_json(orient="records"),
-                'mask_image': encoded_mask_image, 
-            }
 
             for v in results[0]:
                 box_x, box_y, box_w, box_h = int(v.boxes.data[0][0]), int(v.boxes.data[0][1]), (
@@ -332,13 +314,33 @@ def diagnosis_single(request):
             numericalCalculation(df_line, df_pbl, df_cej_up, df_cej_low)
             df_grade = grading_single(img, age, df_line)
 
-            cv2.polylines(img, [np.array(df_pbl['좌표'].tolist())], True, (0, 255, 0), 1, lineType=cv2.LINE_AA)
-            cv2.polylines(img, [np.array(df_cej_up['좌표'].tolist())], True, (0, 0, 255), 1, lineType=cv2.LINE_AA)
-            cv2.polylines(img, [np.array(df_cej_low['좌표'].tolist())], True, (0, 0, 255), 1, lineType=cv2.LINE_AA)
+            # cv2.polylines(img, [np.array(df_pbl['좌표'].tolist())], True, (0, 255, 0), 1, lineType=cv2.LINE_AA)
+            # cv2.polylines(img, [np.array(df_cej_up['좌표'].tolist())], True, (0, 0, 255), 1, lineType=cv2.LINE_AA)
+            # cv2.polylines(img, [np.array(df_cej_low['좌표'].tolist())], True, (0, 0, 255), 1, lineType=cv2.LINE_AA)
 
-            for i, row in df_line.iterrows():
-                cv2.line(img, row["시작 좌표"], row["종료 좌표"],(255, 255, 255), 1, lineType=cv2.LINE_AA)
+            # for i, row in df_line.iterrows():
+            #     cv2.line(img, row["시작 좌표"], row["종료 좌표"],(255, 255, 255), 1, lineType=cv2.LINE_AA)
            
+            mask_image, pbl_img, cej_up_img, cej_low_img, teeth_seg_img, axis_img= annotation_layer(results, df_cej_up, df_cej_low, df_pbl, df_line)
+            encoded_mask_image = png_encode_image_to_base64(mask_image)
+            encoded_pbl_img = png_encode_image_to_base64(pbl_img)
+            encoded_cej_up_img = png_encode_image_to_base64(cej_up_img)
+            encoded_cej_low_img = png_encode_image_to_base64(cej_low_img)
+            encoded_teeth_seg_img = png_encode_image_to_base64(teeth_seg_img)
+            encoded_axis_img = png_encode_image_to_base64(axis_img)
+
+            additional_data = {
+                'df_cej_up': df_cej_up.to_json(orient="records"),
+                'df_cej_low': df_cej_low.to_json(orient="records"),
+                'df_pbl': df_pbl.to_json(orient="records"),
+                'mask_image': encoded_mask_image, 
+                'pbl_img': encoded_pbl_img,
+                'cej_up_img': encoded_cej_up_img,
+                'cej_low_img': encoded_cej_low_img,
+                'teeth_img': encoded_teeth_seg_img,
+                'axis_img': encoded_axis_img,
+            }
+
             encoded_image_copy = encode_image_to_base64(img_copy)
 
             # ---------------------------------------------------------------- 크롭 이미지 생성
@@ -429,8 +431,9 @@ def presume_loss(df_0, df_1, date_0, date_1, img):
                 
                 # 해당 id가 현재 데이터프레임에 있고 '비율' 값이 NaN이 아닌 경우
                 if not df_map.empty and pd.isna(df_map['비율'].values[0]) == False:
-                    # 비율 차이를 계산하고 연간 비율로 환산하여 5년 기준으로 환산
+                    # 비율 차이를 계산하고 연간 비율로 환산하여 5년 기준으로 환산(ratio_difference 는 5년간 예상 "증가율" )
                     ratio_difference = round((df_map['비율'].values[0] - row['비율']) / elapsed_date * 365 * 5, 0)
+
                     # ratio_difference가 음수인 경우 0으로 설정
                     if ratio_difference < 0:
                         ratio_difference = 0
@@ -445,6 +448,11 @@ def presume_loss(df_0, df_1, date_0, date_1, img):
                     # 'ratio_difference'와 'time_grade' 값을 현재 데이터프레임에 업데이트
                     df_1.loc[df_map.index[0], 'ratio_difference'] = ratio_difference
                     df_1.loc[df_map.index[0], 'time_grade'] = time_grade
+
+                    # 두 이미지 사이의 골 소실 연평균 속도를 계산 후 %/year로 표현
+                    change = df_map['비율'].values[0] - row['비율']  # 골소실 변화량 계산
+                    percent_per_year = (change / elapsed_date)
+
                 # 해당 id가 현재 데이터프레임에 없는 경우
                 elif df_map.empty:
                     # 해당 id를 새로운 행으로 추가하고 'time_grade'를 'C'로 설정
@@ -474,7 +482,8 @@ def presume_loss(df_0, df_1, date_0, date_1, img):
         encoded_image_copy_e = encode_image_to_base64(img)
     else:
         print('추정 실패--------------------------------------------------------------------------------')
-    return df_1, elapsed_date, encoded_image_copy_e
+
+    return df_1, elapsed_date, encoded_image_copy_e, percent_per_year
 
 
 
@@ -624,15 +633,16 @@ def diagnosis_time_series(request):
             df_grade2.to_csv('df_grade2.csv', index=False)
 
 
-            presume_df_1, elapsed_date_1, encoded_image_copy_e1 = presume_loss(df_grade0, df_grade1, date0, date1, img11)
+            presume_df_1, elapsed_date_1, encoded_image_copy_e1, percent_per_year_1 = presume_loss(df_grade0, df_grade1, date0, date1, img11)
             # presume_df_1.to_csv('presume_df_1.csv', index=False)
 
-            presume_df_2, elapsed_date_2, encoded_image_copy_e2  = presume_loss(df_grade0, df_grade2, date0, date2, img22)
+            presume_df_2, elapsed_date_2, encoded_image_copy_e2, percent_per_year_2  = presume_loss(df_grade0, df_grade2, date0, date2, img22)
             # presume_df_2.to_csv('presume_df_2.csv', index=False)
 
             graded_data1 = []
             for i, row in presume_df_1.iterrows():
                 graded_data1.append({
+                    'percent_per_year': percent_per_year_1,
                     'encoded_image_copy': encoded_image_copy1,
                     'encoded_image': encoded_image_copy_e1,
                     'id': row['id'],
@@ -652,6 +662,7 @@ def diagnosis_time_series(request):
             graded_data2 = []
             for i, row in presume_df_2.iterrows():
                 graded_data2.append({
+                    'percent_per_year': percent_per_year_2,
                     'encoded_image_copy': encoded_image_copy2,
                     'encoded_image': encoded_image_copy_e2,
                     'id': row['id'],
@@ -702,6 +713,8 @@ def save_diagnosis_result(request):
             grade_a_count=data["grade_a_count"],
             grade_b_count=data["grade_b_count"],
             grade_c_count=data["grade_c_count"],
+            smoking=data["smoking"],
+            diabetes=data["diabetes"],
             visualization_image=img_bytes,  # 바이트 데이터 저장
             title=data.get("title")
         )

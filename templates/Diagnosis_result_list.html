@@ -1,30 +1,30 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Results List</title>
-</head>
-<body>
-    <h1>Results List</h1>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Index</th>
-                <th>Saved At</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for result in results %}
-            <tr>
-                <td>{{ forloop.counter }}</td>
-                <td>{{ result.saved_at }}</td>
-                <td>
-                    <a href="{% url 'result_detail' result.pk %}">View Details</a>
-                    <a href="{% url 'delete_result' result.pk %}" onclick="return confirm('정말 삭제 하시겠습니까?')">Delete</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</body>
-</html>
+{% extends 'Diagnosis_base.html' %}
+{% load static %}
+{% block content %}
+<div class="back-container" style="color: #dcdcdc;">
+    <div class="div-v">
+        <h1>Results List</h1>
+        <table style="width: 1024px;">
+            <thead>
+                <tr>
+                    <th style="font-size: 16px; width: 6%;">Index</th>
+                    <th style="font-size: 16px; width: 20%">Saved At</th>
+                    <th style="font-size: 16px;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for result in results %}
+                <tr>
+                    <td style="padding: 15px;">{{ forloop.counter }}</td>
+                    <td style="padding: 15px;">{{ result.saved_at }}</td>
+                    <td style="padding: 15px;">
+                        <a style="margin-right: 30px;" href="{% url 'result_detail' result.pk %}">View Details</a>
+                        <a href="{% url 'delete_result' result.pk %}" onclick="return confirm('정말 삭제 하시겠습니까?')">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

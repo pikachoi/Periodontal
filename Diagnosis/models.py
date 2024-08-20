@@ -61,6 +61,8 @@ class DiagnosisResult(models.Model):
     grade_a_count = models.IntegerField(null=True, blank=True)
     grade_b_count = models.IntegerField(null=True, blank=True)
     grade_c_count = models.IntegerField(null=True, blank=True)
+    smoking = models.CharField(max_length=255, null=True, blank=True)  # 새로운 필드 추가
+    diabetes = models.CharField(max_length=255, null=True, blank=True)  # 새로운 필드 추가
     visualization_image = models.BinaryField()
     title = models.CharField(max_length=255, null=True, blank=True)
     saved_at = models.DateTimeField(auto_now_add=True)

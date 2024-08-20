@@ -1,19 +1,9 @@
 /* ------------------------------최상단 배경------------------------------------ */
-.fist-back {
-  width: 100%;
-  height: 100vh;
-  min-height: 1650px;
+.back-container{
+  height: 100%;
+  background-color: rgb(30, 42, 51);
   display: flex;
   align-items: center;
-  justify-content: start;
-}
-
-.back-container{
-  min-width: 1130px;
-  height: 100%;
-  background-color: rgb(21, 29, 35);
-  display: flex;
-  align-items: start;
   justify-content: center;
 }
 
@@ -26,7 +16,7 @@
   /* height: 22px; */
   border: none;
   padding: 1px 10px 1px 10px;
-  border-right: solid 1px rgb(45, 72, 88);
+  border-right: solid 1px rgb(55, 88, 107);
   text-align: center;
 }
 
@@ -35,7 +25,7 @@
   height: 21.3px; 
   font-size: 12px;
   color: #dcdcdc;
-  background-color: rgb(18, 38, 50);
+  background-color: rgb(10, 33, 48);
   border-right: solid 1px rgb(63, 84, 96);
 }
 
@@ -46,8 +36,8 @@
   align-items: center;
   right: -11px; 
   top: 0px; 
-  border: solid 1px rgb(45, 72, 88);
-  background: rgb(21, 29, 35);
+  border: solid 1px rgb(55, 88, 107);
+  background: rgb(30, 42, 51);
   width: 18px; 
   height: 12px;
   z-index: 20;
@@ -75,7 +65,7 @@
 .css-line {
   background: none;
   border: solid 0px;
-  border-top: solid 1px rgb(45, 72, 88);
+  border-top: solid 1px rgb(55, 88, 107);
   width: 30px;
 }
 
@@ -88,7 +78,7 @@
 }
 
 .css-dot2 {
-  background-color: rgb(45, 72, 88);
+  background-color: rgb(55, 88, 107);
   width: 3px;
   height: 3px;
   border-radius: 50%;
@@ -138,33 +128,7 @@
     );
 }
 
-.bar-chart1 {
-  position: relative; 
-  padding: 4px 4px; 
-  border-left: solid 1px #dcdcdc;
-  border-bottom: solid 1px #dcdcdc;
-  gap: 7px; 
-  width: 118px; 
-  height: 57px; 
-  display: flex; 
-  justify-content: center; 
-  align-items: end; 
-  text-align: center;
-}
-
-.bar-chart2 {
-  font-weight: bold;
-  font-size: 12px;
-  display: flex;
-  align-items: end;
-  justify-content: center;
-  background-color: #dcdcdc;
-  width: 100%; 
-  color: rgb(21, 29, 35);
-}
-
 .cover-box{
-    border: solid 1px rgb(45, 72, 88);
     border-top: solid 0px;
     display: flex;
     flex-direction: column;
@@ -175,16 +139,16 @@
     padding: 2px;
     padding-top: 27px;
   }
-
+  
   .cover-title1{
-    /* background-color: rgb(45, 72, 88); */
-    background-color: rgb(18, 38, 50);
-    border: 1px solid rgb(63, 84, 96);
-    width: 99.8%;
+    /* background-color: rgb(55, 88, 107); */
+    background-color: rgb(10, 33, 48);
+    border: 1px solid rgb(55, 88, 107);
+    width: 100%;
     height: 25px;
     position: absolute;
-    top: 0px;
-    left: -1px;
+    top: -2px;
+    left: 2px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -201,9 +165,9 @@
     width: 100%;
     height: 100%;
     color: rgb(183, 233, 255);
-    text-shadow: 0px 0px 10px rgba(87, 166, 206, 0.8),
-    0 0 1em rgba(87, 166, 206, 0.7),
-    0 0 0.2em rgba(87, 166, 206, 0.5);
+    text-shadow:
+    0 0 0.5em rgba(87, 166, 206, 0.7),
+    0 0 0.1em rgba(87, 166, 206, 0.5);
     font-size: 14px;
     padding-left: 15px;
     display: flex;
@@ -212,48 +176,53 @@
     font-size: 12px;
   }
 
+.single-input{
+  color: #ddffff; 
+  justify-content: end; 
+  width: 250px;
+  height: 100%;
+  border-left: solid 1px rgb(55, 88, 107);
+  border-right: solid 1px rgb(55, 88, 107);
+}
+
 #preview-container{
     position: relative;
     color: #dcdcdc;
     overflow: auto;
-    padding: 1%;
     font-size: 14px;
-    width: 307.2px;
-    height: 153.6px;
+    width: 240px;
+    height: 120px;
+    margin-left: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-right: solid 1px rgb(45, 72, 88);
 }
 /* ------------------------------파일 선택, 나이 입력------------------------------------ */
 .input-box {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  border-top: solid 1px rgb(45, 72, 88);
+  height: 100%;
+  border-top: solid 1px rgb(55, 88, 107);
 }
 
 .input-box label {
+  position: absolute;
+  right: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: rgb(182, 238, 255, 1);
-  border: solid 1px rgb(182, 238, 255, 0.6);
-  text-shadow: 0 0 8px rgba(182, 238, 255, 0.5);
-  box-shadow:
-  inset 0 0 2px 2px rgba(132, 226, 255, 0.1),
-  inset 0 0 5px 5px rgba(132, 226, 255, 0.07),
-  inset 0 0 10px 10px rgba(132, 226, 255, 0.04);
+  color: rgb(182, 238, 255);
   vertical-align: middle;
   cursor: pointer;
-  width: 29%;
-  height: 92%;
+  width: 30px;
+  height: 30px;
   font-size: 14px;
 }
 
 .input-box label:hover {
-  border: 1px solid rgb(182, 238, 255, 0.8);
   box-shadow:
   inset 0 0 2px 2px rgba(132, 226, 255, 0.25),
   inset 0 0 5px 5px rgba(132, 226, 255, 0.15),
@@ -265,13 +234,12 @@
   justify-content: center;
   align-items: center;
   color: rgb(182, 238, 255, 1);
-  text-shadow: 0 0 8px rgba(182, 238, 255, 0.5);
   vertical-align: middle;
   cursor: no-drop;
-  width: 30%;
+  width: 90px;
   height: 100%;
   font-size: 14px;
-  border-right: solid 1px rgb(45, 72, 88);
+  border-right: solid 1px rgb(55, 88, 107);
 }
 
 .new-input{
@@ -279,13 +247,12 @@
   background: none;
   font-size: 14px;
   width: 100%;
-  height: 30px;
+  height: 100%;
   border: none;
-  padding-left: 10px;
 }
 
 .new-input:focus{
-  color: rgb(215, 215, 215);
+  color: #dcdcdc;
   outline: none;  /* 기본 테두리 제거 */
 }
 
@@ -328,22 +295,11 @@
   );
 } */
 /* ----------------------------------------------------------------------------- */
-.submission-form{
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
-    align-items: center;
-    width: 100%;
-    height: 272px;
-    color: #dcdcdc;
-    margin-left: 25px;
-}
-
 .main-top-container {
   justify-content: start; 
   width: 100%; 
-  height: 174.07px; 
-  border-bottom: solid 1px rgb(45, 72, 88);
+  height: 120px;
+  border-bottom: solid 1px rgb(55, 88, 107);
 }
 
 .main-container{
@@ -352,32 +308,90 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    margin: 120px 0px 220px 0px;
+    left: 0px;
+    margin: 160px 0px 0px 0px;
+}
+
+.main-container2{
+  position: absolute; 
+  /* left: -30px; */
+  left: 0px;
+  top: 0px;
+}
+
+.left-cover {
+    position: absolute;
+    left: -5px;
+    top: 10px;
+    background-color: rgb(30, 42, 51);
+    width: 20px;
+    height: 500px;
+    z-index: 1;
+}
+
+.right-cover {
+  position: absolute;
+  right: -5px;
+  top: 10px;
+  background-color: rgb(30, 42, 51);
+  width: 20px;
+  height: 500px;
+  z-index: 1;
+}
+
+#left-line {
+  position: absolute;
+  left: 0px;
+  top: -179px;
+  border-left: solid 1px rgb(55, 88, 107);
+  height: 849px;
+  z-index: 100;
+}
+
+#right-line {
+  position: absolute;
+  right: 0px;
+  top: -179px;
+  border-left: solid 1px rgb(55, 88, 107); ;
+  height: 849px;
+  z-index: 100;
+}
+
+#bottom-line {
+  position: absolute;
+  bottom: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -179px;
+  border-bottom: solid 1px rgb(55, 88, 107);
+  width:  1024px;
+  z-index: 100;
 }
 
 #top-infobox-container {
     position: absolute;
-    top: -60px;
-    height: 160px;
-    width: 1024px;
+    top: -160px;
+    height: 200px;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: end;
-    gap: 9px;
+    gap: 7px;
     z-index: 15;
-    background-color: rgb(21, 29, 35);
+    background-color: rgb(30, 42, 51);
 }
 
 #bottom-infobox-container {
     position: absolute;
-    bottom: -50px;
-    height: 50px;
-    width: 1024px;
+    bottom: -160px;
+    height: 200px;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: start;
-    gap: 9px;
+    gap: 7px;
     z-index: 15;
+    background-color: rgb(30, 42, 51);
 }
 
 #result-draw-layer, #result-draw-layer1, #result-draw-layer2{
@@ -408,19 +422,8 @@
     justify-content: end;
     flex-direction: column;
     align-items: center;
-    border: 1px solid rgb(255, 255, 255);
+    border: solid 1px rgb(55, 88, 107);
     padding: 3px;
-    font-size: 14px;
-}
-@keyframes revealUp {
-  0% {
-      clip-path: inset(100% 0 0 0); /* 아래서 위로 점점 나타나게 합니다 */
-      opacity: 0;
-  }
-  100% {
-      clip-path: inset(0 0 0 0);
-      opacity: 1;
-  }
 }
 
 .info-box3, .info-box6{
@@ -428,18 +431,8 @@
     justify-content: start;
     flex-direction: column;
     align-items: center;
-    border: 1px solid rgb(255, 255, 255);
+    border: solid 1px rgb(55, 88, 107);
     padding: 3px;
-}
-@keyframes revealDown {
-0% {
-    clip-path: inset(0 0 100% 0); /* 위에서 아래로 점점 나타나게 합니다 */
-    opacity: 0;
-}
-100% {
-    clip-path: inset(0 0 0 0);
-    opacity: 1;
-}
 }
 
 .info-box2:hover, .info-box5:hover {
@@ -472,53 +465,54 @@
 }
 
 .max-ratio-box {
-    border: 1px solid rgb(255, 255, 255);
-    box-shadow: 0px 0px 10px 5px rgb(255, 40, 40);
+  border: 1px solid rgb(255, 255, 255);
+  box-shadow: 0px 0px 10px 5px rgb(255, 40, 40);
 }
 
 .max-ratio-box:hover {
-    border: 1px solid rgb(255, 255, 255);
-    box-shadow:
-    0px 0px 10px 5px rgba(255, 255, 0, 0.7),
-    0 0 2em rgba(255, 255, 0, 0.7);
+  border: 3px solid rgb(255, 255, 255);
+  box-shadow:
+  0px 0px 15px rgb(255, 255, 255),
+  0 0 2em rgb(255, 255, 255),
+  0 0 0.4em rgb(255, 255, 255);
 }
 
 .upload-btn {
   position: relative;
   height: 26px;
-  border: 1px solid rgb(182, 238, 255, 0.9);
+  border: 1px solid rgba(182, 238, 255, 0.6);
   outline: none;
   background-color: transparent;
   transition: 0.7s;
-  font-size: 14px;
+  font-size: 16px;
   cursor: pointer;
   width: 100%;
+  height: 100%;
   color: rgb(182, 238, 255, 1);
-  text-shadow: 0 0 8px rgba(182, 238, 255, 0.5);
 }
 
 .upload-btn::after {
   content: "";
   position: absolute;
-  top: -3px;
-  left: 10px;
-  width: 90%;
-  height: 4px;
-  background-color: rgb(21, 29, 35);
+  top: -2px;
+  left: 5px;
+  width: 95.5%;
+  height: 3px;
+  background-color: rgb(30, 42, 51);
   transition: 0.3s;
   transform-origin: center;
 }
 
 .upload-btn::before {
   content: "";
-  transform-origin: center;
   position: absolute;
-  bottom: -3px;
-  left: 10px;
-  width: 90%;
-  height: 4px;
-  background-color: rgb(21, 29, 35);
+  bottom: -2px;
+  left: 5px;
+  width: 95.5%;
+  height: 3px;
+  background-color: rgb(30, 42, 51);
   transition: 0.3s;
+  transform-origin: center;
 }
 
 .upload-btn:hover::before, button:hover::after {
@@ -526,7 +520,7 @@
 }
 
 .upload-btn:hover {
-  text-shadow: none;
+  text-shadow: 0 0 8px rgba(182, 238, 255, 0.5);
   box-shadow:
   inset 0 0 2px 2px rgba(132, 226, 255, 0.2),
   inset 0 0 5px 5px rgba(132, 226, 255, 0.1),
@@ -534,13 +528,9 @@
 }   
 
 #loader-box {
-  position: absolute;
   z-index: 30;
-  top: 50%;
-  left: 50%;
   width: auto;
   height: auto;
-  transform: translate(-50%, -50%);
 }
 
 .loader {
@@ -548,8 +538,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 170px;
-  height: 170px;
+  width: 100px;
+  height: 100px;
   perspective: 780px;
 }
 
@@ -571,7 +561,7 @@
 .load-inner.load-one {
   left: 0%;
   top: 0%;
-  border-bottom: 3px solid rgb(147, 246, 250);
+  border-bottom: 3px solid rgb(182, 238, 255);
   animation: rotate1 1.15s linear infinite;
   /* box-shadow: 0px 0px 8px rgba(147, 246, 250, 0.7); */
 }
@@ -579,7 +569,7 @@
 .load-inner.load-two {
   right: 0%;
   top: 0%;
-  border-right: 3px solid rgb(147, 246, 250);
+  border-right: 3px solid rgb(182, 238, 255);
   animation: rotate2 1.15s 0.1s linear infinite;
   /* box-shadow: 0px 0px 8px rgba(147, 246, 250, 0.7); */
 }
@@ -587,7 +577,7 @@
 .load-inner.load-three {
   right: 0%;
   bottom: 0%;
-  border-top: 3px solid rgb(147, 246, 250);
+  border-top: 3px solid rgb(182, 238, 255);
   animation: rotate3 1.15s 0.15s linear infinite;
   /* box-shadow: 0px 0px 8px rgba(147, 246, 250, 0.7); */
 }
@@ -617,76 +607,6 @@
   }
 }
 
-.tips {
-  color: #dcdcdc;
-  border: solid 1px rgb(63, 84, 96);
-  position: absolute;
-  left: -710px;
-  top: 10px;
-  font-size: 12px;
-}
-
-.tips-title {
-    width: 169px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 3px;
-}
-
-.tips1 {
-    width: 57px; 
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    border-style: solid; 
-    border-width: 1px 1px 0px 0px; 
-    border-color: rgb(63, 84, 96);
-    padding: 3px;
-}
-
-.tips2 {
-    width: 105px; 
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    border-style: solid; 
-    border-width: 1px 0px 0px 0px; 
-    border-color: rgb(63, 84, 96);
-    padding: 3px;
-}
-
-.standard {
-    position: relative;
-    width: 0px;
-    height: 0px;
-}
-
-/* ------------------------ 온 오프 버튼 ------------------------*/
-.on-off-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 35px;
-  cursor: pointer;
-  color: rgb(182, 238, 255, 1);
-  border: 1px solid rgb(182, 238, 255, 0.6);
-  text-shadow: 0 0 8px rgba(182, 238, 255, 0.5);
-  box-shadow:
-  inset 0 0 2px 2px rgba(132, 226, 255, 0.1),
-  inset 0 0 5px 5px rgba(132, 226, 255, 0.07),
-  inset 0 0 10px 10px rgba(132, 226, 255, 0.04);
-  margin: 4px;
-}
-
-.on-off-btn:hover {
-  border: 1px solid rgb(182, 238, 255, 0.8);
-  box-shadow:
-  inset 0 0 2px 2px rgba(132, 226, 255, 0.25),
-  inset 0 0 5px 5px rgba(132, 226, 255, 0.15),
-  inset 0 0 10px 10px rgba(132, 226, 255, 0.15);
-}
 /* ------------------------ 크롭 이미지 ------------------------*/
 .cropped-image-form {
   display: flex;
@@ -695,42 +615,53 @@
   align-items: center;
   width: 100%;
 }
-/* ------------------------ 결과 요약 ------------------------*/
-.summary-form {
-  display: flex;
-  flex-direction: column;
+/* ------------------------ 태깅 버튼 ------------------------*/
+#tagging-btn {
+  position: absolute;
+  width: 115px;
+  height: 40px;
+  bottom: 90px;
+  right: 2px;
+  margin: 5px;
+  display: none;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  padding-bottom: 5px;
-}
+  z-index: 100;
+  color: rgb(182, 238, 255, 1);
+  border: solid 1px rgba(182, 238, 255, 0.6);
+  box-shadow:
+  inset 0 0 2px 2px rgba(132, 226, 255, 0.1),
+  inset 0 0 5px 5px rgba(132, 226, 255, 0.07),
+  inset 0 0 10px 10px rgba(132, 226, 255, 0.04);
+  cursor: pointer;
+}  
 
-.index-column {
-  display: flex;
+#tagging-btn:hover {
+  border: 1px solid rgb(182, 238, 255, 0.8);
+  box-shadow:
+  inset 0 0 2px 2px rgba(132, 226, 255, 0.25),
+  inset 0 0 5px 5px rgba(132, 226, 255, 0.15),
+  inset 0 0 10px 10px rgba(132, 226, 255, 0.15);
+}
+/* ------------------------ 결과 통계 ------------------------*/
+#statistics {
+  display: none;
   justify-content: center;
   align-items: center;
-  text-align: center;
-  color: #dcdcdc;
-  width: 90px;
-  height: 11px;
-  font-size: 14px;
-  margin: 8px 0px;
-  margin-left: 15px;
-  border-left: solid 3px #dcdcdc;
-  border-right: solid 1px #dcdcdc;
+  height: 80px;
+  z-index: 200;
+}
+/* ------------------------ 위험 인자 ------------------------*/
+.risk-factors {
+  margin-top: 3px;
+  font-size: 16px;
+  display: block;
+  color: black;
+  width: 200px;
 }
 
-.data-entry {
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  text-align: center;
-  /* border: solid 1px rgb(78, 142, 209); */
-  color: rgb(186, 255, 232);
-  width: 50px;
-  height: 15px;
-  font-size: 14px;
-  margin-left: 7px;
+select {
+  display: none;
 }
 /* ------------------------ 치주염 공식 참고 지표 ------------------------*/
 .grading-table-cover {
@@ -757,57 +688,32 @@ table {
     color: #dcdcdc;
     font-size: 14px;
     width: 1256px;
+    text-align: left;
 }
 
 th, td {
-  border: 1px solid rgb(63, 84, 96);
+  border: 1px solid rgb(55, 88, 107); ;
   vertical-align: top;  /* 텍스트를 상단에 붙임 */
-  text-align: left;
   padding: 7px;
 }
 
 th {
-  background-color: rgb(18, 38, 50);
+  background-color: rgb(10, 33, 48);
   font-size: 14px;
   color: rgb(183, 233, 255);
-  text-shadow: 0px 0px 10px rgba(87, 166, 206, 0.8), 
-  0 0 1em rgba(87, 166, 206, 0.7), 
-  0 0 0.2em rgba(87, 166, 206, 0.5);
   font-weight: normal;
   vertical-align: middle;
 }
 
 .row-column {
-  /* background-color: rgb(45, 72, 88); */
+  /* background-color: rgb(55, 88, 107); */
   /* border: solid 1px rgb(94, 117, 130); */
   font-size: 14px;
   color: rgb(183, 233, 255);
   vertical-align: middle;
 }
-/* ------------------------ 위험인자 체크 박스 ------------------------*/
-select {
-  display: none;
-}
+
 /* ------------------------ 싱글 요약 결과 ------------------------*/
-
-
-#sg-description1 {
-  display: none;
-  font-size: 12px;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
-  position: absolute;
-  top: 185px;
-  left: -230px;
-  background-color: rgba(39, 54, 63, 0.95);
-  border: solid 1px rgb(111, 141, 158);
-  width: 175px;
-  color: #dcdcdc;
-  z-index: 100;
-  animation: slideIn-left 0.5s ease-out forwards;
-}
-
 #sg-results-control {
   display: none;
   font-size: 12px;
@@ -815,15 +721,109 @@ select {
   justify-content: start;
   align-items: center;
   position: absolute;
-  top: 0px;
-  left: -230px;
-  background-color: rgba(39, 54, 63, 0.95);
-  border: solid 1px rgb(111, 141, 158);
-  width: 175px;
+  left: -120px;
+  top: 40px;
+  background-color: rgb(10, 33, 48);
+  border: solid 1px rgb(55, 88, 107);
+  border-left: solid 0px;
+  width: 120px;
+  height: 432px;
   color: #dcdcdc;
-  z-index: 100;
+  z-index: 20000;
   animation: slideIn-left 0.5s ease-out forwards;
 }
+
+/* ------------------------ 토글 스위치 커스텀 체크 박스 ------------------------*/
+.toggle-checkbox {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #dcdcdc;
+  margin: 15px 0px;
+}
+
+.toggle-point {
+  width: 5px; 
+  height: 5px; 
+  background-color: #dcdcdc;
+  border-radius: 50px;
+}
+
+.toggle-text {
+  width: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.toggle-checkbox input[type="checkbox"] {
+  /* 기존 체크박스 숨기기 */
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.toggle-checkbox .custom-checkbox {
+  width: 15px;
+  height: 15px;
+  background-color: #eee; /* 기본 배경색 */
+  border: 1px solid #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px; /* 모서리 둥글게 */
+}
+
+.toggle-checkbox input[type="checkbox"]:checked + .custom-checkbox {
+  background-color: #2196F3; /* 체크된 상태의 기본 배경색 */
+}
+
+.toggle-checkbox .custom-checkbox:after {
+  content: '';
+  width: 5px;
+  height: 10px;
+  border: solid rgb(255, 255, 255);
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.7); /* 그림자 추가 */
+
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  display: none;
+}
+
+.toggle-checkbox input[type="checkbox"]:checked + .custom-checkbox:after {
+  display: block;
+}
+
+/* 각 체크박스의 개별 색상 지정 */
+.toggle-checkbox input[type="checkbox"]#toggle-mask-checkbox:checked + .custom-checkbox {
+  background-color: rgb(255, 60, 60) 
+}
+
+.toggle-checkbox input[type="checkbox"]#toggle-pbl-checkbox:checked + .custom-checkbox {
+  background-color: rgb(80, 80, 255); 
+}
+
+.toggle-checkbox input[type="checkbox"]#toggle-cej-up-checkbox:checked + .custom-checkbox {
+  background-color: rgb(8, 204, 204); 
+}
+
+.toggle-checkbox input[type="checkbox"]#toggle-cej-low-checkbox:checked + .custom-checkbox {
+  background-color: rgb(8, 204, 204); 
+}
+
+.toggle-checkbox input[type="checkbox"]#toggle-axis-checkbox:checked + .custom-checkbox {
+  background-color: rgb(31, 216, 31); 
+}
+
+.toggle-checkbox input[type="checkbox"]#toggle-teeth-checkbox:checked + .custom-checkbox {
+  background-color: rgb(216, 216, 37); 
+}
+
+.toggle-checkbox input[type="checkbox"]#toggle-all-checkbox:checked + .custom-checkbox {
+  background-color: #4d4d4d; /* All - DeepPink 색상 */
+}
+/* ----------------------------------------------------------------------------*/
 
 .control-column {
   display: flex;
@@ -831,26 +831,26 @@ select {
   align-items: center;
   width: 100%;
   height: 30px;
+  font-size: 12px;
   text-align: center;
-  color: #dcdcdc;
-  background-color: rgb(18, 38, 50);
-  border-top: solid 1px rgb(111, 141, 158);
-  border-bottom: solid 1px rgb(111, 141, 158);
+  color: rgb(183, 233, 255);
+  background-color: rgb(10, 33, 48);
 }
 
 #sg-results-summary {
   display: none;
   font-size: 12px;
   position: absolute;
-  top: 0px;
-  right: -50px;
+  top: 40px;
+  right: 1px;
   flex-direction: column;
   justify-content: start;
   align-items: center;
-  background-color: rgba(39, 54, 63, 0.95);
-  border: solid 1px rgb(111, 141, 158);
-  width: 175px;
-  height: 630px;
+  background-color: rgb(10, 33, 48);
+  border: solid 1px rgb(55, 88, 107);
+  border-right: solid 0px;
+  width: 120px;
+  height: 432px;
   color: #dcdcdc;
   z-index: 100;
   animation: slideIn 0.5s ease-out forwards;
@@ -883,14 +883,3 @@ select {
   margin-left: 5px;
   margin-bottom: 10px;
 }
-
-.save-btn-cover {
-  position: absolute;
-  width: 100%;
-  height: 35px;
-  bottom: 0px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-top: solid 1px rgb(111, 141, 158);
-}  

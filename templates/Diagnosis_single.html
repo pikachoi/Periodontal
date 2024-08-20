@@ -2,35 +2,16 @@
 {% load static %}
 {% block content %}
 <div class="back-container">
-<!-- 중앙 메인 폼 ====================================================================================================================== -->
     <div class="div-v">
-        <!------------------------- 확대축소 팁 ------------------------->
-        <!-- <div class="standard">
-            <div class="div-v tips" style="align-items: start;">
-                <div class="div-h">
-                    <div class="tips-title">Page Zoom</div>
-                </div>
-                <div class="div-h">
-                    <div class="tips1">Zoom in</div>
-                    <div class="tips2">Ctrl + Wheel up</div>
-                </div>
-                <div class="div-h">
-                    <div class="tips1">Zoom out</div>
-                    <div class="tips2">Ctrl + Wheel doun</div>
-                </div>
-            </div>
-        </div> -->
-
         <div class="cover-box">
-            <div class="cover-title1">
+            <div class="cover-title1" style="width: 1021px;">
                 <div class="cover-title2"></div>
-                <div class="cover-title3">MAIN FORM</div>
+                <div class="cover-title3">INPUT FORM</div>
                 <div class="cover-title3" style="width: 65px;">X-RAY</div>
                 <div class="cover-title2"></div>
             </div>
-            
             <!-- 뱌경 css 요소들 -->
-            <div class="css-base" style="top: 320px;"><div class="css-light"></div></div>
+            <!-- <div class="css-base" style="top: 320px;"><div class="css-light"></div></div>
             <div class="css-base" style="top: 620px;"><div class="css-light"></div></div>
 
             <div class="css-base css-circle" style="top: 500px;"></div>
@@ -41,181 +22,174 @@
             <div class="css-base css-dot" style="top: 380px;">
                 <div class="css-dot2"></div><div class="css-dot2"></div><div class="css-dot2"></div>
                 <div class="css-dot2"></div><div class="css-dot2"></div>
-            </div>
-
-            <!-- 인풋박스 -->
+            </div> -->
+            <!--------------------------------- 인풋박스 --------------------------------->
             <div class="div-h main-top-container">
-                <div id="preview-container"> Preview</div>
-                <form class="div-v" style="color: #ddffff; justify-content: end; height: 100%; border-right: solid 1px rgb(45, 72, 88);" enctype="multipart/form-data">
-                    <!-- Age in Years -->
+                <form class="div-v single-input" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <div class="div-h base-input base-column" style="width: 240px; border: none; border-top: solid 1px rgb(45, 72, 88);">
-                        Input Form
-                    </div>
-                    <div class="input-box">
+                    <div class="input-box" style=" border: none;">
                         <input type="file" id="imgfile" accept="image/*" required>
-                        <label for="imgfile">File</label> 
-                        <input class="new-input" value="" placeholder="Click 'File'" required>
+                        <div class="age-label">Img</div> 
+                        <label for="imgfile">
+                            <img style="width: 15px;" src="{% static 'img/plus.svg'%}">
+                        </label> 
+                        <input class="new-input" value="" placeholder="" required>
                     </div>
                     <div class="input-box">
                         <div class="age-label">Age</div> 
-                        <input class="new-input" value="" placeholder="Click here" type="number" id="ageInput" min="1" step="1" required>
+                        <input class="new-input" value="" placeholder="" type="number" id="ageInput" min="1" step="1" required>
                     </div>
-                    <div class="input-box" style="padding: 3px; width: 99%;">
-                        <button class="upload-btn" type="button" onclick="uploadImage()">Upload</button>
+                    <div class="input-box" style="padding: 2px; width: 99%;">
+                        <button class="upload-btn" type="button" onclick="uploadImage()">UPLOAD</button>
                     </div>
                 </form>
-
+                <div id="preview-container"></div>    
+                <div id="loader-box" style="margin-left: 50px;"></div>
+                <div style="flex-grow: 1; height: 100%; border-right: solid 1px rgb(55, 88, 107);"></div>
             </div>
             <!--------------------------------- 메인 폼 --------------------------------->
-            <div class="main-container">
-                <div id="top-infobox-container"></div> <!-- canvas 컨테이너에서 복사한 결과 표시 레이어 -->
-                <div class="mask-draw-layer" id="mask-image-container"></div>
-                    <div id="result-draw-layer"><!-- 서버에서 받은 좌표로 css요소를 그리는 레이어 -->
-                        <canvas id="canvas-layer" width="1024px" height="512px"></canvas> <!-- 이미지만 들어가는 레이어 -->
-                    </div>
-                    <div id="loader-box"></div>
-                <div id="bottom-infobox-container"></div>
-                   
-                <!-- 등급 박스 변화 설명 -->  
-                <!-- <div id="sg-description1">
-                    <div class="control-column" style="border-top: none;">Description</div>
-                    <div class="div-h" style="margin-top: 15px">Bone loss↑ = Box height↑</div>
-                    <div class="div-h" style="width: 100%;">
-                        <div class="bar-chart1" style="margin: 15px 0px">
-                            <div class="bar-chart2" style="height: 42px;">1<br>%</div>
-                            <div class="bar-chart2" style="height: 47px;">3<br>%</div>
-                            <div class="bar-chart2" style="height: 52px;">5<br>%</div>
-                            <div class="bar-chart2" style="height: 57px;">7<br>%</div>
-                            <div class="bar-chart2" style="height: 62px;">9<br>%</div>
-                        </div>
-                    </div>
-                </div> -->
-
-                <!-------------- 온/오프 버튼 -------------->
+            <div class="main-container" style="width: 1024px; height: 670px;">
+                <div id="left-cover"></div>
+                <div id="right-cover"></div>
+                <div id="left-line"></div>
+                <div id="right-line"></div>
+                <div id="bottom-line"></div>
+                <!-------------- 좌측 사이드 바 -------------->
                 <div id="sg-results-control">
                     <div class="control-column" style="border-top: none;">Toggle Annotations</div>
-                    <div class="div-h" style="width: 100%;">
-                        <div class="on-off-btn" id="toggle-mask">Mask</div>
-                        <div class="on-off-btn" id="toggle-mask">PBL</div>
-                        <div class="on-off-btn" id="toggle-mask">CEJ</div>
-                    </div>
-                    <div class="div-h" style="width: 100%;">
-                        <div class="on-off-btn" id="toggle-mask">Axis</div>
-                        <div class="on-off-btn" id="toggle-mask">Teeth</div>
-                        <div class="on-off-btn" id="toggle-mask">All</div>
-                    </div>
+                    <label class="toggle-checkbox">
+                        <div class="toggle-point"></div>
+                        <div class="toggle-text">All</div>
+                        <input type="checkbox" id="toggle-all-checkbox">
+                        <div class="custom-checkbox"></div>
+                    </label>
+                    <label class="toggle-checkbox">
+                        <div class="toggle-point"></div>
+                        <div class="toggle-text">Mask</div>
+                        <input type="checkbox" id="toggle-mask-checkbox">
+                        <div class="custom-checkbox"></div>
+                    </label>
+                    <label class="toggle-checkbox">
+                        <div class="toggle-point"></div>
+                        <div class="toggle-text">Teeth</div>
+                        <input type="checkbox" id="toggle-teeth-checkbox">
+                        <div class="custom-checkbox"></div>
+                    </label>
+                    <label class="toggle-checkbox">
+                        <div class="toggle-point"></div>
+                        <div class="toggle-text">Axis</div>
+                        <input type="checkbox" id="toggle-axis-checkbox">
+                        <div class="custom-checkbox"></div>
+                    </label>
+                    <label class="toggle-checkbox">
+                        <div class="toggle-point"></div>
+                        <div class="toggle-text">PBL</div>
+                        <input type="checkbox" id="toggle-pbl-checkbox">
+                        <div class="custom-checkbox"></div>
+                    </label>
+                    <label class="toggle-checkbox">
+                        <div class="toggle-point"></div>
+                        <div class="toggle-text">CEJ Up</div>
+                        <input type="checkbox" id="toggle-cej-up-checkbox">
+                        <div class="custom-checkbox"></div>
+                    </label>
+                    <label class="toggle-checkbox">
+                        <div class="toggle-point"></div>
+                        <div class="toggle-text">CEJ Low</div>
+                        <input type="checkbox" id="toggle-cej-low-checkbox">
+                        <div class="custom-checkbox"></div>
+                    </label>
                 </div>
-                <!-------------- 결과 요약 ------------->
+                <!-------------- 우측 사이드 바 ------------->
                 <div id="sg-results-summary">
-                    <!---- 통계 ---->
-                    <div class="control-column" style="border-top: none;">Statistical Results</div>
-                    <div class="summary-form" id="summary-container"></div>
                     <!------- 등급 파이차트 ------>
                     <div class="control-column">Grade Distribution</div>
-                    <canvas style="width: 165px; height: 130px;" id="gradeChart"></canvas>
+                    <div class="div-v" style="width: 120px;  height: auto;">
+                        <canvas style="width: 140px; margin-bottom: 10px;" id="gradeChart"></canvas>
+                    </div>
                     <!---- 최대소실 크롭 ---->
                     <div class="cropped-image-form" id="cropped-image-container">
-                        <div class="control-column">Max Bone Loss Tooth</div>
+                        <div class="control-column">Max Loss Tooth</div>
                         <img id="cropped-image" src="" alt="Cropped Image" style="margin-top: 5px; max-width: 100%; height: auto; display: none;">
                     </div>
-                    <!-- Save 버튼 추가 -->
-                     <div class="save-btn-cover">
-                        <button id="save-button">Tagging</button>
-                    </div>
+                </div>
+                <div class="main-container2">
+                    <div id="top-infobox-container"></div>
+                    <div class="mask-draw-layer" id="mask-image-container"></div>
+                    <div class="mask-draw-layer" id="pbl-image-container"></div>
+                    <div class="mask-draw-layer" id="cej-up-image-container"></div>
+                    <div class="mask-draw-layer" id="cej-low-image-container"></div>
+                    <div class="mask-draw-layer" id="teeth-image-container"></div>
+                    <div class="mask-draw-layer" id="axis-image-container"></div>
+                        <div id="result-draw-layer"><!-- 서버에서 받은 좌표로 css요소를 그리는 레이어 -->
+                            <canvas id="canvas-layer" width="1024px" height="512px"></canvas>
+                        </div>
+                    <div id="bottom-infobox-container"></div>
                 </div>
             </div>
             <!---------------- matin 하단 ---------------->
-            <div class="div-h" style="width: 100%; height: 200px; border-top: solid 1px rgb(45, 72, 88); color: #c1c1c1;">
-                <table style="width: 700px; height: 10px;">
-                    <tr>
-                        <th onclick="showOptions('smoking')">Smoking</th>
-                        <th onclick="showOptions('diabetes')">Diabetes</th>
-                    </tr>
-                    <tr>
-                        <td id="value-smoking">Click to select</td>
-                        <td id="value-diabetes">Click to select</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <div class="div-h">
-                                <select style="margin-left: 90px; margin-right: 130px; display: block; border: none; background: none; width: 120px; color: #dcdcdc;" id="select-smoking" onchange="updateValue('smoking', this.value)">
-                                    <option value="Non-smoker">Non-smoker</option>
-                                    <option value="Smoker＜10 cigarettes/day">Smoker＜10 cigarettes/day</option>
-                                    <option value="Smoker≥10 cigarettes/day">Smoker≥10 cigarettes/day</option>
-                                </select>
-                                <select style="margin-left: 0px; display: block; border: none; background: none; width: 290px; color: #dcdcdc;" id="select-diabetes" onchange="updateValue('diabetes', this.value)">
-                                    <option value="Normoglycemic / no diagnosis of diabetes">Normoglycemic / no diagnosis of diabetes</option>
-                                    <option value="HbAlc＜7.0% in patients with diabetes">HbAlc＜7.0% in patients with diabetes</option>
-                                    <option value="HbAlc≥7.0% in patients with diabetes">HbAlc≥7.0% in patients with diabetes</option>
-                                </selct>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+            <!-- -- 통계 ---->
+            <div id="statistics"></div>
+            <div id="tagging-btn">Tagging</div>
         </div>
     </div>
 </div>
 
 <script>
     var save_img
-    document.getElementById('save-button').addEventListener('click', function() {
-        const data = {
-            patient_age: dentalData.age || null,
-            max_loss: dentalData.maxLoss !== 'none' ? dentalData.maxLoss : null,
-            avg_loss: dentalData.averageLoss !== 'none' ? dentalData.averageLoss : null,
-            total_teeth: dentalData.lossCount !== 'none' ? dentalData.lossCount : null,
-            grade_a_count: dentalData.gradeCounts.A !== 'none' ? dentalData.gradeCounts.A : null,
-            grade_b_count: dentalData.gradeCounts.B !== 'none' ? dentalData.gradeCounts.B : null,
-            grade_c_count: dentalData.gradeCounts.C !== 'none' ? dentalData.gradeCounts.C : null,
-            visualization_image: save_img,  // 수정된 함수 사용
-            title: 'Single'
-        };
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('tagging-btn').addEventListener('click', function() {
+            // 요소들이 존재하는지 확인하고 값을 읽음
+            const smokingElement = document.getElementById('select-smoking');
+            const diabetesElement = document.getElementById('select-diabetes');
 
-        fetch("{% url 'save_diagnosis_result' %}", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRFToken": "{{ csrf_token }}"
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === "success") {
-                alert(`Data saved successfully at ${data.saved_at}`);
-            } else {
-                alert("Failed to save data.");
+            // 요소들이 존재하지 않을 경우의 오류 처리
+            if (!smokingElement || !diabetesElement) {
+                alert('옵션을 선택할 수 없습니다. 페이지를 다시 로드해주세요.');
+                return;
             }
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            alert("An error occurred while saving data.");
+
+            // 선택된 옵션 값을 그대로 가져옴
+            const smokingValue = smokingElement.value;
+            const diabetesValue = diabetesElement.value;
+
+            const data = {
+                patient_age: dentalData.age || null,
+                max_loss: dentalData.maxLoss !== 'none' ? dentalData.maxLoss : null,
+                avg_loss: dentalData.averageLoss !== 'none' ? dentalData.averageLoss : null,
+                total_teeth: dentalData.lossCount !== 'none' ? dentalData.lossCount : null,
+                grade_a_count: dentalData.gradeCounts.A !== 'none' ? dentalData.gradeCounts.A : null,
+                grade_b_count: dentalData.gradeCounts.B !== 'none' ? dentalData.gradeCounts.B : null,
+                grade_c_count: dentalData.gradeCounts.C !== 'none' ? dentalData.gradeCounts.C : null,
+                smoking: smokingValue,  // 선택된 흡연 옵션을 그대로 저장
+                diabetes: diabetesValue,  // 선택된 당뇨 옵션을 그대로 저장
+                visualization_image: save_img,  // 수정된 함수 사용
+                title: 'Single'
+            };
+
+            fetch("{% url 'save_diagnosis_result' %}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": "{{ csrf_token }}"
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "success") {
+                    alert(`Data saved successfully at ${data.saved_at}`);
+                } else {
+                    alert("Failed to save data.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("An error occurred while saving data.");
+            });
         });
     });
-
 </script>
-
-
-
-
-
-<script>
-    function showOptions(column) {
-      const select = document.getElementById(`select-${column}`);
-      if (select.style.display === 'none') {
-        select.style.display = 'block';
-      } else {
-        select.style.display = 'none';
-      }
-    }
-    
-    function updateValue(column, value) {
-      document.getElementById(`value-${column}`).innerText = value;
-      document.getElementById(`select-${column}`).style.display = 'none';
-    }
-    </script>
 
 <!---------------------------------선택한 인풋 파일명 표시--------------------------------->
 <script>
@@ -236,8 +210,8 @@
                     previewContainer.innerHTML = ''; // 기존 미리보기 제거
                     var img = document.createElement('img');
                     img.src = e.target.result;
-                    img.style.width = '100%';
-                    img.style.height = 'auto';
+                    img.style.width = '240px';
+                    img.style.height = '120px';
                     previewContainer.appendChild(img);
                 };
                 reader.readAsDataURL(fileInput.files[0]);
@@ -255,6 +229,14 @@
             previewContainer.innerHTML = '';
         });
     };
+</script>
+
+<!------------------------------- 위험인자 옵션 선택 ------------------------------->
+<script>
+    function updateValue(column, value) {
+      document.getElementById(`value-${column}`).innerText = value;
+      document.getElementById(`select-${column}`).value = value; // 선택된 값을 업데이트
+    }
 </script>
 <!------------------------------- 결과 요약 ------------------------------->
 <script>
@@ -298,40 +280,50 @@
             }
         },
         displaySummary: function() {
-            const container = document.getElementById('summary-container');
+            const container = document.getElementById('statistics');
             if (!container) {
                 console.error("Summary container not found");
                 return;
             }
             container.innerHTML = `
-                <div class="div-h">
-                    <div class="index-column">Patient Age</div>
-                    <div class="data-entry">${this.age}</div>
-                </div>
-                <div class="div-h">
-                    <div class="index-column">Max Loss</div>
-                    <div class="data-entry">${this.maxLoss !== 'none' ? this.maxLoss.toFixed(2) + "%" : this.maxLoss}</div>
-                </div>
-                <div class="div-h">
-                    <div class="index-column">Avg Loss</div>
-                    <div class="data-entry">${this.averageLoss !== 'none' ? this.averageLoss.toFixed(2) + "%" : this.averageLoss}</div>
-                </div>
-                <div class="div-h">
-                    <div class="index-column">Total Teeth</div>
-                    <div class="data-entry">${this.lossCount !== 'none' ? this.lossCount : this.lossCount}</div>
-                </div>
-                <div class="div-h">
-                    <div class="index-column">GradeA Num</div>
-                    <div class="data-entry">${this.gradeCounts.A !== 'none' ? this.gradeCounts.A : this.gradeCounts.A}</div>
-                </div>
-                <div class="div-h">
-                    <div class="index-column">GradeB Num</div>
-                    <div class="data-entry">${this.gradeCounts.B !== 'none' ? this.gradeCounts.B : this.gradeCounts.B}</div>
-                </div>
-                <div class="div-h">
-                    <div class="index-column">GradeC Num</div>
-                    <div class="data-entry">${this.gradeCounts.C !== 'none' ? this.gradeCounts.C : this.gradeCounts.C}</div>
-                </div>
+                <table style="width: 1024px; text-align: center;">
+                    <tr>
+                        <th style="width: 70px;">Patient<br>Age</th>
+                        <th style="width: 70px;">Max<br>Loss</th>
+                        <th style="width: 70px;">Avg<br>Loss</th>
+                        <th style="width: 70px;">Total<br>Teeth</th>
+                        <th style="width: 70px;">Grade A<br>Num</th>
+                        <th style="width: 70px;">Grade B<br>Num</th>
+                        <th style="width: 70px;">Grade C<br>Num</th>
+                        <th style="width: 200px;">Smoking<br>State</th>
+                        <th style="width: 200px;">Diabetes<br>State</th>
+                    </tr>
+                    <tr style="font-size: 16px; height: 45px;">
+                        <td>${this.age}</td>
+                        <td>${this.maxLoss !== 'none' ? this.maxLoss.toFixed(2) + "%" : this.maxLoss}</td>
+                        <td>${this.averageLoss !== 'none' ? this.averageLoss.toFixed(2) + "%" : this.averageLoss}</td>
+                        <td>${this.lossCount !== 'none' ? this.lossCount : this.lossCount}</td>
+                        <td>${this.gradeCounts.A !== 'none' ? this.gradeCounts.A : this.gradeCounts.A}</td>
+                        <td>${this.gradeCounts.B !== 'none' ? this.gradeCounts.B : this.gradeCounts.B}</td>
+                        <td>${this.gradeCounts.C !== 'none' ? this.gradeCounts.C : this.gradeCounts.C}</td>
+                        <td>
+                            <select class="risk-factors" id="select-smoking" onchange="updateValue('smoking', this.value)">
+                                <option value="None">none</option>
+                                <option value="Non-smoker">Non-smoker</option>
+                                <option value="Smoker＜10 cigarettes/day">Smoker＜10 cigarettes/day</option>
+                                <option value="Smoker≥10 cigarettes/day">Smoker≥10 cigarettes/day</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="risk-factors" id="select-diabetes" onchange="updateValue('diabetes', this.value)">
+                                <option value="None">none</option>
+                                <option value="Normoglycemic / <br>no diagnosis of diabetes">Normoglycemic / no diagnosis of diabetes</option>
+                                <option value="HbAlc＜7.0% in patients with diabetes">HbAlc＜7.0% in patients with diabetes</option>
+                                <option value="HbAlc≥7.0% in patients with diabetes">HbAlc≥7.0% in patients with diabetes</option>
+                            </selct>
+                        </td>
+                    </tr>
+                </table>
                 `;
             this.drawPieChart();
         },
@@ -355,17 +347,17 @@
                 responsive: false,
                 plugins: {
                     legend: {
-                        position: 'left',
+                        position: 'top',
                         labels: {
                             usePointStyle: true,
                             pointStyle: 'rect',
                             color: '#dcdcdc',
                             font: {
-                                size: 14,
+                                size: 12,
                                 family: 'Arial',
                                 style: 'normal',
                             },
-                            padding: 10 // 라벨 사이 간격
+                            padding: 9 // 라벨 사이 간격
                         }
                     },
                     // 차트 위에 결과 표시
@@ -385,14 +377,13 @@
                         }
                     }
                 },
-                // layout: {
-                //     padding: {
-                //         top: 12,
-                //         bottom: 17,
-                //         left: 17,
-                //         right: 17
-                //     }
-                // },
+                layout: {
+                    padding: {
+                        bottom: 10,
+                        left: 2,
+                        right: 2,
+                    }
+                },
             };
             if (this.chartInstance) {
                 this.chartInstance.data = data;
@@ -427,117 +418,6 @@
 
     });
 </script>
-
-<!------------------------------ 팝업 차트 함수 ------------------------------>
-<script>
-    function showPopupChart(ratio, grade) {
-        // 팝업창 생성
-        const popup = document.createElement('div');
-        popup.style.width = '500px';
-        popup.style.height = '500px';
-        popup.style.position = 'fixed';
-        popup.style.top = '50%';
-        popup.style.left = '50%';
-        popup.style.transform = 'translate(-50%, -50%)';
-        popup.style.backgroundColor = 'white';
-        popup.style.border = '2px solid black';
-        popup.style.zIndex = '1000';
-        popup.style.display = 'flex';
-        popup.style.flexDirection = 'column';
-        popup.style.alignItems = 'center';
-        popup.style.justifyContent = 'center';
-
-        // 닫기 버튼 추가
-        const closeButton = document.createElement('button');
-        closeButton.innerText = 'Close';
-        closeButton.style.position = 'absolute';
-        closeButton.style.top = '10px';
-        closeButton.style.right = '10px';
-        closeButton.addEventListener('click', function() {
-            document.body.removeChild(popup);
-        });
-        popup.appendChild(closeButton);
-
-        // 캔버스 추가
-        const canvas = document.createElement('canvas');
-        canvas.width = 450;
-        canvas.height = 450;
-        popup.appendChild(canvas);
-        document.body.appendChild(popup);
-
-        // 등급에 따른 색상 설정
-        let pointColor;
-        if (grade === 'A') {
-            pointColor = 'rgb(67, 235, 229)';
-        } else if (grade === 'B') {
-            pointColor = 'rgb(132, 92, 243)';
-        } else if (grade === 'C') {
-            pointColor = 'rgb(217, 63, 231)';
-        } else {
-            pointColor = 'rgba(75, 192, 192, 1)';  // 기본 색상
-        }
-
-        // 차트 데이터 생성
-        const ctx = canvas.getContext('2d');
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['Point 1', 'Point 2', 'Point 3'],
-                datasets: [{
-                    label: `Grade: ${grade}`,  // 차트 레이블에 Grade 추가
-                    data: [ratio, 50, 70], // 데이터 예시
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 2,
-                    fill: false,
-                    pointBackgroundColor: [pointColor, 'rgba(75, 192, 192, 1)', 'rgba(75, 192, 192, 1)'],  // 첫 번째 포인트 색상 설정
-                    pointBorderColor: 'black',
-                    pointBorderWidth: 1,
-                    pointStyle: 'circle',
-                    pointRadius: 5
-                }]
-            },
-            options: {
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return `Ratio: ${context.raw}%\nGrade: ${grade}`;
-                            }
-                        }
-                    },
-                    datalabels: {
-                        display: true,
-                        align: 'top',
-                        color: 'black',
-                        font: {
-                            weight: 'bold'
-                        },
-                        formatter: function(value, context) {
-                            const pointIndex = context.dataIndex;
-                            if (pointIndex === 0) {
-                                return `Ratio: ${value}%\nGrade: ${grade}`;
-                            } else {
-                                return `Ratio: ${value}%\nGrade: F`;
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        max: 100,
-                        display: false  // 세로축 레이블 제거
-                    }
-                },
-                responsive: false
-            },
-            plugins: [ChartDataLabels] // datalabels 플러그인을 추가
-        });
-    }
-</script>
-
-
-
 
 <!-----------------------------------서버에서 가져온 위치 좌표를 점으로 표시----------------------------------->
 <script>
@@ -595,9 +475,9 @@
 
         container.appendChild(infoBox);
         infoBox.innerHTML = `<div class="div-v"">
-                                <strong style="font-size: 18px;">${grade}</strong>
+                                <strong style="font-size: 22px;">${grade}</strong>
                                 <div class="div-h" style="align-items: end;">
-                                    <strong style="font-size: 15px;">${ratio}</strong>
+                                    <strong style="font-size: 14px;">${ratio}</strong>
                                     <strong style="font-size: 12px;">%</strong>
                                 </div>
                             </div>`;
@@ -665,18 +545,33 @@
             box.classList.remove('max-ratio-box');
         }
 
+        // if (grade === 'A') {
+        //     box.style.backgroundColor = 'rgb(67, 235, 229)';
+        // } else if (grade === 'B') {
+        //     box.style.backgroundColor = 'rgb(132, 92, 243)'; 
+        // } else if (grade === 'C') {
+        //     box.style.backgroundColor = 'rgb(217, 63, 231)'; 
+        // } else {
+        //     box.style.backgroundColor = 'rgb(255, 255, 255)'; 
+        //     return;
+        // }
+
         if (grade === 'A') {
             box.style.backgroundColor = 'rgb(67, 235, 229)';
+            box.style.color = 'black';
         } else if (grade === 'B') {
-            box.style.backgroundColor = 'rgb(132, 92, 243)'; 
+            box.style.backgroundColor = 'rgb(132, 92, 243)';
+            box.style.color = 'black';
         } else if (grade === 'C') {
-            box.style.backgroundColor = 'rgb(217, 63, 231)'; 
+            box.style.backgroundColor = 'rgb(217, 63, 231)';
+            box.style.color = 'black';
         } else {
-            box.style.backgroundColor = 'rgb(255, 255, 255)'; 
+            box.style.borderColor = 'rgba(182, 238, 255, 0.9)';
+            box.style.color = '#dcdcdc';
             return;
         }
-
-        box.style.height = `${(ratio * 2) + 40}px`;
+        // 박스 높이 최소 40, 최대 200px
+        box.style.height = `${Math.max(45, Math.min((ratio * 2) + 40, 200))}px`;
     }
 
 
@@ -744,12 +639,9 @@
 
         // 새로 생성된 박스들에 클릭 이벤트 추가
         document.querySelectorAll('.info-box2, .info-box3').forEach(function(box) {
-            console.log('Adding event listener to new box:', box);  // 디버깅을 위해 로그 추가
             box.addEventListener('click', function() {
                 const ratio = parseFloat(this.getAttribute('data-ratio'));
                 const grade = this.getAttribute('data-grade'); // grade 값 가져오기
-                console.log('New box clicked with ratio:', ratio, grade);  // 클릭 시 로그 추가
-                showPopupChart(ratio, grade);
             });
         });
     }
@@ -867,7 +759,6 @@
         text.textContent = "Loading...";
         loader.appendChild(text);
 
-        // Load inner circles with unique animations
         for (let i = 1; i <= 3; i++) {
             const loadInner = document.createElement('div');
             loadInner.classList.add('load-inner', `load-${i === 1 ? 'one' : i === 2 ? 'two' : 'three'}`);
@@ -882,9 +773,10 @@
         const imgElement = document.getElementById('cropped-image');
         imgElement.src = 'data:image/jpeg;base64,' + base64Image;
         imgElement.style.display = 'block'; // 이미지 표시
+        imgElement.style.border = 'solid 1px rgb(55, 88, 107)';
     }
 
-// ------------------------------ 마스크 이미지를 표시하는 함수 ------------------------------
+// ------------------------------ Annotation 이미지를 표시하는 함수 ------------------------------
     function displayMaskImage(base64Image) {
         const imgContainer = document.getElementById('mask-image-container');
         imgContainer.innerHTML = ''; // 기존 이미지 제거
@@ -893,8 +785,58 @@
         imgElement.style.width = '1024px';  // 이미지 폭 설정
         imgElement.style.height = '512px';  // 이미지 높이 설정
         imgContainer.appendChild(imgElement);
+        imgContainer.style.display = 'none';
     }
-
+    function displayPblImage(base64Image) {
+        const imgContainer = document.getElementById('pbl-image-container');
+        imgContainer.innerHTML = ''; // 기존 이미지 제거
+        const imgElement = document.createElement('img');
+        imgElement.src = 'data:image/png;base64,' + base64Image;
+        imgElement.style.width = '1024px';  // 이미지 폭 설정
+        imgElement.style.height = '512px';  // 이미지 높이 설정
+        imgContainer.appendChild(imgElement);
+        imgContainer.style.display = 'none';
+    }
+    function displayCejUpImage(base64Image) {
+        const imgContainer = document.getElementById('cej-up-image-container');
+        imgContainer.innerHTML = ''; // 기존 이미지 제거
+        const imgElement = document.createElement('img');
+        imgElement.src = 'data:image/png;base64,' + base64Image;
+        imgElement.style.width = '1024px';  // 이미지 폭 설정
+        imgElement.style.height = '512px';  // 이미지 높이 설정
+        imgContainer.appendChild(imgElement);
+        imgContainer.style.display = 'none';
+    }
+    function displayCejLowImage(base64Image) {
+        const imgContainer = document.getElementById('cej-low-image-container');
+        imgContainer.innerHTML = ''; // 기존 이미지 제거
+        const imgElement = document.createElement('img');
+        imgElement.src = 'data:image/png;base64,' + base64Image;
+        imgElement.style.width = '1024px';  // 이미지 폭 설정
+        imgElement.style.height = '512px';  // 이미지 높이 설정
+        imgContainer.appendChild(imgElement);
+        imgContainer.style.display = 'none';
+    }
+    function displayTeethImage(base64Image) {
+        const imgContainer = document.getElementById('teeth-image-container');
+        imgContainer.innerHTML = ''; // 기존 이미지 제거
+        const imgElement = document.createElement('img');
+        imgElement.src = 'data:image/png;base64,' + base64Image;
+        imgElement.style.width = '1024px';  // 이미지 폭 설정
+        imgElement.style.height = '512px';  // 이미지 높이 설정
+        imgContainer.appendChild(imgElement);
+        imgContainer.style.display = 'none';
+    }
+    function displayAxisImage(base64Image) {
+        const imgContainer = document.getElementById('axis-image-container');
+        imgContainer.innerHTML = ''; // 기존 이미지 제거
+        const imgElement = document.createElement('img');
+        imgElement.src = 'data:image/png;base64,' + base64Image;
+        imgElement.style.width = '1024px';  // 이미지 폭 설정
+        imgElement.style.height = '512px';  // 이미지 높이 설정
+        imgContainer.appendChild(imgElement);
+        imgContainer.style.display = 'none';
+    }
 // ---------------------------------- 업로드 시 작동 함수 ----------------------------------
     function uploadImage() {
         var ageInput = document.getElementById('ageInput').value; // 나이 입력값 가져오기
@@ -921,21 +863,39 @@
         var bottomInfoBoxContainer = document.getElementById('bottom-infobox-container');
         var resultDrawLayer = document.getElementById('result-draw-layer');
         var loaderBox = document.getElementById('loader-box');
-        var maskImgContainer = document.getElementById('mask-image-container');
-        maskImgContainer.innerHTML = '';
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         topInfoBoxContainer.innerHTML = '';
         bottomInfoBoxContainer.innerHTML = '';
 
-        // resultDrawLayer 내의 canvas를 제외한 모든 요소를 제거합니다.
+        var maskImgContainer = document.getElementById('mask-image-container');
+        var pblImgContainer = document.getElementById('pbl-image-container');
+        var cejUpImgContainer = document.getElementById('cej-up-image-container');
+        var cejLowImgContainer = document.getElementById('cej-low-image-container');
+        var teethImgContainer = document.getElementById('teeth-image-container');
+        var axisImgContainer = document.getElementById('axis-image-container');
+
+        maskImgContainer.innerHTML = '';
+        pblImgContainer.innerHTML = '';
+        cejUpImgContainer.innerHTML = '';
+        cejLowImgContainer.innerHTML = '';
+        teethImgContainer.innerHTML = '';
+        axisImgContainer.innerHTML = '';
+        
+        document.getElementById("toggle-mask-checkbox").checked = false;
+        document.getElementById("toggle-pbl-checkbox").checked = false;
+        document.getElementById("toggle-cej-up-checkbox").checked = false;
+        document.getElementById("toggle-cej-low-checkbox").checked = false;
+        document.getElementById("toggle-teeth-checkbox").checked = false;
+        document.getElementById("toggle-axis-checkbox").checked = false;
+
+        // resultDrawLayer 내의 canvas를 제외한 모든 요소를 제거
         Array.from(resultDrawLayer.childNodes).forEach(child => {
             if (child.id !== 'canvas-layer') {
                 resultDrawLayer.removeChild(child);
             }
         });
 
-        // 로딩 애니매이션 호출
         createLoader();
         
         form_data.append('imgfile', file_input.files[0]);
@@ -986,8 +946,6 @@
                     addLocationPoint(textX, textY, textM, typ);
                     addGradeRatio(textX, textY, item.grade, item.ratio, item.cej_type);
 
-                    console.log(`Added grade ratio: grade=${item.grade}, ratio=${item.ratio}`);  // 디버깅을 위해 로그 추가
-
                     dentalData.updateMetrics(item); // 요약 데이터 업데이트
                 });
 
@@ -997,20 +955,36 @@
                 orderInfoBoxes();
                 cloneAndArrangeBoxes();
                 drawLineFromPointToBox();
-                console.log('maxRatio:', maxRatio); // maxRatio 값 콘솔에 출력
                 
-                document.getElementById('sg-results-summary').style.display = 'block';
-                document.getElementById('sg-results-control').style.display = 'block';
-                document.getElementById('sg-description1').style.display = 'block';
-
+                document.getElementById('bottom-line').style.display = 'none';
+                document.getElementById('statistics').style.display = 'flex';
+                document.getElementById('sg-results-summary').style.display = 'flex';
+                document.getElementById('sg-results-control').style.display = 'flex';
+                document.getElementById('tagging-btn').style.display = 'flex';
             };
             
-            if (data.additional_data.mask_image) {
-                displayCroppedImage(data.additional_data.cropped_image); // 크롭 이미지 표시함수 호출
+            if (data.additional_data.cropped_image) {
+                displayCroppedImage(data.additional_data.cropped_image);
             }
             if (data.additional_data.mask_image) {
-                displayMaskImage(data.additional_data.mask_image);  // 마스크 이미지 표시함수 호출
+                displayMaskImage(data.additional_data.mask_image);  
             }
+            if (data.additional_data.pbl_img) {
+                displayPblImage(data.additional_data.pbl_img);
+            }
+            if (data.additional_data.cej_up_img) {
+                displayCejUpImage(data.additional_data.cej_up_img);
+            }
+            if (data.additional_data.cej_low_img) {
+                displayCejLowImage(data.additional_data.cej_low_img);
+            }
+            if (data.additional_data.teeth_img) {
+                displayTeethImage(data.additional_data.teeth_img); 
+            }
+            if (data.additional_data.axis_img) {
+                displayAxisImage(data.additional_data.axis_img); 
+            }
+
             uploadButton.disabled = false; // 서버 응답 후 버튼 다시 활성화
             loaderBox.innerHTML = '';
         })
@@ -1018,7 +992,7 @@
         .catch(error => {
             loaderBox.innerHTML = '';
             console.error('Error:', error);
-            alert('이미지를 처리하는 중 오류가 발생했습니다.');
+            alert('Error');
             location.reload(); // 현재 페이지 새로고침
 
         });
@@ -1026,14 +1000,91 @@
 </script>
 
 <script>
-    // 마스크 이미지 토글
-    document.getElementById('toggle-mask').addEventListener('click', function() {
-    const maskContainer = document.getElementById('mask-image-container');
-    if (maskContainer.style.display === 'none') {
-        maskContainer.style.display = 'block';  // 이미지 표시
-    } else {
-        maskContainer.style.display = 'none';  // 이미지 숨기기
-    }
-});
+    // Mask 이미지 토글 
+    document.getElementById('toggle-mask-checkbox').addEventListener('change', function() {
+        const maskContainer = document.getElementById('mask-image-container');
+        if (this.checked) {
+            maskContainer.style.display = 'block';  
+        } else {
+            maskContainer.style.display = 'none';  
+        }
+    });
+    // PBL 이미지 토글 
+    document.getElementById('toggle-pbl-checkbox').addEventListener('change', function() {
+        const pblContainer = document.getElementById('pbl-image-container');
+        if (this.checked) {
+            pblContainer.style.display = 'block'; 
+        } else {
+            pblContainer.style.display = 'none';  
+        }
+    });
+    // CEJ_UP 이미지 토글 
+    document.getElementById('toggle-cej-up-checkbox').addEventListener('change', function() {
+        const cejUpContainer = document.getElementById('cej-up-image-container');
+        if (this.checked) {
+            cejUpContainer.style.display = 'block';  
+        } else {
+            cejUpContainer.style.display = 'none';  
+        }
+    });
+    // CEJ_LOW 이미지 토글
+    document.getElementById('toggle-cej-low-checkbox').addEventListener('change', function() {
+        const cejLowContainer = document.getElementById('cej-low-image-container');
+        if (this.checked) {
+            cejLowContainer.style.display = 'block';  
+        } else {
+            cejLowContainer.style.display = 'none';  
+        }
+    });
+    // Teeth 이미지 토글
+    document.getElementById('toggle-teeth-checkbox').addEventListener('change', function() {
+        const teethContainer = document.getElementById('teeth-image-container');
+        if (this.checked) {
+            teethContainer.style.display = 'block';  
+        } else {
+            teethContainer.style.display = 'none';  
+        }
+    });
+    // Axis 이미지 토글
+    document.getElementById('toggle-axis-checkbox').addEventListener('change', function() {
+        const axisContainer = document.getElementById('axis-image-container');
+        if (this.checked) {
+            axisContainer.style.display = 'block';  
+        } else {
+            axisContainer.style.display = 'none';  
+        }
+    });
+    // All 이미지 토글
+    document.getElementById('toggle-all-checkbox').addEventListener('change', function() {
+        const allCheckboxes = document.querySelectorAll('#toggle-mask-checkbox, #toggle-pbl-checkbox, #toggle-cej-up-checkbox, #toggle-cej-low-checkbox, #toggle-teeth-checkbox, #toggle-axis-checkbox');
+        const maskContainer = document.getElementById('mask-image-container');
+        const pblContainer = document.getElementById('pbl-image-container');
+        const cejUpContainer = document.getElementById('cej-up-image-container');
+        const cejLowContainer = document.getElementById('cej-low-image-container');
+        const teethContainer = document.getElementById('teeth-image-container');
+        const axisContainer = document.getElementById('axis-image-container');
+        
+        const isChecked = this.checked;
+        
+        // 모든 체크박스를 toggle-all-checkbox 상태와 동일하게 설정
+        allCheckboxes.forEach(checkbox => {
+            checkbox.checked = isChecked;
+        });
+        if (isChecked) {
+            maskContainer.style.display = 'block';
+            pblContainer.style.display = 'block';
+            cejUpContainer.style.display = 'block';
+            cejLowContainer.style.display = 'block';
+            teethContainer.style.display = 'block';
+            axisContainer.style.display = 'block';
+        } else {
+            maskContainer.style.display = 'none';
+            pblContainer.style.display = 'none';
+            cejUpContainer.style.display = 'none';
+            cejLowContainer.style.display = 'none';
+            teethContainer.style.display = 'none';
+            axisContainer.style.display = 'none';
+        }
+    });
 </script>
 {% endblock %}
